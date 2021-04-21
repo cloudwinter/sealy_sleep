@@ -1,0 +1,34 @@
+<!--main.wxml-->
+<view class="page-{{skin}}">
+<navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" background="{{navbar.background}}"  back="{{true}}" set="{{true}}"></navbar>
+
+
+<!-- 底部切换菜单 -->
+<view class="tab-bar">
+	<block wx:for="{{tabBar}}" wx:for-item="item" wx:key="index">
+		<view class="tab-item {{index==nowIndex?'active':''}}" bindtap="{{item.tapFunction}}">
+			<!-- <view style="position: relative;display:inline-block;"> -->
+				<image src="{{nowIndex === index ? item.selectedIconPath : item.iconPath}}" class="tabbar_icon"></image>
+			<!-- </view> -->
+			<text class="icon-text">{{item.text}}</text>
+		</view>
+	</block>
+</view>
+
+	<!-- 页面容器 -->
+	<view class="container">
+		<view class="tab-container" hidden="{{nowPage!='kuaijie'}}">
+			<kuaijie-K2 wx:if="{{kuaijieType=='K2'}}"></kuaijie-K2>
+		</view>
+		<view class="tab-container" hidden="{{nowPage!='weitiao'}}">
+			<weitiao-W4 wx:if="{{weitiaoType=='W4'}}"></weitiao-W4>
+		</view>
+		<view class="tab-container" hidden="{{nowPage!='anmo'}}">
+			<anmo></anmo>
+		</view>
+		<view class="tab-container" hidden="{{nowPage!='dengguang'}}">
+			<dengguang></dengguang>
+		</view>
+	</view>
+
+	</view>

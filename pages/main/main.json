@@ -1,0 +1,11 @@
+{
+  "usingComponents":{
+    "navbar":"/component/navbar/navbar",
+    "kuaijie-K2":"/component/tab/kuaijie/kuaijie-K2",
+    "weitiao-W4":"/component/tab/weitiao/weitiao-W4",
+    "anmo":"/component/tab/anmo/anmo",
+    "dengguang":"/component/tab/dengguang/dengguang"
+  },
+  "disableScroll": true
+  
+}

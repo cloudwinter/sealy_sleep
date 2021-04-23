@@ -30,6 +30,7 @@
   height: 120rpx;
   padding-top: 20rpx;
   width: 100%;
+  margin-top: 100rpx;
 }
 
 .jiyi .button {
@@ -77,31 +78,44 @@
   padding-left: 60rpx;
 }
 
+.jiyi .button .selected-text {
+  color: #5EA2D7;
+  padding-left: 60rpx;
+}
 
 
 .anjianqu {
   display: flex;
-  margin-left: 135rpx;
-  margin-right: 135rpx;
-  margin-top: 80rpx;
+  margin-left: 64rpx;
+  margin-right: 64rpx;
   align-items: center;
-  height: 120rpx;
 }
 
 .anjianqu .anjian-left {
   flex: auto;
-  height: 204rpx;
   display: flex;
   position: relative;
+  height: 184rpx;
+  background: #1E1F24;
+  border-radius: 44rpx;
+  justify-content: center;
+}
+
+.anjianqu .selected {
+  border: 1px solid #5EA2D7;
+  background: #131418;
 }
 
 
 .anjianqu .anjian-right {
   flex: auto;
-  height: 204rpx;
   display: flex;
-  align-items: center;
+  position: relative;
   flex-direction: row-reverse;
+  height: 184rpx;
+  background: #1E1F24;
+  border-radius: 44rpx;
+  justify-content: center;
 }
 
 .anjian-bg {
@@ -113,8 +127,8 @@
 
 .anjiian-content {
   display: flex;
-  height: 204rpx;
-  width: 204rpx;
+  height: 100%;
+  width: 100%;
   align-items: center;
   flex-direction: column;
   position: absolute;

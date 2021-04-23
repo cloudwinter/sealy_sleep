@@ -43,8 +43,8 @@ Page({
         "active": ""
       }
     ],
-    kuaijieType:'',
-    weitiaoType:'',
+    kuaijieType:'K2',
+    weitiaoType:'W4',
     connected:{},
   },
 

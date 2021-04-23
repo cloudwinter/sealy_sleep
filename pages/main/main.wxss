@@ -36,14 +36,14 @@
   font-size:10px;
   display: block;
   line-height:2.1;
-  color:white;
+  color:#C9C9C9;
 }
 .tab-bar .active .icons{
   color:#000;
 
 }
 .page-dark .tab-bar .active .icon-text{
-  color:#59B84D;
+  color:#5EA2D7;
 }
 
 .page-orange .tab-bar .active .icon-text{

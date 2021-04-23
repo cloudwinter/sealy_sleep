@@ -6,8 +6,8 @@
 }
 
 .dark .button {
-  color: #59B84D;
-  border-color: #59B84D;
+  color: #5EA2D7;
+  border-color: #5EA2D7;
 }
 
 
@@ -101,7 +101,7 @@
 
 .green {
   padding-right: 20rpx;
-  color: #D9E548;
+  color: #5EA2D7;
 }
 
 .item-right .white {

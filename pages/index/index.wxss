@@ -6,9 +6,9 @@
 }
 
 .logo {
-  width: 124px;
-  height: 165px;
-  margin-top: 180px;
+  width: 144px;
+  height: 144px;
+  margin-top: 150px;
 }
 
 .bottom {
@@ -19,10 +19,10 @@
 }
 
 .bottom .button {
-  width:200px; 
-  height:44px;
+  width:250px; 
+  height:49px;
   border-radius: 10px;
-  color: white;
-  border-color: white;
-  border-width: 1rpx;
+  color: #5EA2D7;
+  border: 1px solid #5EA2D7;
+  text-align: center;
 }

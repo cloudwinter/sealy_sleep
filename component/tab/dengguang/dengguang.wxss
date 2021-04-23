@@ -15,12 +15,14 @@
 
 .dark .button-bg {
   background: #1E1F24;
+  color:white;
   /* border-color: #5A9927; */
 }
 
 .dark .button-bg-selected {
   background-color: #1E1F24;
-  border:3rpx solid #5A9927;
+  border:3rpx solid #5EA2D7;
+  color: #5EA2D7;
 }
 
 
@@ -29,7 +31,7 @@
   width: 100%;
   height: 100%;
   flex-direction: column;
-  margin-top: 74rpx;
+  margin-top: 140rpx;
 }
 
 .dengguang-button-bg {

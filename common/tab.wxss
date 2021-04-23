@@ -41,11 +41,11 @@
 .dh-content .dh-icon{
   width: 204rpx;
   height: 204rpx;
-  margin-top: 15rpx;
+  margin-top: 10rpx;
 }
 
 .dh-content .dh-name{
-  color: #41B67D;
+  color: #5EA2D7;
 }
 
 

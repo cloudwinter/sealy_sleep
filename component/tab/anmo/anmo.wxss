@@ -16,11 +16,13 @@
 
 .dark .button-bg {
   background: #1E1F24;
+  color: white;
 }
 
 .dark .button-bg-selected {
   background-color: #1E1F24;
-  border:3rpx solid #5A9927;
+  border:3rpx solid #5EA2D7;
+  color: #5EA2D7;
 }
 
 /*** common orange  */
@@ -53,7 +55,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  margin-top: 30rpx;
+  margin-top: 110rpx;
 }
 
 .shijian .shijian-button {
@@ -179,7 +181,7 @@
 .line4 {
   width: 24%;
   height: 4rpx;
-  background: #05BF74;
+  background: #5EA2D7;
   border-radius: 4rpx;
   margin-right: 2rpx;
 }
@@ -187,7 +189,7 @@
 .line3 {
   width: 33%;
   height: 4rpx;
-  background: #05BF74;
+  background: #5EA2D7;
   border-radius: 4rpx;
   margin-right: 2rpx;
 }

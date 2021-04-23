@@ -23,7 +23,7 @@
 
 
 	<!-- 调整区 -->
-	<view class="tiaozheng-type" style="margin-top:80rpx;">
+	<view class="tiaozheng-type" style="margin-top:120rpx;">
 		<view class="tiaozheng-content tiaozheng-button-bg button-bg">
 			<!-- <view class="tiaozheng-button-bg"></view> -->
 			<view class="tiaozheng-button-top-left" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="beibutzTop">

@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/introduce/introduce",
-    "pages/main/main",
     "pages/index/index",
+    "pages/main/main",
     "pages/search/search",
-    "pages/set/set"
+    "pages/set/set",
+    "pages/introduce/introduce"
 
   ],
   "window": {

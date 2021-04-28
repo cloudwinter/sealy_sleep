@@ -4,29 +4,42 @@
   justify-content: center;
 }
 
-.li{
-  width: 100%;
-  height: 252rpx;
+.swiper {
+  height: 1000rpx;
+  margin-top: 20rpx;
 }
-.li1{
-  width: 446rpx;
+
+.item-container {
+  width: 100%;
+  height: 100%;
+}
+
+.item-body {
+  width: 100%;
   margin: 0 auto;
   border-radius: 10rpx;
-  height: 252rpx;
-  transform: scale(0.9);
+  height: 90%;
+  transform: scale(0.90);
+  background: #2B2F3C;
+  border-radius: 8px;
 }
-.selected{
+
+.selected {
   transform: scale(1)
 }
-.red{
+
+.red {
   background: red;
 }
-.blue{
+
+.blue {
   background: blue;
 }
-.green{
+
+.green {
   background: green;
 }
-.orange{
+
+.orange {
   background: orange;
 }

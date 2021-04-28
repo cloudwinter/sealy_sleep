@@ -1,0 +1,83 @@
+<!--component/swiperitem/swiperitem-M.wxml-->
+<view class="body">
+  <view class="title">Autoflex moon 灵月</view>
+  <view class="line"></view>
+  <view class="content">
+    <view class="item">
+      <view class="item-left">
+        <view class="name">背部上下调节</view>
+        <image class="img" src="./../../images/dark/ic_introduce_selected.png"></image>
+      </view>
+      <view class="item-right">
+        <view class="name">复位</view>
+        <image class="img" src="./../../images/dark/ic_introduce_selected.png"></image>
+      </view>
+    </view>
+
+    <view class="item">
+      <view class="item-left">
+        <view class="name">腿部上下调节</view>
+        <image class="img" src="./../../images/dark/ic_introduce_selected.png"></image>
+      </view>
+      <view class="item-right">
+        <view class="name">背部按摩</view>
+        <image class="img" src="./../../images/dark/ic_introduce_unselected.png"></image>
+      </view>
+    </view>
+
+    <view class="item">
+      <view class="item-left">
+        <view class="name">M1</view>
+        <image class="img" src="./../../images/dark/ic_introduce_selected.png"></image>
+      </view>
+      <view class="item-right">
+        <view class="name">腿部按摩</view>
+        <image class="img" src="./../../images/dark/ic_introduce_unselected.png"></image>
+      </view>
+    </view>
+
+    <view class="item">
+      <view class="item-left">
+        <view class="name">M2</view>
+        <image class="img" src="./../../images/dark/ic_introduce_selected.png"></image>
+      </view>
+      <view class="item-right">
+        <view class="name">床底灯</view>
+        <image class="img" src="./../../images/dark/ic_introduce_selected.png"></image>
+      </view>
+    </view>
+
+    <view class="item">
+      <view class="item-left">
+        <view class="name">TV</view>
+        <image class="img" src="./../../images/dark/ic_introduce_selected.png"></image>
+      </view>
+      <view class="item-right">
+      </view>
+    </view>
+
+
+    <view class="item">
+      <view class="item-left">
+        <view class="name">ZeroG</view>
+        <image class="img" src="./../../images/dark/ic_introduce_selected.png"></image>
+      </view>
+      <view class="item-right">
+      </view>
+    </view>
+
+
+    <view class="item">
+      <view class="item-left">
+        <view class="name">ANTI SNORE</view>
+        <image class="img" src="./../../images/dark/ic_introduce_selected.png"></image>
+      </view>
+      <view class="item-right">
+      </view>
+    </view>
+
+
+
+  </view>
+
+</view>

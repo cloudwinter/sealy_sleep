@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/main/main",
     "pages/introduce/introduce",
+    "pages/main/main",
     "pages/index/index",
     "pages/search/search",
     "pages/set/set"

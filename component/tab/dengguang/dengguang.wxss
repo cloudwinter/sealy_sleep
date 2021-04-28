@@ -15,12 +15,12 @@
 
 .dark .button-bg {
   background: #1E1F24;
-  color:white;
+  color:#5EA2D7;
   /* border-color: #5A9927; */
 }
 
 .dark .button-bg-selected {
-  background-color: #1E1F24;
+  background-color: #131418;
   border:3rpx solid #5EA2D7;
   color: #5EA2D7;
 }

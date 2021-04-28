@@ -1,6 +1,6 @@
-<!--component/swiperitem/swiperitem-M.wxml-->
+<!--component/swiperitem/swiperitem-S.wxml-->
 <view class="body">
-  <view class="title">{{title}}</view>
+  <view class="title">Autoflex Star 灵星</view>
   <view class="line"></view>
   <view class="content">
     <view class="item">
@@ -32,7 +32,7 @@
       </view>
       <view class="item-right">
         <view class="name">腿部按摩</view>
-        <image class="img" src="./../../images/dark/ic_introduce_unselected.png"></image>
+        <image class="img" src="./../../images/dark/ic_introduce_selected.png"></image>
       </view>
     </view>
 

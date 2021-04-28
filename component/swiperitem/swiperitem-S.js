@@ -1,13 +1,9 @@
-// component/swiperitem/swiperitem-M.js
+// component/swiperitem/swiperitem-S.js
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-    title:{
-      type:String,
-      value:'',
-    }
 
   },
 

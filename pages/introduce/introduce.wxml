@@ -7,15 +7,48 @@
     <view class="container">
       <swiper class="swiper" next-margin="60rpx" current-item-id="{{currentItemId}}" previous-margin="60rpx" indicator-dots="true" indicator-color="#2B2F3C" indicator-active-color="#FFFFFF"
         bindchange="swiperChange">
-        <block wx:for="{{backClass}}" wx:key="index">
-          <swiper-item item-id="{{index}}" data-item-id="{{index}}" bindtap='clickChange'>
+        <!-- <block wx:for="{{backClass}}" wx:key="index"> -->
+          <swiper-item item-id="0" data-item-id="0" bindtap='clickChange'>
             <view class='item-container'>
-              <view class='item-body {{currentItemId == index ? "selected" : ""}}'>
-                <swiperitem-M></swiperitem-M>
+              <view class='item-body {{currentItemId == 0 ? "selected" : ""}}'>
+                <swiperitem-M title="Autoflex Premium2.0"></swiperitem-M>
               </view>
             </view>
           </swiper-item>
-        </block>
+
+
+          <swiper-item item-id="1" data-item-id="1" bindtap='clickChange'>
+            <view class='item-container'>
+              <view class='item-body {{currentItemId == 1 ? "selected" : ""}}'>
+                <swiperitem-M title="Autoflex YaZhi 雅智"></swiperitem-M>
+              </view>
+            </view>
+          </swiper-item>
+
+          <swiper-item item-id="2" data-item-id="2" bindtap='clickChange'>
+            <view class='item-container'>
+              <view class='item-body {{currentItemId == 2 ? "selected" : ""}}'>
+                <swiperitem-M title="Autoflex moon 灵月"></swiperitem-M>
+              </view>
+            </view>
+          </swiper-item>
+
+          <swiper-item item-id="3" data-item-id="3" bindtap='clickChange'>
+            <view class='item-container'>
+              <view class='item-body {{currentItemId == 3 ? "selected" : ""}}'>
+                <swiperitem-S></swiperitem-S>
+              </view>
+            </view>
+          </swiper-item>
+
+          <swiper-item item-id="4" data-item-id="4" bindtap='clickChange'>
+            <view class='item-container'>
+              <view class='item-body {{currentItemId == 4 ? "selected" : ""}}'>
+                <swiperitem-R></swiperitem-R>
+              </view>
+            </view>
+          </swiper-item>
+        <!-- </block> -->
       </swiper>
     </view>
 

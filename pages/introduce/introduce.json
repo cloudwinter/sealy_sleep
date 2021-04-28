@@ -1,6 +1,8 @@
 {
   "usingComponents": {
     "navbar":"/component/navbar/navbar",
-    "swiperitem-M":"/component/swiperitem/swiperitem-M"
+    "swiperitem-M":"/component/swiperitem/swiperitem-M",
+    "swiperitem-S":"/component/swiperitem/swiperitem-S",
+    "swiperitem-R":"/component/swiperitem/swiperitem-R"
   }
 }

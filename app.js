@@ -4,8 +4,8 @@ App({
   onLaunch: function () {
     configManager.init();
     // configManager.setSkin('dark');
-    var skin = configManager.getSkin();
-    this.globalData.skin = skin;
+    //var skin = configManager.getSkin();
+    this.globalData.skin = 'dark';
 
   },
   onShow: function () {

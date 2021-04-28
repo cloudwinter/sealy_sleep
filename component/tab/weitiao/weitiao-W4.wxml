@@ -27,14 +27,14 @@
 		<view class="tiaozheng-content tiaozheng-button-bg button-bg">
 			<!-- <view class="tiaozheng-button-bg"></view> -->
 			<view class="tiaozheng-button-top-left" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="beibutzTop">
-				<image class="tiaozheng-button-icon" src="{{beibutzTop?imgSanjiao.imgSanjiaoTopSelected:imgSanjiao.imgSanjiaoTopNormal}}"></image>
+				<image class="tiaozheng-button-icon" src="{{imgSanjiao.imgSanjiaoTopSelected}}"></image>
 			</view>
 			<view class="tiaozheng-button-top-middle">
 				<image class="tiaozheng-type-icon" src="../../../images/{{skin}}/zhihan-xiao@3x.png"></image>
 				<view class="tiaozheng-type-name">背部调整</view>
 			</view>
 			<view class="tiaozheng-button-top-right" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="beibutzBottom">
-				<image class="tiaozheng-button-icon" src="{{beibutzBottom?imgSanjiao.imgSanjiaoBottomSelected:imgSanjiao.imgSanjiaoBottomNormal}}"></image>
+				<image class="tiaozheng-button-icon" src="{{imgSanjiao.imgSanjiaoBottomSelected}}"></image>
 			</view>
 		</view>
 
@@ -42,14 +42,14 @@
 		<view class="tiaozheng-content tiaozheng-button-bg button-bg" style="margin-top:80rpx;">
 			<!-- <button class="tiaozheng-button-bg"></button> -->
 			<view class="tiaozheng-button-top-left" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="tuibutzTop">
-				<image class="tiaozheng-button-icon" src="{{tuibutzTop?imgSanjiao.imgSanjiaoTopSelected:imgSanjiao.imgSanjiaoTopNormal}}"></image>
+				<image class="tiaozheng-button-icon" src="{{imgSanjiao.imgSanjiaoTopSelected}}"></image>
 			</view>
 			<view class="tiaozheng-button-top-middle">
 				<image class="tiaozheng-type-icon" src="../../../images/{{skin}}/tuibuxunhuan-xiao@3x.png"></image>
 				<view class="tiaozheng-type-name">腿部调整</view>
 			</view>
 			<view class="tiaozheng-button-top-right" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="tuibutzBottom">
-				<image class="tiaozheng-button-icon" src="{{tuibutzBottom?imgSanjiao.imgSanjiaoBottomSelected:imgSanjiao.imgSanjiaoBottomNormal}}"></image>
+				<image class="tiaozheng-button-icon" src="{{imgSanjiao.imgSanjiaoBottomSelected}}"></image>
 			</view>
 		</view>
 

@@ -8,8 +8,8 @@
 }
 
 .dark .button-bg-selected {
-  background-color: #1E1F24;
-  border:3rpx solid #5A9927;
+  background-color: #131418;
+  border:3rpx solid #5EA2D7;
 }
 
 
@@ -74,7 +74,7 @@
 }
 
 .jiyi .button .name {
-  color: white;
+  color: #5EA2D7;
   padding-left: 60rpx;
 }
 
@@ -101,10 +101,6 @@
   justify-content: center;
 }
 
-.anjianqu .selected {
-  border: 1px solid #5EA2D7;
-  background: #131418;
-}
 
 
 .anjianqu .anjian-right {
@@ -116,6 +112,11 @@
   background: #1E1F24;
   border-radius: 44rpx;
   justify-content: center;
+}
+
+.anjianqu .selected {
+  border: 1px solid #5EA2D7;
+  background: #131418;
 }
 
 .anjian-bg {
@@ -141,6 +142,6 @@
 }
 
 .anjiian-content .name{
-  color: white;
+  color: #5EA2D7;
   font-size: 24rpx;
 }

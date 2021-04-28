@@ -96,7 +96,7 @@
 }
 
 .tiaozheng-type-name {
-  color: white;
+  color: #5EA2D7;
   font-size: 26rpx;
 }
 

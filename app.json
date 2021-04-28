@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/main/main",
     "pages/introduce/introduce",
     "pages/index/index",
     "pages/search/search",
-    "pages/main/main",
     "pages/set/set"
 
   ],

@@ -37,7 +37,7 @@
     "minifyWXSS": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.16.1",
+  "libVersion": "2.14.4",
   "appid": "wx45fb2c9f08c85d60",
   "projectname": "sealy_sleep",
   "debugOptions": {

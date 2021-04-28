@@ -62,6 +62,16 @@ Page({
   },
 
   /**
+   * 型号说明
+   * @param {*} e 
+   */
+  introduce: function(e) {
+    wx.navigateTo({
+      url: '../introduce/introduce',
+    })
+  },
+
+  /**
    * 换肤
    * @param {*} e 
    */

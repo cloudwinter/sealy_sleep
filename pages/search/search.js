@@ -512,11 +512,13 @@ Page({
      */
     isValidBlueName(name) {
       if (name) {
-        if (name.indexOf('Sealy') >= 0) {
+        if (name.indexOf('Sealy') >= 0 ||
+          name.indexOf('QMS2') >= 0 ||
+          name.indexOf('QMS-MQ') >= 0) {
           return true;
         }
       }
-      return true;
+      return false;
     },
 
 
@@ -524,7 +526,7 @@ Page({
      * 获取快捷类型
      * @param {*} name 
      */
-    getKuaijieType(name) {   
+    getKuaijieType(name) {
       // 默认K1
       return 'K2';
     },

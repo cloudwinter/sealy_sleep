@@ -16,12 +16,20 @@ Page({
       show: true,
       animated: false,
     },
-    items: [
-      { value: 'dark', name: '深黑', checked: 'true' },
-      { value: 'orange', name: '紫色' },
+    items: [{
+        value: 'dark',
+        name: '深黑',
+        checked: 'true'
+      },
+      {
+        value: 'orange',
+        name: '紫色'
+      },
     ],
     dialogShow: false,
-    selectedRadio: 'drak'
+    selectedRadio: 'drak',
+    alarmStatus: '未设置',
+    alarmSwitch: true,
   },
 
   /**
@@ -65,7 +73,7 @@ Page({
    * 型号说明
    * @param {*} e 
    */
-  introduce: function(e) {
+  introduce: function (e) {
     wx.navigateTo({
       url: '../introduce/introduce',
     })
@@ -81,6 +89,17 @@ Page({
     // configManager.setSkin(skin);
     this.setData({
       dialogShow: true
+    })
+  },
+
+
+  /**
+   * 闹钟
+   * @param {*} e 
+   */
+  alarm: function (e) {
+    wx.navigateTo({
+      url: '/pages/alarm/alarm',
     })
   },
 

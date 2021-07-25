@@ -46,7 +46,6 @@ Page({
     if (util.isNotEmptyObject(connected)) {
       status = '已连接';
       alarmSwitch = configManager.showAlarmSwitch(connected.deviceId);
-      faultDebugShow = this.isShowFaultDebug(connected.name);
     } else {
       status = '未连接';
     }

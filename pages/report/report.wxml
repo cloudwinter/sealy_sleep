@@ -1,0 +1,66 @@
+<!--pages/report/report.wxml-->
+<view class="page-{{skin}}">
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
+    background="{{navbar.background}}" title="睡眠报告"></navbar>
+
+  <view class="{{skin}}">
+    <view class="content">
+      <view class="title">20{{date.year}}年{{date.month}}月{{date.day}}日睡眠报告</view>
+
+      <!-- 数据展示 -->
+      <view class="data">
+        <!-- 第一行 -->
+        <view class="row">
+          <view class="column">
+            <view class="column-title">
+              <image class="column-title-icon" src="../../images/{{skin}}/time_shuimian@3x.png"></image>
+              <view class="column-title-content">睡眠时间</view>
+            </view>
+            <view class="column-body">
+              <view class="column-body-content">{{timeShuimian}}</view>
+              <view class="column-body-desc">分钟</view>
+            </view>
+          </view>
+          <view class="column-line" style="margin-top: 30rpx;"></view>
+          <view class="column">
+            <view class="column-title">
+              <image class="column-title-icon" src="../../images/{{skin}}/time_pingtang@3x.png"></image>
+              <view class="column-title-content">平躺时间</view>
+            </view>
+            <view class="column-body">
+              <view class="column-body-content">{{timePingtang}}</view>
+              <view class="column-body-desc">分钟</view>
+            </view>
+          </view>
+        </view>
+
+        <view class="row-line"></view>
+
+        <!-- 第二行 -->
+        <view class="row">
+          <view class="column">
+            <view class="column-title">
+              <image class="column-title-icon" src="../../images/{{skin}}/time_cetang@3x.png"></image>
+              <view class="column-title-content">侧躺时间</view>
+            </view>
+            <view class="column-body">
+              <view class="column-body-content">{{timeCetang}}</view>
+              <view class="column-body-desc">分钟</view>
+            </view>
+          </view>
+          <view class="column-line" style="margin-bottom: 30rpx;"></view>
+          <view class="column">
+            <view class="column-title">
+              <image class="column-title-icon" src="../../images/{{skin}}/time_fansheng@3x.png"></image>
+              <view class="column-title-content">翻身次数</view>
+            </view>
+            <view class="column-body">
+              <view class="column-body-content">{{timeFanshen}}</view>
+              <view class="column-body-desc">分钟</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

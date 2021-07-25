@@ -75,7 +75,7 @@ Page({
    */
   report:function() {
     wx.navigateTo({
-      url: '/pages/smart/smart',
+      url: '/pages/report/report',
     })
   }
 

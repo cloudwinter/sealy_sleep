@@ -177,6 +177,16 @@ function str2To16(str2) {
   return result.toUpperCase();
 }
 
+/**
+ * 16进制转10进制
+ * @param {}} str2 
+ */
+function str16To10(str16) {
+  console.info('str16To10', str16);
+  let result = parseInt(str16, 16).toString(10);
+  return result;
+}
+
 
 /**
  * 将字符串每隔一定长度切分放入一个数组中
@@ -257,6 +267,7 @@ module.exports = {
   hexStringToArrayBuffer,
   str16To2,
   str2To16,
+  str16To10,
   transSpecialChar,
   sendBlueCmd,
   isNotEmptyObject,

@@ -1,4 +1,5 @@
 const configManager = require('../../utils/configManager')
+const time = require('../../utils/time');
 const util = require('../../utils/util')
 const WxNotificationCenter = require('../../utils/WxNotificationCenter')
 const crcUtil = require('../../utils/crcUtil')

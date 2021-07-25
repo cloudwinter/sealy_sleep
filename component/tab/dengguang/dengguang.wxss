@@ -32,6 +32,7 @@
   height: 100%;
   flex-direction: column;
   margin-top: 140rpx;
+  align-items: center;
 }
 
 .dengguang-button-bg {
@@ -138,7 +139,7 @@
 .line10 {
   width: 9.4%;
   height: 4rpx;
-  background: #05BF74;
+  background: #5EA2D7;
   border-radius: 4rpx;
   margin-right: 2rpx;
 }
@@ -150,7 +151,7 @@
 }
 
 .anmo-type-name {
-  color: white;
+  color: #5EA2D7;
   font-size: 26rpx;
   margin-left: 19rpx;
 }

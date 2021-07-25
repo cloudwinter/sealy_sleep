@@ -1,2 +1,32 @@
 <!--pages/smart/smart.wxml-->
-<text>pages/smart/smart.wxml</text>
+<view class="page-{{skin}}">
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
+    background="{{navbar.background}}" title="智能睡眠感应"></navbar>
+
+  <view class="{{skin}}">
+    <view class="content">
+
+      <!-- 闹钟开关 -->
+      <view class="item">
+        <view class="item-left">智能睡眠感应开关</view>
+        <view class="item-right">
+          <switch checked="{{alarm.openSmart}}" bindchange="smartSwitch" />
+        </view>
+      </view>
+
+
+
+      <!-- 获取睡眠数据 -->
+      <view class="item" style="margin-top:1rpx;" bindtap="report" style="width:100%;margin-top:1rpx;">
+        <view class="item-left">获取睡眠数据</view>
+        <view class="item-right">
+          <view class="weui-input item-right-name">去查看</view>
+          <image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image>
+        </view>
+      </view>
+
+
+    </view>
+  </view>
+
+</view>

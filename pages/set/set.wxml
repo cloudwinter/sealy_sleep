@@ -42,7 +42,7 @@
 
 
 			<view class="shezhi-content shezhi-button-bg" bindtap="smart">
-				<view class="shezhi-button-left">智能睡眠感</view>
+				<view class="shezhi-button-left">智能睡眠感应</view>
 				<view class="shezhi-button-right">
 					
 					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>

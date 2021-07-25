@@ -33,7 +33,7 @@
 
 
 .dark .item-right-name {
-  color: #59B84D;
+  color: #5EA2D7;
   font-size: 28rpx;
 }
 
@@ -79,7 +79,7 @@
 }
 
 .item-right-name {
-  color: #59B84D;
+  color: #5EA2D7;
   font-size: 28rpx;
 }
 
@@ -110,8 +110,8 @@
 .dark .wx-switch-input{
   width:88rpx !important;
   height:44rpx !important;
-  background: #59B84D !important;
-  border: #59B84D !important; /* 2018-07-18 重置开关边框颜色 */
+  background: #5EA2D7 !important;
+  border: #5EA2D7 !important; /* 2018-07-18 重置开关边框颜色 */
 }
 
 .orange .wx-switch-input{

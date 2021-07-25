@@ -150,6 +150,13 @@ Page({
     })
   },
 
+
+  smart:function(e) {
+    wx.navigateTo({
+      url: '/pages/smart/smart',
+    })
+  },
+
   /**
    * 单选时间
    * @param {*} e 

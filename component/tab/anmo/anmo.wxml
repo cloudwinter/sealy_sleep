@@ -70,7 +70,7 @@
 					<image class="anmo-button-icon" src="../../../images/{{skin}}/minus-selected@3x.png"></image>
 				</view>
 				<view class="anmo-button-top-middle">
-					<image class="anmo-type-icon" src="../../../images/{{skin}}/toubuanmo@3x.png"></image>
+					<image class="anmo-type-icon" src="../../../images/{{skin}}/beibuanmo@3x.png"></image>
 					<view class="anmo-type-name">背部按摩</view>
 				</view>
 				<view class="anmo-button-top-right" bindtap="tapPlus" data-type="toubu">

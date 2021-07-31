@@ -34,7 +34,7 @@
             </view>
           </view>
 
-  
+
         </view>
 
         <view class="row-line"></view>
@@ -64,6 +64,14 @@
           </view>
         </view>
       </view>
+
+
+      <view class="graph">
+        <view class="graph-title">翻身（次数)</view>
+        <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
+        <view class="graph-tips">tip:睡眠时间小于3小时无法生成曲线</view>
+      </view>
+
     </view>
   </view>
 </view>

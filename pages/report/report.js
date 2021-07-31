@@ -95,7 +95,7 @@ Page({
     }
 
     // 获取翻身次数
-    let fanshenNum  = util.str16To10(cmd.substr(12,2));
+    let fanshenNum  = util.str16To10(cmd.substr(24,2)); 
     let pingtangTime = util.str16To10(cmd.substr(20,2));
     let cetangTime = util.str16To10(cmd.substr(22,2));
     let shuimianTime = parseInt(pingtangTime) + parseInt(cetangTime);

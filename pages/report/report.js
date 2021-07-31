@@ -112,6 +112,22 @@ Page({
       timeCetang: cetangTime,
       timeFanshen: fanshenNum
     })
+    let data = [];
+    let time2000 = util.str16To10(cmd.substr(26, 2));
+    data.push(time2000);
+    let time2200 = util.str16To10(cmd.substr(28, 2));
+    data.push(time2200);
+    let time2400 = util.str16To10(cmd.substr(30, 2));
+    data.push(time2400);
+    let time0200 = util.str16To10(cmd.substr(32, 2));
+    data.push(time0200);
+    let time0400 = util.str16To10(cmd.substr(34, 2));
+    data.push(time0400);
+    let time0600 = util.str16To10(cmd.substr(36, 2));
+    data.push(time0600);
+    let time0800 = util.str16To10(cmd.substr(38, 2));
+    data.push(time0800);
+    this.updateData(data);
   },
 
 
@@ -130,14 +146,13 @@ Page({
       animation: true,
       background: '#1E1F24',
       series: [{
-          name: '翻身（次数）',
-          data: simulationData.data,
-          color:'#5EA2D7',
-          format: function (val, name) {
-            return val + '次';
-          }
+        name: '翻身（次数）',
+        data: simulationData.data,
+        color: '#5EA2D7',
+        format: function (val, name) {
+          return val + '次';
         }
-      ],
+      }],
       xAxis: {
         disableGrid: true
       },
@@ -149,7 +164,7 @@ Page({
       height: 250,
       dataLabel: false,
       dataPointShape: true,
-      legend:false,
+      legend: false,
       extra: {
         lineStyle: 'curve'
       }
@@ -165,12 +180,39 @@ Page({
     var categories = [];
     var data = [];
     categories = ['20:00', '22:00', '24:00', '02:00', '04:00', '06:00', '08:00'];
-    //data = [10, 15, 17, 18, 22, 20, 19]
+    data = [10, 15, 17, 18, 22, 20, 19]
     return {
       categories: categories,
       data: data
     }
   },
+
+
+  updateData: function (data) {
+    var simulationData = this.createSimulationData();
+    var series = [{
+      name: '翻身（次数）',
+      data: data,
+      format: function (val, name) {
+        return val + '次';
+      }
+    }];
+    lineChart.updateData({
+      categories: simulationData.categories,
+      series: series
+    });
+  },
+
+
+  touchHandler: function (e) {
+    console.log(lineChart.getCurrentDataIndex(e));
+    lineChart.showToolTip(e, {
+        // background: '#7cb5ec',
+        format: function (item, category) {
+            return category + ' ' + item.name + ':' + item.data 
+        }
+    });
+},  
 
 
 })

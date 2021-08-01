@@ -54,8 +54,7 @@ Page({
       }
     })
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
-    // this.sendInitCmd();
-
+    this.sendInitCmd();
     this.onLoadlineChart();
 
   },

@@ -296,6 +296,7 @@ Page({
       var buffer = res.value;
       var received = util.ab2hex(buffer);
       console.info('main->onBLECharacteristicValueChange-->received', received);
+      that.blueReply(received, connected);
       WxNotificationCenter.postNotificationName('BLUEREPLY', received);
     });
 
@@ -364,7 +365,7 @@ Page({
         // 有闹钟功能
         this.setAlarm(received, deviceId);
       }
-
+ 
     }
   },
 

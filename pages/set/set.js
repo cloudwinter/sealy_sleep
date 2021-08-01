@@ -33,7 +33,7 @@ Page({
     dialogShow: false,
     selectedRadio: 'drak',
     alarmStatus: '未设置',
-    alarmSwitch: true,
+    alarmSwitch: false,
   },
 
   /**

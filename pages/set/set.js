@@ -1,5 +1,7 @@
 // pages/set.js
-const configManager = require('../../utils/configManager')
+const configManager = require('../../utils/configManager');
+const util = require('../../utils/util');
+const WxNotificationCenter = require('../../utils/WxNotificationCenter');
 const app = getApp();
 
 Page({
@@ -8,6 +10,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    connected: {},
+    status: '已连接',
     skin: app.globalData.skin,
     navbar: {
       loading: false,
@@ -16,21 +20,41 @@ Page({
       show: true,
       animated: false,
     },
-    items: [
-      { value: 'dark', name: '深黑', checked: 'true' },
-      { value: 'orange', name: '紫色' },
+    items: [{
+        value: 'dark',
+        name: '深黑',
+        checked: 'true'
+      },
+      {
+        value: 'orange',
+        name: '紫色'
+      },
     ],
     dialogShow: false,
-    selectedRadio: 'drak'
+    selectedRadio: 'drak',
+    alarmStatus: '未设置',
+    alarmSwitch: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let connected = configManager.getCurrentConnected();
+    let alarmSwitch = false;
+    let status = this.data.status;
+    if (util.isNotEmptyObject(connected)) {
+      status = '已连接';
+      alarmSwitch = configManager.showAlarmSwitch(connected.deviceId);
+    } else {
+      status = '未连接';
+    }
     this.setData({
       skin: app.globalData.skin,
-      selectedRadio: app.globalData.skin
+      selectedRadio: app.globalData.skin,
+      connected: connected,
+      status: status,
+      alarmSwitch: alarmSwitch,
     })
   },
 
@@ -43,6 +67,36 @@ Page({
   },
 
 
+    /**
+   * 
+   */
+  onShow: function () {
+    let alarmStatus = this.data.alarmStatus;
+    if (util.isNotEmptyObject(this.data.connected)) {
+      let alarm = configManager.getAlarm(this.data.connected.deviceId);
+      if (util.isNotEmptyObject(alarm)) {
+        if(alarm.isOpenAlarm) {
+          alarmStatus = '已开启';
+        } else {
+          if(alarm.time) {
+            alarmStatus = '已关闭';
+          } else {
+            alarmStatus = '未设置';
+          }
+          
+        }
+      } else {
+        alarmStatus = '未设置';
+      }
+    } else {
+      alarmStatus = '未连接';
+    }
+
+
+    this.setData({
+      alarmStatus: alarmStatus
+    })
+  },
 
 
 
@@ -65,7 +119,7 @@ Page({
    * 型号说明
    * @param {*} e 
    */
-  introduce: function(e) {
+  introduce: function (e) {
     wx.navigateTo({
       url: '../introduce/introduce',
     })
@@ -81,6 +135,24 @@ Page({
     // configManager.setSkin(skin);
     this.setData({
       dialogShow: true
+    })
+  },
+
+
+  /**
+   * 闹钟
+   * @param {*} e 
+   */
+  alarm: function (e) {
+    wx.navigateTo({
+      url: '/pages/alarm/alarm',
+    })
+  },
+
+
+  smart:function(e) {
+    wx.navigateTo({
+      url: '/pages/smart/smart',
     })
   },
 

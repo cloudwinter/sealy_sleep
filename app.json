@@ -4,7 +4,10 @@
     "pages/main/main",
     "pages/search/search",
     "pages/set/set",
-    "pages/introduce/introduce"
+    "pages/introduce/introduce",
+    "pages/alarm/alarm",
+    "pages/smart/smart",
+    "pages/report/report"
 
   ],
   "window": {

@@ -31,6 +31,24 @@
 				</view>
 			</view>
 
+
+			<view class="shezhi-content shezhi-button-bg" bindtap="alarm" hidden="{{!alarmSwitch}}">
+				<view class="shezhi-button-left">闹钟设置</view>
+				<view class="shezhi-button-right">
+					<view class="shezhi-button-name">{{alarmStatus}}</view>
+					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+				</view>
+			</view>
+
+
+			<view class="shezhi-content shezhi-button-bg" bindtap="smart">
+				<view class="shezhi-button-left">智能睡眠感应</view>
+				<view class="shezhi-button-right">
+					
+					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+				</view>
+			</view>
+
 		</view>
 	</view>
 

@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/induction/induction",
     "pages/index/index",
     "pages/main/main",
     "pages/search/search",
@@ -8,7 +9,6 @@
     "pages/alarm/alarm",
     "pages/smart/smart",
     "pages/report/report"
-
   ],
   "window": {
     "backgroundTextStyle": "light",

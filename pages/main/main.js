@@ -334,8 +334,13 @@ Page({
     setTimeout(function () {
       // 发送时间校验指令
       that.sendRequestAlarmCmd(connected);
-      // 延时150ms发送页面初始化操作
-      setTimeout(that.postInit, 150, connected);
+      setTimeout(function () {
+        // 发送压力板指令
+        that.sendBlueCmd('FFFFFFFF0200010B040E04');
+        // 延时150ms发送页面初始化操作
+        setTimeout(that.postInit, 150, connected);
+      },150)
+
     }, 150)
 
   },
@@ -364,12 +369,38 @@ Page({
         received.indexOf('FFFFFFFF01000413') >= 0) {
         // 有闹钟功能
         this.setAlarm(received, deviceId);
+      } else if(received.indexOf('FF FF FF FF 02 00 02 0E 04') >= 0) {
+        // 有智能睡眠感应
+        this.setSmart(received, deviceId);
       }
 
     }
   },
 
+  /**
+   * 设置智能睡眠感应
+   * @param {*} cmd 
+   * @param {*} deviceId 
+   */
+  setSmart: function (cmd, deviceId) {
+    let status = cmd.substr(18, 2);
+    let nightLight = cmd.substr(22,2);
+    let mode = cmd.substr(20,2);
+    let gexingModel = cmd.substr(24,2);
+    app.globalData.hasSleepInduction = true;
+    app.globalData.sleepInduction = {
+      status:status,
+      nightLight:nightLight,
+      mode:mode,
+      gexingModel:gexingModel,
+    }
+  },
 
+  /**
+   * 设置闹钟
+   * @param {*} cmd 
+   * @param {*} deviceId 
+   */
   setAlarm: function (cmd, deviceId) {
     console.error('main->setAlarm-->开启闹钟设置', cmd, deviceId);
     let alarm = {};

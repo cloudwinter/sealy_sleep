@@ -34,6 +34,8 @@ Page({
     selectedRadio: 'drak',
     alarmStatus: '未设置',
     alarmSwitch: false,
+    smartStatus: "已关闭",
+    hasSleepInduction:app.globalData.hasSleepInduction
   },
 
   /**
@@ -49,12 +51,19 @@ Page({
     } else {
       status = '未连接';
     }
+    let smartStatus = '已关闭';
+    if(hasSleepInduction) {
+      if(app.globalData.sleepInduction.status == '01') {
+        smartStatus = '已开启';
+      }
+    }
     this.setData({
       skin: app.globalData.skin,
       selectedRadio: app.globalData.skin,
       connected: connected,
       status: status,
       alarmSwitch: alarmSwitch,
+      smartStatus:smartStatus,
     })
   },
 
@@ -67,7 +76,7 @@ Page({
   },
 
 
-    /**
+  /**
    * 
    */
   onShow: function () {
@@ -75,15 +84,15 @@ Page({
     if (util.isNotEmptyObject(this.data.connected)) {
       let alarm = configManager.getAlarm(this.data.connected.deviceId);
       if (util.isNotEmptyObject(alarm)) {
-        if(alarm.isOpenAlarm) {
+        if (alarm.isOpenAlarm) {
           alarmStatus = '已开启';
         } else {
-          if(alarm.time) {
+          if (alarm.time) {
             alarmStatus = '已关闭';
           } else {
             alarmStatus = '未设置';
           }
-          
+
         }
       } else {
         alarmStatus = '未设置';
@@ -150,7 +159,7 @@ Page({
   },
 
 
-  smart:function(e) {
+  smart: function (e) {
     wx.navigateTo({
       url: '/pages/smart/smart',
     })

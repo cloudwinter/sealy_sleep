@@ -27,7 +27,7 @@ App({
         this.globalData.display = display
         this.globalData.screenHeight = screenHeight;
         this.globalData.screenWidth = screenWidth;
-        console.info("app onShow->屏幕高度宽度：" + screenHeight, this.globalData.display,screenWidth);
+        console.info("app onShow->屏幕高度宽度：" + screenHeight, this.globalData.display, screenWidth);
       },
     })
   },
@@ -36,6 +36,15 @@ App({
     display: 'normal',
     screenHeight: '',
     screenWidth: '',
-    navHeight:'',
+    navHeight: '',
+    hasSleepInduction: false, // 智能睡眠感应开关
+    sleepInduction: {  //智能睡眠感应信息
+      status:'00',  // 00 关闭，01开启 其他定时
+      nightLight:'00', // 智能夜灯 00 关闭 01开启
+      mode:'00', // 模式 00 预设位置 01 个性位置
+      gexingModel:'00'  // 个性模式 00 个性未设置 01 个性已设置
+
+    }
+
   }
 })

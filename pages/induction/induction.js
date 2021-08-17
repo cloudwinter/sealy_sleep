@@ -19,7 +19,7 @@ Page({
       show: true,
       animated: false,
     },
-    openSmart:false
+    openSmart: false
   },
 
   /**
@@ -42,7 +42,7 @@ Page({
 
   },
 
-  
+
 
   /**
    * 生命周期函数--监听页面卸载
@@ -55,15 +55,15 @@ Page({
   /**
    * 智能睡眠感应开关
    */
-  smartSwitch:function() {
+  smartSwitch: function () {
     var connected = this.data.connected;
     var openSmart = this.data.openSmart;
-    if(openSmart) {
+    if (openSmart) {
       // 发送关的命令
-      util.sendBlueCmd(connected,preCMD+'F03FD310');
+      util.sendBlueCmd(connected, preCMD + 'F03FD310');
     } else {
       // 发送开的命令
-      util.sendBlueCmd(connected,preCMD+'003F9710');
+      util.sendBlueCmd(connected, preCMD + '003F9710');
     }
     this.setData({
       openSmart: !openSmart
@@ -73,12 +73,23 @@ Page({
   /**
    * 跳转到睡眠报告页面
    */
-  report:function(event) {
+  report: function (event) {
     let pageType = event.currentTarget.dataset.type;
-    console.log('report:'+pageType);
+    console.log('report:' + pageType);
     wx.navigateTo({
-      url: '/pages/report/report?pageType='+pageType
+      url: '/pages/report/report?pageType=' + pageType
     })
-  }
+  },
+
+  /**
+   * 跳转到睡眠报告页面
+   */
+  wmreport: function (event) {
+    let pageType = event.currentTarget.dataset.type;
+    console.log('wmreport:' + pageType);
+    wx.navigateTo({
+      url: '/pages/wmreport/wmreport?pageType=' + pageType
+    })
+  },
 
 })

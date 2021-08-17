@@ -33,8 +33,8 @@
       </view>
 
 
-      <!-- 月报告 -->
-      <view class="item" bindtap="report" style="width:100%;margin-top:1rpx;">
+      <!-- 周报告 -->
+      <view class="item" bindtap="wmreport" data-type="week" style="width:100%;margin-top:1rpx;">
         <view class="item-left">周报告</view>
         <view class="item-right">
           <image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image>
@@ -43,7 +43,7 @@
 
 
       <!-- 月报告 -->
-      <view class="item" bindtap="report" style="width:100%;margin-top:1rpx;">
+      <view class="item" bindtap="report" bindtap="wmreport" data-type="month"  style="width:100%;margin-top:1rpx;">
         <view class="item-left">月报告</view>
         <view class="item-right">
           <image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image>

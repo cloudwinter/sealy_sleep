@@ -11,6 +11,10 @@ const preCMD = 'FFFFFFFF050000';
 
 var lineChart = null;
 
+var preCategories = ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'];
+var middleCategories = ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'];
+var nextCategories = ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00'];
+
 Page({
 
   /**
@@ -26,37 +30,52 @@ Page({
       show: true,
       animated: false,
     },
-    openSmart: false,
-    date: {
-      year: '2021',
-      month: '7',
-      day: '23'
+    pageType: '0', // 0 表示实时在床数据，1表示睡眠日报告
+    pageData: {
+      navTitle: '实时在床数据', // 顶部标题
+      dataTitle: '实时在床数据', // 数据标题
+      graphTitle: '', // 曲线标题
     },
     timeShuimian: '489',
     timePingtang: '489',
     timeCetang: '489',
     timeFanshen: '489',
+    graphData: [],
+    preData: [],
+    middleData: [],
+    nextData: [],
+    preDisable: true,
+    nextDisable: true,
+    currentGraphType: 'middle' // 当前曲线类型
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let pageType = options.pageType;
+    console.log('pageType:' + pageType);
     let connected = configManager.getCurrentConnected();
     let date = time.getDateInfo(new Date());
+    let preDay = date.day - 1; // TODO 待确认问题如果日期是个位数的问题
+    let pageData = {};
+    if (pageType == 1) {
+      pageData.navTitle = '日睡眠报告';
+      pageData.dataTitle = '20' + date.year + '年' + date.month + '月' + preDay + '日睡眠报告';
+      pageData.graphTitle = '';
+    } else {
+      pageData.navTitle = '实时在床数据';
+      pageData.dataTitle = '实时在床数据';
+      pageData.graphTitle = '20' + date.year + '年' + date.month + '月' + preDay + '日睡眠报告';;
+    }
     this.setData({
       skin: app.globalData.skin,
       connected: connected,
-      date: {
-        year: date.year,
-        month: date.month,
-        day: date.day
-      }
+      pageData: pageData
     })
+    this.onLoadlineChart();
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
     this.sendInitCmd();
-    this.onLoadlineChart();
-
   },
 
 
@@ -83,8 +102,20 @@ Page({
    * 发送初始化命令
    */
   sendInitCmd() {
-    let cmd = 'FFFFFFFF0200030B01'
-    let end = crcUtil.HexToCSU16(cmd);
+    let pageType = this.data.pageType;
+    let cmd = '';
+    let end = '';
+    if (pageType == 1) {
+      // 实时在床数据
+      cmd = 'FFFFFFFF0200030BF1'
+      end = crcUtil.HexToCSU16(cmd);
+
+    } else {
+      // 日报告
+      cmd = 'FFFFFFFF0200030B01'
+      end = crcUtil.HexToCSU16(cmd);
+    }
+    // 发送蓝牙询问命令
     util.sendBlueCmd(this.data.connected, cmd + end);
   },
 
@@ -94,41 +125,133 @@ Page({
    */
   blueReply(cmd) {
     cmd = cmd.toUpperCase();
-    var prefix = cmd.substr(0, 12);
+    var prefix = cmd.substr(0, 14);
     console.info('report->askBack', cmd, prefix);
-    if (prefix != 'FFFFFFFF0200') {
+    // 压力带蓝牙回复实时数据或者实时在床数据 ，会回复三次帧数据
+    if (prefix != 'FFFFFFFF020005') {
       return;
     }
 
-    // 获取翻身次数
-    let fanshenNum = util.str16To10(cmd.substr(24, 2));
-    let pingtangTime = util.str16To10(cmd.substr(20, 2));
-    let cetangTime = util.str16To10(cmd.substr(22, 2));
-    let shuimianTime = parseInt(pingtangTime) + parseInt(cetangTime);
-    this.setData({
-      timeShuimian: shuimianTime,
-      timePingtang: pingtangTime,
-      timeCetang: cetangTime,
-      timeFanshen: fanshenNum
-    })
-    let data = [];
-    let time2000 = util.str16To10(cmd.substr(26, 2));
-    data.push(time2000);
-    let time2200 = util.str16To10(cmd.substr(28, 2));
-    data.push(time2200);
-    let time2400 = util.str16To10(cmd.substr(30, 2));
-    data.push(time2400);
-    let time0200 = util.str16To10(cmd.substr(32, 2));
-    data.push(time0200);
-    let time0400 = util.str16To10(cmd.substr(34, 2));
-    data.push(time0400);
-    let time0600 = util.str16To10(cmd.substr(36, 2));
-    data.push(time0600);
-    let time0800 = util.str16To10(cmd.substr(38, 2));
-    data.push(time0800);
-    this.updateData(data);
+    var frameNo = cmd.substr(16, 2);
+    if (frameNo == '01') {
+      // TODO 时间和测试超过限制处理
+      // 单位6分钟计1个单位
+      let pingtangTime = util.str16To10(cmd.substr(18, 2)) * 6;
+      // 单位6分钟计1个单位
+      let cetangTime = util.str16To10(cmd.substr(20, 2)) * 6;
+      let shuimianTime = parseInt(pingtangTime) + parseInt(cetangTime);
+      // 获取翻身次数
+      let fanshenNum = util.str16To10(cmd.substr(22, 2));
+      this.setData({
+        timeShuimian: shuimianTime,
+        timePingtang: pingtangTime,
+        timeCetang: cetangTime,
+        timeFanshen: fanshenNum
+      })
+      let data = [];
+      let time1200 = util.str16To10(cmd.substr(24, 2));
+      data.push(time1200);
+      let time1300 = util.str16To10(cmd.substr(26, 2));
+      data.push(time1300);
+      let time1400 = util.str16To10(cmd.substr(28, 2));
+      data.push(time1400);
+      let time1500 = util.str16To10(cmd.substr(30, 2));
+      data.push(time1500);
+      let time1600 = util.str16To10(cmd.substr(32, 2));
+      data.push(time1600);
+      let time1700 = util.str16To10(cmd.substr(34, 2));
+      data.push(time1700);
+      this.setData({
+        timeShuimian: shuimianTime,
+        timePingtang: pingtangTime,
+        timeCetang: cetangTime,
+        timeFanshen: fanshenNum,
+        graphData: data
+      })
+
+    } else if (frameNo == '02') {
+      let data = this.data.graphData;
+      let time1800 = util.str16To10(cmd.substr(18, 2));
+      data.push(time1800);
+      let time1900 = util.str16To10(cmd.substr(20, 2));
+      data.push(time1900);
+      let time2000 = util.str16To10(cmd.substr(22, 2));
+      data.push(time2000);
+      let time2100 = util.str16To10(cmd.substr(24, 2));
+      data.push(time2100);
+      let time2200 = util.str16To10(cmd.substr(26, 2));
+      data.push(time2200);
+      let time2300 = util.str16To10(cmd.substr(28, 2));
+      data.push(time2300);
+      let time0000 = util.str16To10(cmd.substr(30, 2));
+      data.push(time0000);
+      let time0100 = util.str16To10(cmd.substr(32, 2));
+      data.push(time0100);
+      let time0200 = util.str16To10(cmd.substr(34, 2));
+      data.push(time0200);
+      this.setData({
+        graphData: data
+      })
+    } else if (frameNo == '03') {
+      let data = this.data.graphData;
+      let time0300 = util.str16To10(cmd.substr(18, 2));
+      data.push(time0300);
+      let time0400 = util.str16To10(cmd.substr(20, 2));
+      data.push(time0400);
+      let time0500 = util.str16To10(cmd.substr(22, 2));
+      data.push(time0500);
+      let time0600 = util.str16To10(cmd.substr(24, 2));
+      data.push(time0600);
+      let time0700 = util.str16To10(cmd.substr(26, 2));
+      data.push(time0700);
+      let time0800 = util.str16To10(cmd.substr(28, 2));
+      data.push(time0800);
+      let time0900 = util.str16To10(cmd.substr(30, 2));
+      data.push(time0900);
+      let time1000 = util.str16To10(cmd.substr(32, 2));
+      data.push(time1000);
+      let time1100 = util.str16To10(cmd.substr(34, 2));
+      data.push(time1100);
+
+      // 分割数据
+      splitDataByTime(data);
+      console.info('blueReply 曲线对象：', data);
+      this.updateData(this.data.middleData, middleCategories);
+    }
   },
 
+  /**
+   * 将数据分割为三分,设置前后可点击
+   * 1、12:00~00:00
+   * 2、20:00~08:00
+   * 3、00:00~12:00
+   * @param {*} data 
+   */
+  splitDataByTime: function (data) {
+    let preData = [];
+    let middleData = [];
+    let nextData = [];
+    for (let i = 0; i < data.length; i++) {
+      if (i < 12) {
+        preData.push(data[i]);
+      }
+      if (i > 7 && i < 20) {
+        middleData.push(data[i]);
+      }
+      if (i > 11) {
+        nextData.push(data[i]);
+      }
+    }
+    this.setData({
+      graphData: data,
+      preData: preData,
+      middleData: middleData,
+      nextData: nextData,
+      preDisable: false,
+      nextDisable: false,
+      currentGraphType: 'middle'
+    })
+  },
 
 
   /**
@@ -176,19 +299,21 @@ Page({
    * 初始化曲线图数据
    */
   createSimulationData: function () {
-    var categories = [];
-    var data = [];
-    categories = ['20:00', '22:00', '24:00', '02:00', '04:00', '06:00', '08:00'];
-    data = [10, 15, 17, 18, 22, 20, 19]
+    // 初始化测试数据
+    var data = [10, 11, 15, 12, 17, 23, 18, 19, 22, 21, 20, 15]
     return {
-      categories: categories,
+      categories: middleCategories,
       data: data
     }
   },
 
 
-  updateData: function (data) {
-    var simulationData = this.createSimulationData();
+  /**
+   * 更新图标
+   * @param {*}} data Y轴数据数组
+   * @param {*} categories X轴数据数组
+   */
+  updateData: function (data, categories) {
     var series = [{
       name: '翻身（次数）',
       data: data,
@@ -197,7 +322,7 @@ Page({
       }
     }];
     lineChart.updateData({
-      categories: simulationData.categories,
+      categories: categories,
       series: series
     });
   },
@@ -206,12 +331,80 @@ Page({
   touchHandler: function (e) {
     console.log(lineChart.getCurrentDataIndex(e));
     lineChart.showToolTip(e, {
-        // background: '#7cb5ec',
-        format: function (item, category) {
-            return category + ' ' + item.name + ':' + item.data 
-        }
+      // background: '#7cb5ec',
+      format: function (item, category) {
+        return category + ' ' + item.name + ':' + item.data
+      }
     });
-},  
+  },
+
+  /**
+   * 前一个图形曲线
+   * @param {*} e 
+   */
+  pre: function (e) {
+    let currentGraphType = this.data.currentGraphType;
+    let categories;
+    let data;
+    let preDisable;
+    let nextDisable;
+    if (currentGraphType == 'pre') {
+      util.showModal('当前已经是最前面了');
+      return;
+    } else if (currentGraphType == 'middle') {
+      categories = preCategories;
+      data = this.data.preData;
+      preDisable = true;
+      nextDisable = false;
+      currentGraphType = 'pre';
+    } else if (currentGraphType == 'next') {
+      categories = middleCategories;
+      data = this.data.middleData;
+      preDisable = false;
+      nextDisable = false;
+      currentGraphType = 'middle';
+    }
+    this.setData({
+      currentGraphType: currentGraphType,
+      preDisable: preDisable,
+      nextDisable: nextDisable,
+    })
+    this.updateData(data, categories);
+  },
+
+  /**
+   * 后一个图形曲线
+   * @param {*} e 
+   */
+  next: function (e) {
+    let currentGraphType = this.data.currentGraphType;
+    let categories;
+    let data;
+    let preDisable;
+    let nextDisable;
+    if (currentGraphType == 'next') {
+      util.showModal('当前已经是最后面了');
+      return;
+    } else if (currentGraphType == 'middle') {
+      categories = preCategories;
+      data = this.data.preData;
+      preDisable = false;
+      nextDisable = true;
+      currentGraphType = 'next';
+    } else if (currentGraphType == 'pre') {
+      categories = middleCategories;
+      data = this.data.middleData;
+      preDisable = false;
+      nextDisable = false;
+      currentGraphType = 'middle';
+    }
+    this.setData({
+      currentGraphType: currentGraphType,
+      preDisable: preDisable,
+      nextDisable: nextDisable,
+    })
+    this.updateData(data, categories);
+  }
 
 
 })

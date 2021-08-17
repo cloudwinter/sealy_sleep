@@ -73,9 +73,11 @@ Page({
   /**
    * 跳转到睡眠报告页面
    */
-  report:function() {
+  report:function(event) {
+    let pageType = event.currentTarget.dataset.type;
+    console.log('report:'+pageType);
     wx.navigateTo({
-      url: '/pages/report/report',
+      url: '/pages/report/report?pageType='+pageType
     })
   }
 

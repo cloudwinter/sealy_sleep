@@ -68,6 +68,7 @@
   margin-top: 60rpx;
   width: 100%;
   margin-left: 62px;
+  font-size: 28rpx;
 }
 
 

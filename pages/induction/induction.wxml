@@ -16,7 +16,7 @@
 
 
       <!-- 实时在床数据 -->
-      <view class="item" bindtap="report" style="width:100%;margin-top:60rpx;">
+      <view class="item" bindtap="report" data-type="0" style="width:100%;margin-top:60rpx;">
         <view class="item-left">实时在床数据</view>
         <view class="item-right">
           <image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image>
@@ -25,7 +25,7 @@
 
       <view class="headline">睡眠报告</view>
       <!-- 月报告 -->
-      <view class="item" bindtap="report" style="width:100%;margin-top:17rpx;">
+      <view class="item" bindtap="report" data-type="1" style="width:100%;margin-top:17rpx;">
         <view class="item-left">日报告</view>
         <view class="item-right">
           <image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image>

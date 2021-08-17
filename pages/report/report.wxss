@@ -103,6 +103,23 @@
 }
 
 .graph-title {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 20rpx;
+}
+
+.graph-main {
+  width: 100%;
+  font-size: 40rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-left: 30rpx;
+  flex: 1;
+}
+
+.graph-sub {
   height: 30rpx;
   font-size: 24rpx;
   font-family: PingFangSC-Medium, PingFang SC;
@@ -111,6 +128,7 @@
   line-height: 30rpx;
   text-align: right;
   margin-right: 30rpx;
+  margin-top: 30rpx;
 }
 
 .graph-tips {
@@ -120,6 +138,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.graph-bottom {
+  display: flex;
+  flex-direction: row;
+  margin-top: 15rpx;
+}
+
+
+.graph-button {
+  background: #5EA2D7;
+  border-radius: 21rpx;
+  height: 55rpx;
+  display: flex;
+  align-items: center;
 }
 
 

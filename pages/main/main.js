@@ -369,7 +369,7 @@ Page({
         received.indexOf('FFFFFFFF01000413') >= 0) {
         // 有闹钟功能
         this.setAlarm(received, deviceId);
-      } else if(received.indexOf('FF FF FF FF 02 00 02 0E 04') >= 0) {
+      } else if(received.indexOf('FFFFFFFF0200020F04') >= 0) {
         // 有智能睡眠感应
         this.setSmart(received, deviceId);
       }

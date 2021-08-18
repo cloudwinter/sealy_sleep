@@ -52,7 +52,7 @@ Page({
       status = '未连接';
     }
     let smartStatus = '已关闭';
-    if(hasSleepInduction) {
+    if(this.data.hasSleepInduction) {
       if(app.globalData.sleepInduction.status == '01') {
         smartStatus = '已开启';
       }
@@ -161,7 +161,7 @@ Page({
 
   smart: function (e) {
     wx.navigateTo({
-      url: '/pages/smart/smart',
+      url: '/pages/induction/induction',
     })
   },
 

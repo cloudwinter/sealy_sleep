@@ -19,7 +19,13 @@ Page({
       show: true,
       animated: false,
     },
-    openSmart:false
+    sleepInduction: {  //智能睡眠感应信息
+      status:'00',  // 00 关闭，01开启 其他定时
+      nightLight:'00', // 智能夜灯 00 关闭 01开启
+      mode:'00', // 模式 00 预设位置 01 个性位置
+      gexingModel:'00'  // 个性模式 00 个性未设置 01 个性已设置
+    },
+    timer:"", // 定时时间
   },
 
   /**
@@ -27,10 +33,39 @@ Page({
    */
   onLoad: function (options) {
     let connected = configManager.getCurrentConnected();
+    let sleepInduction = app.globalData.sleepInduction;
+    let timer = this.getTimer(sleepInduction.status)
     this.setData({
       skin: app.globalData.skin,
-      connected: connected
+      connected: connected,
+      sleepInduction:sleepInduction
     })
+  },
+
+  /**
+   * 根据状态码获取定时的时间
+   * @param {*} status 
+   */
+  getTimer:function(status) {
+    let result;
+    if(status == '11') {
+      result = "20:00";
+    } else if(status == '12') {
+      result = "20:30";
+    } else if(status == '13') {
+      result = "21:00";
+    } else if(status == '14') {
+      result = "21:30";
+    } else if(status == '15') {
+      result = "22:00";
+    } else if(status == '16') {
+      result = "22:30";
+    } else if(status == '17') {
+      result = "23:00";
+    } else if(status == '18') {
+      result = "23:30";
+    }
+    return result;
   },
 
 

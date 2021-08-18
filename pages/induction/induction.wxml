@@ -7,7 +7,7 @@
     <view class="content">
 
       <!-- 智能睡眠设置 -->
-      <view class="item" bindtap="report">
+      <view class="item" bindtap="smartSet">
         <view class="item-left">智能睡眠设置</view>
         <view class="item-right">
           <image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image>

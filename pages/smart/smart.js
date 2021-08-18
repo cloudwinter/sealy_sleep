@@ -2,8 +2,44 @@
 const util = require('../../utils/util');
 const crcUtil = require('../../utils/crcUtil');
 const configManager = require('../../utils/configManager')
+const WxNotificationCenter = require('../../utils/WxNotificationCenter')
 const app = getApp();
 const preCMD = 'FFFFFFFF050000';
+const timerList = [{
+    id: 11,
+    name: '20:00',
+  },
+  {
+    id: 12,
+    name: '20:30',
+  },
+  {
+    id: 13,
+    name: '21:00',
+  },
+  {
+    id: 14,
+    name: '21:30',
+  },
+  {
+    id: 15,
+    name: '22:00',
+  },
+  {
+    id: 16,
+    name: '22:30',
+  },
+  {
+    id: 17,
+    name: '23:00',
+  },
+  {
+    id: 18,
+    name: '23:30',
+  },
+];
+
+
 Page({
 
   /**
@@ -26,7 +62,11 @@ Page({
       gexingModel: '00' // 个性模式 00 个性未设置 01 个性已设置
     },
     timer: "", // 定时时间
-    fuweiDialogShow: false
+    fuweiDialogShow: false,
+    timerDialogShow: false,
+    timerList: timerList,
+    currentSelectedTimerId: '', // 当前选中的id
+    currentSelectedTimerName: '', // 当前选中的名称
   },
 
   /**
@@ -46,7 +86,6 @@ Page({
     })
 
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
-    this.sendInitCmd();
   },
 
   /**
@@ -94,7 +133,7 @@ Page({
   },
 
 
-   /**
+  /**
    * 蓝牙回复回调
    * @param {*} cmd 
    */
@@ -110,20 +149,103 @@ Page({
 
 
   /**
+   * 开启
+   */
+  open: function () {
+    let sleepInduction = this.data.sleepInduction;
+    sleepInduction.status = '01';
+    this.setData({
+      sleepInduction: sleepInduction
+    })
+  },
+
+  /**
+   * 关闭
+   */
+  close: function () {
+    let sleepInduction = this.data.sleepInduction;
+    sleepInduction.status = '00';
+    this.setData({
+      sleepInduction: sleepInduction
+    })
+  },
+
+
+  /**
+   * 定时开启
+   */
+  timerOpen: function () {
+    this.setData({
+      timerDialogShow: true
+    })
+  },
+
+  /**
+   * 定时开启item选中
+   * @param {*} e 
+   */
+  timerItemSelect: function (e) {
+    let selectedId = e.currentTarget.dataset.cid;
+    let selectedName = e.currentTarget.dataset.cname;
+    this.setData({
+      currentSelectedTimerId: selectedId,
+      currentSelectedTimerName: selectedName
+    })
+  },
+
+  /**
+   * 定时对话框按钮点击事件
+   * @param {*} e 
+   */
+  onTimerModalClick: function (e) {
+    var ctype = e.target.dataset.ctype;
+    this.setData({
+      timerDialogShow: false
+    })
+    if (ctype == 'confirm') {
+      let sleepInduction = this.data.sleepInduction;
+      let currentSelectedTimerId = this.data.currentSelectedTimerId;
+      let currentSelectedTimerName = this.data.currentSelectedTimerName;
+      sleepInduction.status = currentSelectedTimerId;
+      this.setData({
+        timer: currentSelectedTimerName,
+        sleepInduction: sleepInduction
+      })
+    }
+  },
+
+
+  /**
    * 智能睡眠感应开关
    */
-  smartSwitch: function () {
-    var connected = this.data.connected;
-    var openSmart = this.data.openSmart;
-    if (openSmart) {
-      // 发送关的命令
-      util.sendBlueCmd(connected, preCMD + 'F03FD310');
+  nightSwitch: function (e) {
+    let sleepInduction = this.data.sleepInduction;
+    if (sleepInduction.nightLight == '01') {
+      sleepInduction.nightLight = '00';
     } else {
-      // 发送开的命令
-      util.sendBlueCmd(connected, preCMD + '003F9710');
+      sleepInduction.nightLight = '01';
+    }
+    console.info('nightSwitch:', sleepInduction);
+    this.setData({
+      sleepInduction: sleepInduction
+    })
+  },
+
+  /**
+   * 模式选择
+   * @param {*} e 
+   */
+  modeSelect: function (e) {
+    var ctype = e.currentTarget.dataset.ctype;
+    let sleepInduction = this.data.sleepInduction;
+    if (ctype == '01') {
+      // 个性设置
+      sleepInduction.mode = '01';
+    } else {
+      sleepInduction.mode = '00';
     }
     this.setData({
-      openSmart: !openSmart
+      sleepInduction: sleepInduction
     })
   },
 
@@ -132,20 +254,21 @@ Page({
    * 复位对话框按钮点击事件
    * @param {*} e 
    */
-  onFwModalClick:function(e) {
+  onFwModalClick: function (e) {
     var ctype = e.target.dataset.ctype;
+    console.info('onFwModalClick:', ctype, e.target.dataset);
     var connected = this.data.connected;
     this.setData({
       fuweiDialogShow: false
     })
     if (ctype == 'confirm') {
-      // 一键复位
-      util.sendBlueCmd(connected,"FFFFFFFF0500000008D6C6");
       // loading加载
       util.showLoading("复位中...");
-      setTimeout(function(){
+      setTimeout(function () {
         util.hideLoading();
-      },2000);
+      }, 2000);
+      // 一键复位
+      util.sendBlueCmd(connected, "FFFFFFFF0500000008D6C6");
     }
   },
 

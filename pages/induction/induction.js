@@ -81,6 +81,12 @@ Page({
     })
   },
 
+  smartSet:function(e) {
+    wx.navigateTo({
+      url: '/pages/smart/smart'
+    })
+  },
+
   /**
    * 跳转到睡眠报告页面
    */

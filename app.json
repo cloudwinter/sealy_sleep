@@ -6,10 +6,10 @@
     "pages/set/set",
     "pages/introduce/introduce",
     "pages/alarm/alarm",
-    "pages/smart/smart",
     "pages/report/report",
     "pages/induction/induction",
-    "pages/wmreport/wmreport"
+    "pages/wmreport/wmreport",
+    "pages/smart/smart"
   ],
   "window": {
     "backgroundTextStyle": "light",

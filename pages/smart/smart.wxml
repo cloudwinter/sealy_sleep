@@ -9,7 +9,7 @@
 
       <view class="headline">智能睡眠感应</view>
       <!-- 智能睡眠设置 -->
-      <view class="item" bindtap="report" style="width:100%;margin-top:10rpx;">
+      <view class="item" bindtap="open" style="width:100%;margin-top:10rpx;">
         <view class="item-left">开启</view>
         <view class="item-right">
           <icon class="item-right-icon" type="success_no_circle" color="#5EA2D7" size="18"
@@ -17,7 +17,7 @@
         </view>
       </view>
       <view class="row-line"></view>
-      <view class="item" bindtap="report">
+      <view class="item" bindtap="close">
         <view class="item-left">关闭</view>
         <view class="item-right">
           <icon class="item-right-icon" type="success_no_circle" color="#5EA2D7" size="18"
@@ -25,7 +25,7 @@
         </view>
       </view>
       <view class="row-line"></view>
-      <view class="item" bindtap="report">
+      <view class="item" bindtap="timerOpen">
         <view class="item-left">定时开启</view>
         <view class="item-right">
           <icon class="item-right-icon" type="success_no_circle" color="#5EA2D7" size="18"
@@ -40,14 +40,14 @@
       <view class="item" style="margin-top:48rpx">
         <view class="item-left">智能夜灯</view>
         <view class="item-right">
-          <switch checked="{{sleepInduction.nightLight == '01'}}" bindchange="smartSwitch" />
+          <switch checked="{{sleepInduction.nightLight == '01'}}" bindchange="nightSwitch" />
         </view>
       </view>
 
 
       <view class="headline" style="margin-top:48rpx">模式设置</view>
       <!-- 获取睡眠数据 -->
-      <view class="item" style="margin-top:10rpx;" bindtap="report">
+      <view class="item" style="margin-top:10rpx;" bindtap="modeSelect" data-ctype='00'>
         <view class="item-left">预设位置</view>
         <view class="item-right">
           <icon class="item-right-icon" type="success_no_circle" color="#5EA2D7" size="18"
@@ -55,7 +55,7 @@
         </view>
       </view>
       <view class="row-line"></view>
-      <view class="item" bindtap="report">
+      <view class="item" bindtap="modeSelect" data-ctype='01'>
         <view class="item-left">个性位置</view>
         <view class="item-right">
           <icon class="item-right-icon" type="success_no_circle" color="#5EA2D7" size="18"
@@ -63,7 +63,7 @@
         </view>
       </view>
       <view hidden="{{sleepInduction.gexingModel != '01'}}" style="width:100%">
-        <view class="item" bindtap="report" >
+        <view class="item" bindtap="resetMode">
           <view class="item-left"></view>
           <view class="item-right">
             <view class="weui-input item-right-name" style="margin-left:10rpx">重新设置</view>
@@ -81,20 +81,50 @@
 
 
   <view class="modal-dialog" hidden="{{!fuweiDialogShow}}">
-		<view class="modal-box">
-			
+    <view class="modal-box">
+
       <view class="model-content">
         请先执行一键复位，然后开始学习您的个性设置
-			</view>
+      </view>
 
 
-			<view style="width:100%;height:1px;background:#000000;margin-top:10rpx"></view>
-			<view class="modal-box-bottom" style="height:100rpx;">
-				<view bindtap="onFwModalClick" data-ctype="cancel" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#FFFFFF">取消</view>
-				<view style="width:1rpx;height:100%;background:#000000"></view>
-				<view bindtap="onFwModalClick" data-ctype="confirm" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#5EA2D7;">一键复位</view>
+      <view style="width:100%;height:1px;background:#000000;margin-top:10rpx"></view>
+      <view class="modal-box-bottom" style="height:100rpx;">
+        <view bindtap="onFwModalClick" data-ctype="cancel" class="modal-box-button" hover-class="modal-box-button-hover"
+          style="flex-grow:1;color:#FFFFFF">取消</view>
+        <view style="width:1rpx;height:100%;background:#000000"></view>
+        <view bindtap="onFwModalClick" data-ctype="confirm" class="modal-box-button"
+          hover-class="modal-box-button-hover" style="flex-grow:1;color:#5EA2D7;">一键复位</view>
+      </view>
+    </view>
+  </view>
+
+
+  <!-- 定时选择对话框 -->
+<view class="modal-dialog" hidden="{{!timerDialogShow}}">
+	<view class="modal-box">
+		<text class="modal-box-title" style="margin-bottom:30rpx;">定时开启</text>
+		<view class="model-line"></view>
+		<view class="modal-box-body">
+			<view wx:for="{{timerList}}" wx:key="key" wo:for-item='item' style="width: 100%;">
+				<view class="dialog-item" hover-class="item-hover" data-index="{{index}}" data-cid="{{item.id}}" data-cname="{{item.name}}"
+					bindtap='timerItemSelect'>
+					<view class="dialog-item-name" style="margin-left:32rpx;flex:1">{{item.name}}</view>
+          <icon class="item-right-icon" type="success_no_circle" color="#5EA2D7" size="18" style="margin-right:30rpx"
+            hidden="{{item.id != currentSelectedTimerId}}"></icon>
+				</view>
+				<view class="model-line"></view>
 			</view>
 		</view>
+		<view class="model-line"></view>
+		<view class="modal-box-bottom" style="height:100rpx;">
+			<view bindtap="onTimerModalClick" data-ctype="cancel" class="modal-box-button"
+				hover-class="modal-box-button-hover" style="flex-grow:1;color:#FFF">取消</view>
+			<view style="width:1rpx;height:100%;background:#000"></view>
+			<view bindtap="onTimerModalClick" data-ctype="confirm" class="modal-box-button sure"
+				hover-class="modal-box-button-hover" style="flex-grow:1;color:#5EA2D7;">确定</view>
+		</view>
 	</view>
+</view>
 
 </view>

@@ -19,13 +19,14 @@ Page({
       show: true,
       animated: false,
     },
-    sleepInduction: {  //智能睡眠感应信息
-      status:'00',  // 00 关闭，01开启 其他定时
-      nightLight:'00', // 智能夜灯 00 关闭 01开启
-      mode:'00', // 模式 00 预设位置 01 个性位置
-      gexingModel:'00'  // 个性模式 00 个性未设置 01 个性已设置
+    sleepInduction: { //智能睡眠感应信息
+      status: '00', // 00 关闭，01开启 其他定时
+      nightLight: '00', // 智能夜灯 00 关闭 01开启
+      mode: '00', // 模式 00 预设位置 01 个性位置
+      gexingModel: '00' // 个性模式 00 个性未设置 01 个性已设置
     },
-    timer:"", // 定时时间
+    timer: "", // 定时时间
+    fuweiDialogShow: false
   },
 
   /**
@@ -34,35 +35,41 @@ Page({
   onLoad: function (options) {
     let connected = configManager.getCurrentConnected();
     let sleepInduction = app.globalData.sleepInduction;
-    let timer = this.getTimer(sleepInduction.status)
+    let timer = this.getTimer(sleepInduction.status);
+    let fuweiDialogShow = sleepInduction.gexingModel == '01' ? false : true;
     this.setData({
       skin: app.globalData.skin,
       connected: connected,
-      sleepInduction:sleepInduction
+      sleepInduction: sleepInduction,
+      timer: timer,
+      fuweiDialogShow
     })
+
+    WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
+    this.sendInitCmd();
   },
 
   /**
    * 根据状态码获取定时的时间
    * @param {*} status 
    */
-  getTimer:function(status) {
+  getTimer: function (status) {
     let result;
-    if(status == '11') {
+    if (status == '11') {
       result = "20:00";
-    } else if(status == '12') {
+    } else if (status == '12') {
       result = "20:30";
-    } else if(status == '13') {
+    } else if (status == '13') {
       result = "21:00";
-    } else if(status == '14') {
+    } else if (status == '14') {
       result = "21:30";
-    } else if(status == '15') {
+    } else if (status == '15') {
       result = "22:00";
-    } else if(status == '16') {
+    } else if (status == '16') {
       result = "22:30";
-    } else if(status == '17') {
+    } else if (status == '17') {
       result = "23:00";
-    } else if(status == '18') {
+    } else if (status == '18') {
       result = "23:30";
     }
     return result;
@@ -77,38 +84,75 @@ Page({
 
   },
 
-  
+
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    WxNotificationCenter.removeNotification("BLUEREPLY", this);
+  },
 
+
+   /**
+   * 蓝牙回复回调
+   * @param {*} cmd 
+   */
+  blueReply(cmd) {
+    cmd = cmd.toUpperCase();
+    var prefix = cmd.substr(0, 12);
+    console.info('report->askBack', cmd, prefix);
+    // 压力带蓝牙回复实时数据或者实时在床数据 ，会回复三次帧数据
+    if (prefix != 'FFFFFFFF0200') {
+      return;
+    }
   },
 
 
   /**
    * 智能睡眠感应开关
    */
-  smartSwitch:function() {
+  smartSwitch: function () {
     var connected = this.data.connected;
     var openSmart = this.data.openSmart;
-    if(openSmart) {
+    if (openSmart) {
       // 发送关的命令
-      util.sendBlueCmd(connected,preCMD+'F03FD310');
+      util.sendBlueCmd(connected, preCMD + 'F03FD310');
     } else {
       // 发送开的命令
-      util.sendBlueCmd(connected,preCMD+'003F9710');
+      util.sendBlueCmd(connected, preCMD + '003F9710');
     }
     this.setData({
       openSmart: !openSmart
     })
   },
 
+
+  /**
+   * 复位对话框按钮点击事件
+   * @param {*} e 
+   */
+  onFwModalClick:function(e) {
+    var ctype = e.target.dataset.ctype;
+    var connected = this.data.connected;
+    this.setData({
+      fuweiDialogShow: false
+    })
+    if (ctype == 'confirm') {
+      // 一键复位
+      util.sendBlueCmd(connected,"FFFFFFFF0500000008D6C6");
+      // loading加载
+      util.showLoading("复位中...");
+      setTimeout(function(){
+        util.hideLoading();
+      },2000);
+    }
+  },
+
   /**
    * 跳转到睡眠报告页面
    */
-  report:function() {
+  report: function () {
     wx.navigateTo({
       url: '/pages/report/report',
     })

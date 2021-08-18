@@ -203,3 +203,17 @@
   font-family: PingFangSC-Regular, PingFang SC;
   align-items: center;
 }
+
+.model-content {
+  font-size: 36rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  color: #FFFFFF;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-top: 47rpx;
+  margin-bottom: 47rpx;
+  margin-left: 40rpx;
+  margin-right: 40rpx;
+  text-align: center;
+}

@@ -35,13 +35,14 @@ Page({
     alarmStatus: '未设置',
     alarmSwitch: false,
     smartStatus: "已关闭",
-    hasSleepInduction:app.globalData.hasSleepInduction
+    hasSleepInduction: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.info('set->onLoad:', app.globalData, this.data.hasSleepInduction);
     let connected = configManager.getCurrentConnected();
     let alarmSwitch = false;
     let status = this.data.status;
@@ -52,10 +53,10 @@ Page({
       status = '未连接';
     }
     let smartStatus = '已关闭';
-    if(this.data.hasSleepInduction) {
-      if(app.globalData.sleepInduction.status == '01') {
+    let hasSleepInduction = app.globalData.hasSleepInduction;
+    let inductionStatus = app.globalData.sleepInduction.status;
+    if (hasSleepInduction && inductionStatus == '01') {
         smartStatus = '已开启';
-      }
     }
     this.setData({
       skin: app.globalData.skin,
@@ -63,7 +64,8 @@ Page({
       connected: connected,
       status: status,
       alarmSwitch: alarmSwitch,
-      smartStatus:smartStatus,
+      smartStatus: smartStatus,
+      hasSleepInduction: hasSleepInduction,
     })
   },
 

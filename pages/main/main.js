@@ -311,10 +311,10 @@ Page({
    */
   onBLECharacteristicValueChange: function () {
     wx.onBLECharacteristicValueChange(function (res) {
-      console.info('main->onBLECharacteristicValueChange', res);
+      console.info('main->onBLECharacteristicValueChange2', res);
       var buffer = res.value;
       var received = util.ab2hex(buffer);
-      console.info('main->onBLECharacteristicValueChange-->received', received);
+      console.info('main->onBLECharacteristicValueChange2-->received', received);
       WxNotificationCenter.postNotificationName('BLUEREPLY', received);
     })
   },
@@ -383,6 +383,7 @@ Page({
    * @param {*} deviceId 
    */
   setSmart: function (cmd, deviceId) {
+    console.error('main->setSmart-->开启智能睡眠设置', cmd, deviceId);
     let status = cmd.substr(18, 2);
     let nightLight = cmd.substr(22,2);
     let mode = cmd.substr(20,2);

@@ -64,6 +64,7 @@ Page({
     timer: "", // 定时时间
     fuweiDialogShow: false,
     timerDialogShow: false,
+    nextDialogShow: false,
     timerList: timerList,
     currentSelectedTimerId: '', // 当前选中的id
     currentSelectedTimerName: '', // 当前选中的名称
@@ -255,6 +256,7 @@ Page({
    * @param {*} e 
    */
   onFwModalClick: function (e) {
+    var that = this;
     var ctype = e.target.dataset.ctype;
     console.info('onFwModalClick:', ctype, e.target.dataset);
     var connected = this.data.connected;
@@ -266,6 +268,9 @@ Page({
       util.showLoading("复位中...");
       setTimeout(function () {
         util.hideLoading();
+        that.setData({
+          nextDialogShow: true
+        })
       }, 2000);
       // 一键复位
       util.sendBlueCmd(connected, "FFFFFFFF0500000008D6C6");
@@ -273,11 +278,49 @@ Page({
   },
 
   /**
-   * 跳转到睡眠报告页面
+   * 下一步跳转到睡眠设置页面
    */
-  report: function () {
-    wx.navigateTo({
-      url: '/pages/report/report',
+  onNextModalClick: function () {
+    this.setData({
+      nextDialogShow: false
+    })
+    util.showToast("功能开发中，请耐心等候");
+    // wx.navigateTo({
+    //   url: '/pages/report/report',
+    // })
+  },
+
+  /**
+   * 重新设置
+   */
+  resetMode: function () {
+    util.showToast("功能开发中，请耐心等候");
+    // wx.navigateTo({
+    //   url: '/pages/report/report',
+    // })
+  },
+
+  /**
+   * 保存按钮
+   *   sleepInduction: { //智能睡眠感应信息
+      status: '00', // 00 关闭，01开启 其他定时
+      nightLight: '00', // 智能夜灯 00 关闭 01开启
+      mode: '00', // 模式 00 预设位置 01 个性位置
+      gexingModel: '00' // 个性模式 00 个性未设置 01 个性已设置
+    },
+   */
+  save: function () {
+    //util.showToast("功能开发中，请耐心等候");
+    let connected = this.data.connected;
+    let sleepInduction = this.data.sleepInduction;
+    let preCmd = "FFFFFFFF0200020E04";
+    let cmd = preCmd + sleepInduction.status + sleepInduction.nightLight + sleepInduction.mode + sleepInduction.gexingModel;
+    let cmdCrc = crcUtil.HexToCSU16(cmd);
+    cmd = cmd + cmdCrc;
+    util.sendBlueCmd(connected,cmd);
+    // 返回上一页
+    wx.navigateBack({
+      delta: 1,
     })
   }
 

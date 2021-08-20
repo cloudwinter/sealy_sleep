@@ -125,10 +125,10 @@ Page({
    */
   blueReply(cmd) {
     cmd = cmd.toUpperCase();
-    var prefix = cmd.substr(0, 14);
+    var prefix = cmd.substr(0, 12);
     console.info('report->askBack', cmd, prefix);
     // 压力带蓝牙回复实时数据或者实时在床数据 ，会回复三次帧数据
-    if (prefix != 'FFFFFFFF020005') {
+    if (prefix != 'FFFFFFFF0200') {
       return;
     }
 

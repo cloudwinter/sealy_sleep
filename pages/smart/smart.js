@@ -284,6 +284,8 @@ Page({
     this.setData({
       nextDialogShow: false
     })
+    let cmd = 'FFFFFFFF050000F03FD310';
+    util.sendBlueCmd(connected,cmd);
     util.showToast("功能开发中，请耐心等候");
     // wx.navigateTo({
     //   url: '/pages/report/report',

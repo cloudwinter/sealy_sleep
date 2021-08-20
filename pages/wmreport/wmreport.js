@@ -2,6 +2,7 @@
 const util = require('../../utils/util');
 const crcUtil = require('../../utils/crcUtil');
 const configManager = require('../../utils/configManager')
+const WxNotificationCenter = require('../../utils/WxNotificationCenter')
 const app = getApp();
 const preCMD = 'FFFFFFFF050000';
 Page({

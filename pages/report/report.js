@@ -131,14 +131,30 @@ Page({
     if (prefix != 'FFFFFFFF0200') {
       return;
     }
-
+    var askType = cmd.substr(12,2);
+    if(askType != '04' || askType != '05') {
+      console.error('report->askBack 返回码非当日或实时返回码', cmd);
+      return;
+    }
     var frameNo = cmd.substr(16, 2);
     if (frameNo == '01') {
       // TODO 时间和测试超过限制处理
+      
+      let pingtangTime;
+      if(askType == '05') {
+        // 单位6分钟计1个单位
+        pingtangTime = util.str16To10(cmd.substr(18, 2)) * 6;
+      } else {
+        pingtangTime = util.str16To10(cmd.substr(18, 2));
+      }
+       
       // 单位6分钟计1个单位
-      let pingtangTime = util.str16To10(cmd.substr(18, 2)) * 6;
-      // 单位6分钟计1个单位
-      let cetangTime = util.str16To10(cmd.substr(20, 2)) * 6;
+      let cetangTime;
+      if(askType == '05') {
+        cetangTime = util.str16To10(cmd.substr(20, 2)) * 6;
+      } else {
+        cetangTime = util.str16To10(cmd.substr(20, 2));
+      }
       let shuimianTime = parseInt(pingtangTime) + parseInt(cetangTime);
       // 获取翻身次数
       let fanshenNum = util.str16To10(cmd.substr(22, 2));

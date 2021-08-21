@@ -55,7 +55,8 @@ Page({
     this.setData({
       skin: app.globalData.skin,
       connected: connected,
-      pageData: pageData
+      pageData: pageData,
+      pageType: pageType
     })
 
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
@@ -112,12 +113,17 @@ Page({
     if (prefix != 'FFFFFFFF0200') {
       return;
     }
+    var pageData = this.data.pageData;
     var flag = cmd.substr(12, 2);
     if (flag == '06' || flag == '07') {
+
+      let days = cmd.substr(16, 2);
+      pageData.dataTitle = '最近' + days + '天睡眠统计';
+
       // 时间单位是6
-      let pjsmTime = util.str16To10(cmd.substr(18, 2)) * 6;
-      let maxsmTime = util.str16To10(cmd.substr(20, 2)) * 6;
-      let minsmTime = util.str16To10(cmd.substr(22, 2)) * 6;
+      let pjsmTime = util.str16To10(cmd.substr(18, 2)) * 0.1;
+      let maxsmTime = util.str16To10(cmd.substr(20, 2)) * 0.1;
+      let minsmTime = util.str16To10(cmd.substr(22, 2)) * 0.1;
       let zaichuang = {
         pingjunTime: pjsmTime,
         maxTime: maxsmTime,
@@ -133,19 +139,19 @@ Page({
         minNum: minfsNum
       }
 
-      let ptTime = util.str16To10(cmd.substr(30, 2)) * 6;
-      let ctTime = util.str16To10(cmd.substr(32, 2)) * 6;
+      let ptTime = util.str16To10(cmd.substr(30, 2)) * 0.1;
+      let ctTime = util.str16To10(cmd.substr(32, 2)) * 0.1;
       let pingcetang = {
         pingTime: ptTime,
         ceTime: ctTime
       }
 
       this.setData({
-          zaichuang: zaichuang,
-          fansheng: fansheng,
-          pingcetang: pingcetang
-        }
-      )
+        zaichuang: zaichuang,
+        fansheng: fansheng,
+        pingcetang: pingcetang,
+        pageData: pageData
+      })
     }
   },
 

@@ -36,6 +36,7 @@ Page({
       dataTitle: '实时在床数据', // 数据标题
       graphTitle: '', // 曲线标题
     },
+    unit:'分钟',
     timeShuimian: '489',
     timePingtang: '489',
     timeCetang: '489',
@@ -47,6 +48,7 @@ Page({
     preDisable: true,
     nextDisable: true,
     currentGraphType: 'middle' // 当前曲线类型
+
   },
 
   /**
@@ -59,19 +61,24 @@ Page({
     let date = time.getDateInfo(new Date());
     let preDay = date.day - 1; // TODO 待确认问题如果日期是个位数的问题
     let pageData = {};
+    let unit;
     if (pageType == 1) {
       pageData.navTitle = '日睡眠报告';
       pageData.dataTitle = '20' + date.year + '年' + date.month + '月' + preDay + '日睡眠报告';
       pageData.graphTitle = '';
+      unit = '小时';
     } else {
       pageData.navTitle = '实时在床数据';
       pageData.dataTitle = '实时在床数据';
-      pageData.graphTitle = '20' + date.year + '年' + date.month + '月' + preDay + '日睡眠报告';;
+      pageData.graphTitle = '20' + date.year + '年' + date.month + '月' + preDay + '日睡眠报告';
+      unit = '分钟';
     }
     this.setData({
       skin: app.globalData.skin,
       connected: connected,
-      pageData: pageData
+      pageData: pageData,
+      pageType: pageType,
+      unit:unit
     })
     this.onLoadlineChart();
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
@@ -106,17 +113,32 @@ Page({
     let cmd = '';
     let end = '';
     if (pageType == 1) {
-      // 实时在床数据
+      // 日报告
       cmd = 'FFFFFFFF0200030BF1'
       end = crcUtil.HexToCSU16(cmd);
 
     } else {
-      // 日报告
+      // 实时在床数据
       cmd = 'FFFFFFFF0200030B01'
       end = crcUtil.HexToCSU16(cmd);
     }
     // 发送蓝牙询问命令
     util.sendBlueCmd(this.data.connected, cmd + end);
+
+    // TEST
+    // let that = this;
+    // setTimeout(function(){
+    //   let cmd = 'FF FF FF FF 02 00 05 14 01 10 10 30 02 02 02 02 02 02 73 04'.replace(/\s*/g,"");
+    //   that.blueReply(cmd);
+    // },1000)
+    // setTimeout(function(){
+    //   let cmd = 'FF FF FF FF 02 00 05 14 02 02 02 02 02 02 02 02 02 02 2A 04'.replace(/\s*/g,"");
+    //   that.blueReply(cmd);
+    // },2000)
+    // setTimeout(function(){
+    //   let cmd = 'FF FF FF FF 02 00 05 14 03 02 02 02 02 02 02 02 02 02 2B 04'.replace(/\s*/g,"");
+    //   that.blueReply(cmd);
+    // },3000)
   },
 
   /**
@@ -131,27 +153,27 @@ Page({
     if (prefix != 'FFFFFFFF0200') {
       return;
     }
-    var askType = cmd.substr(12,2);
-    if(askType != '04' || askType != '05') {
+    var askType = cmd.substr(12, 2);
+    if (askType != '04' && askType != '05') {
       console.error('report->askBack 返回码非当日或实时返回码', cmd);
       return;
     }
     var frameNo = cmd.substr(16, 2);
     if (frameNo == '01') {
       // TODO 时间和测试超过限制处理
-      
+
       let pingtangTime;
-      if(askType == '05') {
+      if (askType == '05') {
         // 单位6分钟计1个单位
-        pingtangTime = util.str16To10(cmd.substr(18, 2)) * 6;
+        pingtangTime = util.str16To10(cmd.substr(18, 2)) * 0.1;
       } else {
         pingtangTime = util.str16To10(cmd.substr(18, 2));
       }
-       
+
       // 单位6分钟计1个单位
       let cetangTime;
-      if(askType == '05') {
-        cetangTime = util.str16To10(cmd.substr(20, 2)) * 6;
+      if (askType == '05') {
+        cetangTime = util.str16To10(cmd.substr(20, 2)) * 0.1;
       } else {
         cetangTime = util.str16To10(cmd.substr(20, 2));
       }
@@ -230,7 +252,7 @@ Page({
       data.push(time1100);
 
       // 分割数据
-      splitDataByTime(data);
+      this.splitDataByTime(data);
       console.info('blueReply 曲线对象：', data);
       this.updateData(this.data.middleData, middleCategories);
     }

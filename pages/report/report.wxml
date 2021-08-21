@@ -18,7 +18,7 @@
             </view>
             <view class="column-body">
               <view class="column-body-content">{{timeShuimian}}</view>
-              <view class="column-body-desc">分钟</view>
+              <view class="column-body-desc">{{unit}}</view>
             </view>
           </view>
           <view class="column-line" style="margin-top: 30rpx;"></view>
@@ -48,7 +48,7 @@
             </view>
             <view class="column-body">
               <view class="column-body-content">{{timeCetang}}</view>
-              <view class="column-body-desc">分钟</view>
+              <view class="column-body-desc">{{unit}}</view>
             </view>
           </view>
           <view class="column-line" style="margin-bottom: 30rpx;"></view>
@@ -59,7 +59,7 @@
             </view>
             <view class="column-body">
               <view class="column-body-content">{{timePingtang}}</view>
-              <view class="column-body-desc">分钟</view>
+              <view class="column-body-desc">{{unit}}</view>
             </view>
           </view>
         </view>

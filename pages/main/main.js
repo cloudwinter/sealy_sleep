@@ -295,6 +295,7 @@ Page({
       console.info('main->onBLECharacteristicValueChange', res);
       var buffer = res.value;
       var received = util.ab2hex(buffer);
+      //received = 'ffffffff0200020f04010005c7704'
       console.info('main->onBLECharacteristicValueChange-->received', received);
       that.blueReply(received, connected);
       WxNotificationCenter.postNotificationName('BLUEREPLY', received);

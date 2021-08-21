@@ -20,23 +20,23 @@
             <view class="column-title">平均在床时间</view>
             <view class="column-body">
               <view class="column-body-content">{{zaichuang.pingjunTime}}</view>
-              <view class="column-body-desc">分钟</view>
+              <view class="column-body-desc">小时</view>
             </view>
           </view>
           <view class="column-line"></view>
           <view class="column">
             <view class="column-title">最大在床时间</view>
             <view class="column-body">
-              <view class="column-body-content">{{zaichuang.pingjunTime}}</view>
-              <view class="column-body-desc">分钟</view>
+              <view class="column-body-content">{{zaichuang.maxTime}}</view>
+              <view class="column-body-desc">小时</view>
             </view>
           </view>
           <view class="column-line"></view>
           <view class="column">
             <view class="column-title">最小在床时间</view>
             <view class="column-body">
-              <view class="column-body-content">{{zaichuang.pingjunTime}}</view>
-              <view class="column-body-desc">分钟</view>
+              <view class="column-body-content">{{zaichuang.minTime}}</view>
+              <view class="column-body-desc">小时</view>
             </view>
           </view>
         </view>

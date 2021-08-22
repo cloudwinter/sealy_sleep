@@ -286,6 +286,7 @@ Page({
     })
     let cmd = 'FFFFFFFF050000F03FD310';
     let that = this;
+    let connected = this.data.connected;
     util.sendBlueCmd(connected, cmd, ({
       success: (res) => {
         console.info('onNextModalClick->发送成功');
@@ -309,7 +310,7 @@ Page({
   turnToGexingset() {
     let connected = this.data.connected;
     let name = connected.name;
-    if (name.indexOf('SEALY') >= 0 || name.indexOf('QMS2')) {
+    if (name.indexOf('SEALY') >= 0 || name.indexOf('QMS2') >= 0) {
       wx.navigateTo({
         url: '/pages/gexingset/gexingset-2',
       })
@@ -325,7 +326,6 @@ Page({
    * 
    */
   save: function () {
-    //util.showToast("功能开发中，请耐心等候");
     let connected = this.data.connected;
     let sleepInduction = this.data.sleepInduction;
     let preCmd = "FFFFFFFF0200020E04";

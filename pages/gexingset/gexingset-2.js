@@ -339,7 +339,7 @@ Page({
         success: (res) => {
           console.info('tapCetang->发送成功');
           that.setData({
-            pingtangSelected: true
+            cetangSelected: true
           });
         },
         fail: (res) => {

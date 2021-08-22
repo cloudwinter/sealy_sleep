@@ -285,11 +285,17 @@ Page({
       nextDialogShow: false
     })
     let cmd = 'FFFFFFFF050000F03FD310';
-    util.sendBlueCmd(connected,cmd);
-    util.showToast("功能开发中，请耐心等候");
-    // wx.navigateTo({
-    //   url: '/pages/report/report',
-    // })
+    util.sendBlueCmd(connected, cmd, ({
+      success: (res) => {
+        console.info('onNextModalClick->发送成功');
+        wx.navigateTo({
+          url: '/pages/gexingset/gexingset-1',
+        })
+      },
+      fail: (res) => {
+        console.error('onNextModalClick->发送失败', res);
+      }
+    }));
   },
 
   /**
@@ -314,7 +320,7 @@ Page({
     let cmd = preCmd + sleepInduction.status + sleepInduction.nightLight + sleepInduction.mode + sleepInduction.gexingModel;
     let cmdCrc = crcUtil.HexToCSU16(cmd);
     cmd = cmd + cmdCrc;
-    util.sendBlueCmd(connected,cmd);
+    util.sendBlueCmd(connected, cmd);
     // 返回上一页
     wx.navigateBack({
       delta: 1,

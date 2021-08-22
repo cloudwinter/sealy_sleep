@@ -1,0 +1,101 @@
+<!--pages/gexingset/gexingset-1.wxml-->
+<!--pages/smart/smart.wxml-->
+<view class="page-{{skin}}">
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
+    background="{{navbar.background}}" title="个性设置"></navbar>
+
+  <view class="{{skin}}">
+
+    <view class="top" style="margin-top:{{display=='high'?90:0}}rpx;">
+      <view class="donghuaqu">
+        <view class="dh-content">
+          <!-- 调整 -->
+          <block wx:if="{{currentAnjian.anjian=='beibutz'}}">
+            <image wx:if="{{animationPosition==1}}" class="dh-icon"
+              src="../../animation/{{skin}}/beibutiaozheng-1@3x.png"></image>
+            <image wx:if="{{animationPosition==2}}" class="dh-icon"
+              src="../../animation/{{skin}}/beibutiaozheng-2@3x.png"></image>
+            <image wx:if="{{animationPosition==3}}" class="dh-icon"
+              src="../../animation/{{skin}}/beibutiaozheng-3@3x.png"></image>
+          </block>
+          <block wx:if="{{currentAnjian.anjian=='yaobutz'}}">
+            <image wx:if="{{animationPosition==1}}" class="dh-icon"
+              src="../../animation/{{skin}}/yaobutiaozheng-1@3x.png"></image>
+            <image wx:if="{{animationPosition==2}}" class="dh-icon"
+              src="../../animation/{{skin}}/yaobutiaozheng-2@3x.png"></image>
+            <image wx:if="{{animationPosition==3}}" class="dh-icon"
+              src="../../animation/{{skin}}/yaobutiaozheng-3@3x.png"></image>
+          </block>
+          <view class="dh-name">{{currentAnjian.name}}</view>
+        </view>
+      </view>
+    </view>
+
+
+    <!-- 调整区 -->
+    <view class="tiaozheng-type" style="margin-top:60rpx;">
+      <view class="tiaozheng-content tiaozheng-button-bg button-bg">
+        <!-- <view class="tiaozheng-button-bg"></view> -->
+        <view class="tiaozheng-button-top-left" bindtouchstart="touchStart" bindtouchend="touchEnd"
+          data-type="beibutzTop">
+          <image class="tiaozheng-button-icon" src="{{imgSanjiao.imgSanjiaoTopSelected}}"></image>
+        </view>
+        <view class="tiaozheng-button-top-middle">
+          <image class="tiaozheng-type-icon" src="../../images/{{skin}}/zhihan-xiao@3x.png"></image>
+          <view class="tiaozheng-type-name">背部调整</view>
+        </view>
+        <view class="tiaozheng-button-top-right" bindtouchstart="touchStart" bindtouchend="touchEnd"
+          data-type="beibutzBottom">
+          <image class="tiaozheng-button-icon" src="{{imgSanjiao.imgSanjiaoBottomSelected}}"></image>
+        </view>
+      </view>
+
+
+      <view class="tiaozheng-content tiaozheng-button-bg button-bg" style="margin-top:60rpx;">
+        <!-- <button class="tiaozheng-button-bg"></button> -->
+        <view class="tiaozheng-button-top-left" bindtouchstart="touchStart" bindtouchend="touchEnd"
+          data-type="yaobutzTop">
+          <image class="tiaozheng-button-icon" src="{{imgSanjiao.imgSanjiaoTopSelected}}"></image>
+        </view>
+        <view class="tiaozheng-button-top-middle">
+          <image class="tiaozheng-type-icon" src="../../images/{{skin}}/yaobutiaozheng-xiao@3x.png"></image>
+          <view class="tiaozheng-type-name">腰部调整</view>
+        </view>
+        <view class="tiaozheng-button-top-right" bindtouchstart="touchStart" bindtouchend="touchEnd"
+          data-type="yaobutzBottom">
+          <image class="tiaozheng-button-icon" src="{{imgSanjiao.imgSanjiaoBottomSelected}}"></image>
+        </view>
+      </view>
+    </view>
+
+
+
+    <!-- 选择区 平躺/侧躺 -->
+    <view style="display:flex;justify-content:center;margin-top:60rpx">
+      <View class="tiaozheng-mode">
+        <view class="mode-button {{pingtangSelected?'mode-button-selected':'mode-button-normal'}}"
+          bindtouchstart="touchLongStart" bindtouchend="touchLongEnd" catchtap="tapPingtang">平躺</view>
+        <view style="width:43rpx;"></view>
+        <view class="mode-button {{cetangSelected?'mode-button-selected':'mode-button-normal'}}"
+          bindtouchstart="touchLongStart" bindtouchend="touchLongEnd" catchtap="tapCetang">侧躺</view>
+      </View>
+    </view>
+
+    <!-- 保存按钮 -->
+    <view style="display:flex;justify-content:center">
+      <view class="save-button" bindtouchstart="touchLongStart" bindtouchend="touchLongEnd" catchtap="tabSave">保存</view>
+    </view>
+
+    <!-- tips -->
+    <view style="display:flex;justify-content:center;margin-top:60rpx">
+      <view class="view-tips">
+        <view class="tips">1.平躺在床上，通过微调按键，调整到您最舒服的位置后，长按平躺；</view>
+        <view class="tips">2.侧躺在床上，通过微调按键，调整到您最舒服的位置后，长按侧躺；</view>
+        <view class="tips">3.长按完成键即可完成设置。</view>
+      </view>
+    </view>
+
+
+  </view>
+
+</view>

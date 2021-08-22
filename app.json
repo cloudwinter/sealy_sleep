@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/gexingset/gexingset-1",
     "pages/index/index",
     "pages/main/main",
     "pages/search/search",
@@ -9,7 +10,8 @@
     "pages/report/report",
     "pages/induction/induction",
     "pages/wmreport/wmreport",
-    "pages/smart/smart"
+    "pages/smart/smart",
+    "pages/gexingset/gexingset-2"
   ],
   "window": {
     "backgroundTextStyle": "light",

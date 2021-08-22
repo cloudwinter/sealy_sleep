@@ -99,11 +99,11 @@ Page({
     }
 
     // TEST
-    let that = this;
-    setTimeout(function () {
-      let cmd = 'FF FF FF FF 02 00 06 13 11 20 30 40 0C 0D 0E 0F 10 11 EE 04'.replace(/\s*/g, "");
-      that.blueReply(cmd);
-    }, 1000)
+    // let that = this;
+    // setTimeout(function () {
+    //   let cmd = 'FF FF FF FF 02 00 07 13 05 4A 51 3B AA BC 85 55 55 98 07'.replace(/\s*/g, "");
+    //   that.blueReply(cmd);
+    // }, 1000)
 
     // 发送蓝牙询问命令
     util.sendBlueCmd(this.data.connected, cmd + end);
@@ -125,7 +125,7 @@ Page({
     var flag = cmd.substr(12, 2);
     if (flag == '06' || flag == '07') {
 
-      let days = cmd.substr(16, 2);
+      let days = util.str16To10(cmd.substr(16, 2));
       pageData.dataTitle = '最近' + days + '天睡眠统计';
 
       // 时间单位是6

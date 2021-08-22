@@ -332,11 +332,20 @@ Page({
     let cmd = preCmd + sleepInduction.status + sleepInduction.nightLight + sleepInduction.mode + sleepInduction.gexingModel;
     let cmdCrc = crcUtil.HexToCSU16(cmd);
     cmd = cmd + cmdCrc;
-    util.sendBlueCmd(connected, cmd);
-    // 返回上一页
-    wx.navigateBack({
-      delta: 1,
-    })
+    util.sendBlueCmd(connected, cmd, ({
+      success: (res) => {
+        console.info('onNextModalClick->发送成功');
+        // 返回上一页
+        wx.navigateBack({
+          delta: 1,
+        })
+        // 更新全局变量
+        app.globalData.sleepInduction = sleepInduction;
+      },
+      fail: (res) => {
+        console.error('onNextModalClick->发送失败', res);
+      }
+    }));
   }
 
 })

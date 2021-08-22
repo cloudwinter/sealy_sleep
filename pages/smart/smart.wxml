@@ -62,7 +62,8 @@
             hidden="{{sleepInduction.mode != '01'}}"></icon>
         </view>
       </view>
-      <view hidden="{{sleepInduction.gexingModel != '01'}}" style="width:100%">
+      <view class="row-line"></view>
+      <view style="width:100%">
         <view class="item" bindtap="resetMode">
           <view class="item-left"></view>
           <view class="item-right">

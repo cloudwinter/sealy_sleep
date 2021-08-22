@@ -1,5 +1,4 @@
 <!--pages/gexingset/gexingset-1.wxml-->
-<!--pages/smart/smart.wxml-->
 <view class="page-{{skin}}">
   <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
     background="{{navbar.background}}" title="个性设置"></navbar>

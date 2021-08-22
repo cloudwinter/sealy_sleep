@@ -285,12 +285,11 @@ Page({
       nextDialogShow: false
     })
     let cmd = 'FFFFFFFF050000F03FD310';
+    let that = this;
     util.sendBlueCmd(connected, cmd, ({
       success: (res) => {
         console.info('onNextModalClick->发送成功');
-        wx.navigateTo({
-          url: '/pages/gexingset/gexingset-1',
-        })
+        that.turnToGexingset();
       },
       fail: (res) => {
         console.error('onNextModalClick->发送失败', res);
@@ -302,10 +301,23 @@ Page({
    * 重新设置
    */
   resetMode: function () {
-    util.showToast("功能开发中，请耐心等候");
-    // wx.navigateTo({
-    //   url: '/pages/report/report',
-    // })
+    this.turnToGexingset();
+  },
+
+
+
+  turnToGexingset() {
+    let connected = this.data.connected;
+    let name = connected.name;
+    if (name.indexOf('SEALY') >= 0 || name.indexOf('QMS2')) {
+      wx.navigateTo({
+        url: '/pages/gexingset/gexingset-2',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/gexingset/gexingset-1',
+      })
+    }
   },
 
   /**

@@ -1,13 +1,15 @@
 {
   "pages": [
+    "pages/induction/induction",
+    "pages/report/report",
     "pages/index/index",
     "pages/main/main",
     "pages/search/search",
     "pages/set/set",
     "pages/introduce/introduce",
     "pages/alarm/alarm",
-    "pages/report/report",
-    "pages/induction/induction",
+
+
     "pages/wmreport/wmreport",
     "pages/smart/smart",
     "pages/gexingset/gexingset-1",

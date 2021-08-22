@@ -123,22 +123,24 @@ Page({
       end = crcUtil.HexToCSU16(cmd);
     }
     // 发送蓝牙询问命令
-    util.sendBlueCmd(this.data.connected, cmd + end);
+
 
     // TEST
     // let that = this;
     // setTimeout(function(){
-    //   let cmd = 'FF FF FF FF 02 00 05 14 01 10 10 30 02 02 02 02 02 02 73 04'.replace(/\s*/g,"");
+    //   let cmd = 'FF FF FF FF 02 00 05 14 01 20 20 40 0C 0D 0E 0F 10 11 EE 04'.replace(/\s*/g,"");
     //   that.blueReply(cmd);
     // },1000)
     // setTimeout(function(){
-    //   let cmd = 'FF FF FF FF 02 00 05 14 02 02 02 02 02 02 02 02 02 02 2A 04'.replace(/\s*/g,"");
+    //   let cmd = 'FF FF FF FF 02 00 05 14 02 12 13 14 15 16 17 00 01 02 96 04'.replace(/\s*/g,"");
     //   that.blueReply(cmd);
     // },2000)
     // setTimeout(function(){
-    //   let cmd = 'FF FF FF FF 02 00 05 14 03 02 02 02 02 02 02 02 02 02 2B 04'.replace(/\s*/g,"");
+    //   let cmd = 'FF FF FF FF 02 00 05 14 03 03 04 05 06 07 08 09 0A 0B 58 04'.replace(/\s*/g,"");
     //   that.blueReply(cmd);
     // },3000)
+
+    util.sendBlueCmd(this.data.connected, cmd + end);
   },
 
   /**
@@ -163,17 +165,18 @@ Page({
       // TODO 时间和测试超过限制处理
 
       let pingtangTime;
-      if (askType == '05') {
+      let pageType = this.data.pageType;
+      if (pageType == 1) {
         // 单位6分钟计1个单位
-        pingtangTime = util.str16To10(cmd.substr(18, 2)) * 0.1;
+        pingtangTime = (util.str16To10(cmd.substr(18, 2)) * 0.1).toFixed(1);
       } else {
         pingtangTime = util.str16To10(cmd.substr(18, 2));
       }
 
       // 单位6分钟计1个单位
       let cetangTime;
-      if (askType == '05') {
-        cetangTime = util.str16To10(cmd.substr(20, 2)) * 0.1;
+      if (pageType == 1) {
+        cetangTime = (util.str16To10(cmd.substr(20, 2)) * 0.1).toFixed(1);
       } else {
         cetangTime = util.str16To10(cmd.substr(20, 2));
       }
@@ -367,11 +370,11 @@ Page({
 
 
   touchHandler: function (e) {
-    console.log(lineChart.getCurrentDataIndex(e));
     lineChart.showToolTip(e, {
       // background: '#7cb5ec',
       format: function (item, category) {
-        return category + ' ' + item.name + ':' + item.data
+        console.log('touchHandler',category,item.name,item.data);
+        return item.name + '：' + item.data
       }
     });
   },
@@ -424,8 +427,8 @@ Page({
       util.showModal('当前已经是最后面了');
       return;
     } else if (currentGraphType == 'middle') {
-      categories = preCategories;
-      data = this.data.preData;
+      categories = nextCategories;
+      data = this.data.nextData;
       preDisable = false;
       nextDisable = true;
       currentGraphType = 'next';

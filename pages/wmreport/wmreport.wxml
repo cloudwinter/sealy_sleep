@@ -97,7 +97,7 @@
             <view class="column-title">平均平躺时间</view>
             <view class="column-body">
               <view class="column-body-content">{{pingcetang.pingTime}}</view>
-              <view class="column-body-desc">分钟</view>
+              <view class="column-body-desc">小时</view>
             </view>
           </view>
           <view class="column-line"></view>
@@ -105,7 +105,7 @@
             <view class="column-title">平均侧躺时间</view>
             <view class="column-body">
               <view class="column-body-content">{{pingcetang.ceTime}}</view>
-              <view class="column-body-desc">分钟</view>
+              <view class="column-body-desc">小时</view>
             </view>
           </view>
         </view>

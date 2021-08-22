@@ -97,6 +97,14 @@ Page({
       cmd = 'FFFFFFFF0200030B07'
       end = crcUtil.HexToCSU16(cmd);
     }
+
+    // TEST
+    let that = this;
+    setTimeout(function () {
+      let cmd = 'FF FF FF FF 02 00 06 13 11 20 30 40 0C 0D 0E 0F 10 11 EE 04'.replace(/\s*/g, "");
+      that.blueReply(cmd);
+    }, 1000)
+
     // 发送蓝牙询问命令
     util.sendBlueCmd(this.data.connected, cmd + end);
   },
@@ -121,9 +129,9 @@ Page({
       pageData.dataTitle = '最近' + days + '天睡眠统计';
 
       // 时间单位是6
-      let pjsmTime = util.str16To10(cmd.substr(18, 2)) * 0.1;
-      let maxsmTime = util.str16To10(cmd.substr(20, 2)) * 0.1;
-      let minsmTime = util.str16To10(cmd.substr(22, 2)) * 0.1;
+      let pjsmTime = (util.str16To10(cmd.substr(18, 2)) * 0.1).toFixed(1);
+      let maxsmTime = (util.str16To10(cmd.substr(20, 2)) * 0.1).toFixed(1);
+      let minsmTime = (util.str16To10(cmd.substr(22, 2)) * 0.1).toFixed(1);
       let zaichuang = {
         pingjunTime: pjsmTime,
         maxTime: maxsmTime,
@@ -139,8 +147,8 @@ Page({
         minNum: minfsNum
       }
 
-      let ptTime = util.str16To10(cmd.substr(30, 2)) * 0.1;
-      let ctTime = util.str16To10(cmd.substr(32, 2)) * 0.1;
+      let ptTime = (util.str16To10(cmd.substr(30, 2)) * 0.1).toFixed(1);
+      let ctTime = (util.str16To10(cmd.substr(32, 2)) * 0.1).toFixed(1);
       let pingcetang = {
         pingTime: ptTime,
         ceTime: ctTime

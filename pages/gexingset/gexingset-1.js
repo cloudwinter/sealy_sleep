@@ -357,19 +357,28 @@ Page({
     var longClick = this.longClick();
     if (longClick) {
       // 长按
-      this.sendBlueCmd('005E56F8', ({
-        success: (res) => {
-          console.info('tabSave->发送成功');
-          util.showToast('设置完成');
-          // 返回上一页
-          wx.navigateBack({
-            delta: 1,
-          })
-        },
-        fail: (res) => {
-          console.error('tabSave->发送失败', res);
-        }
-      }));
+      let pingtangSelected = this.data.pingtangSelected;
+      let cetangSelected = this.data.cetangSelected;
+      if (pingtangSelected && cetangSelected) {
+        this.sendBlueCmd('005E56F8', ({
+          success: (res) => {
+            console.info('tabSave->发送成功');
+            util.showToast('设置完成');
+            // 返回上一页
+            wx.navigateBack({
+              delta: 1,
+            })
+          },
+          fail: (res) => {
+            console.error('tabSave->发送失败', res);
+          }
+        }));
+      } else {
+        util.showToast('请先完成 平躺/侧躺的个性位置设置!');
+        return;
+      }
+
+
     }
   },
 

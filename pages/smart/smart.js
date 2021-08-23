@@ -328,7 +328,7 @@ Page({
   save: function () {
     let connected = this.data.connected;
     let sleepInduction = this.data.sleepInduction;
-    let preCmd = "FFFFFFFF0200020E04";
+    let preCmd = "FFFFFFFF0200020F04";
     let cmd = preCmd + sleepInduction.status + sleepInduction.nightLight + sleepInduction.mode + sleepInduction.gexingModel;
     let cmdCrc = crcUtil.HexToCSU16(cmd);
     cmd = cmd + cmdCrc;

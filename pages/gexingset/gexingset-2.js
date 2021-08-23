@@ -335,7 +335,7 @@ Page({
     var longClick = this.longClick();
     if (longClick) {
       // 长按
-      this.sendBlueCmd('CO5C8739', ({
+      this.sendBlueCmd('C05C8739', ({
         success: (res) => {
           console.info('tapCetang->发送成功');
           that.setData({

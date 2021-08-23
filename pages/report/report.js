@@ -180,7 +180,7 @@ Page({
       } else {
         cetangTime = util.str16To10(cmd.substr(20, 2));
       }
-      let shuimianTime = parseInt(pingtangTime) + parseInt(cetangTime);
+      let shuimianTime = parseFloat(pingtangTime) + parseFloat(cetangTime);
       // 获取翻身次数
       let fanshenNum = util.str16To10(cmd.substr(22, 2));
       this.setData({

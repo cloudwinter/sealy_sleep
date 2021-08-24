@@ -118,10 +118,10 @@
 		<view class="model-line"></view>
 		<view class="modal-box-bottom" style="height:100rpx;">
 			<view bindtap="onModalPeriodClick" data-ctype="cancel" class="modal-box-button"
-				hover-class="modal-box-button-hover" style="flex-grow:1;color:#000">取消</view>
-			<view style="width:1rpx;height:100%;background:#eee"></view>
+				hover-class="modal-box-button-hover" style="flex-grow:1;color:#FFFFFF">取消</view>
+			<view style="width:1rpx;height:100%;background:#000000"></view>
 			<view bindtap="onModalPeriodClick" data-ctype="confirm" class="modal-box-button sure"
-				hover-class="modal-box-button-hover" style="flex-grow:1;">确定</view>
+				hover-class="modal-box-button-hover" style="flex-grow:1;color:#5EA2D7;">确定</view>
 		</view>
 	</view>
 </view>
@@ -138,7 +138,7 @@
 		<view class="modal-box-bottom" style="height:100rpx;">
 			<view bindtap="onModalRemarkClick" data-ctype="cancel" class="modal-box-button"
 				hover-class="modal-box-button-hover" style="flex-grow:1;color:#000;">取消</view>
-			<view style="width:1rpx;height:100%;background:#eee"></view>
+			<view style="width:1rpx;height:100%;background:#000000"></view>
 			<view bindtap="onModalRemarkClick" data-ctype="confirm" class="modal-box-button sure"
 				hover-class="modal-box-button-hover" style="flex-grow:1;">确定</view>
 		</view>
@@ -151,7 +151,7 @@
 <view class="modal-dialog" hidden="{{!modeDialogShow}}">
 	<view class="modal-box">
 		<text class="modal-box-title" style="margin-bottom:30rpx;margin-top:30rpx;">模式选择</text>
-		<view style="width:100%;height:1px;background:#eee"></view>
+		<view style="width:100%;height:1px;background:#000000"></view>
 
 		<view class="model-content" style="width:100%;display:flex;justify-content:center">
 			<radio-group bindchange="modeRadioChange" class="radio-group" style="width:100%">
@@ -162,18 +162,18 @@
 						</view>
 						<view class="dialog-item-name">{{item.name}}</view>
 					</label>
-					<view style="width:100%;height:1px;background:#eee"></view>
+					<view style="width:100%;height:1px;background:#OOO"></view>
 				</block>
 			</radio-group>
 		</view>
 
-		<view style="width:100%;height:1px;background:#eee"></view>
+		<view style="width:100%;height:1px;background:#000000"></view>
 		<view class="modal-box-bottom" style="height:100rpx;">
 			<view bindtap="onModalModeClick" data-ctype="cancel" class="modal-box-button" hover-class="modal-box-button-hover"
-				style="flex-grow:1;color:black">取消</view>
-			<view style="width:1rpx;height:100%;background:#eee"></view>
+				style="flex-grow:1;color:#FFFFFF">取消</view>
+			<view style="width:1rpx;height:100%;background:#000000"></view>
 			<view bindtap="onModalModeClick" data-ctype="confirm" class="modal-box-button sure"
-				hover-class="modal-box-button-hover" style="flex-grow:1;">确定</view>
+				hover-class="modal-box-button-hover" style="flex-grow:1;color:#5EA2D7">确定</view>
 		</view>
 	</view>
 </view>

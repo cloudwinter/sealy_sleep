@@ -70,7 +70,6 @@ Page({
     currentSelectedTimerName: '', // 当前选中的名称
     failedDialogShow: false, // 通信失败的对话框
     tempSaveCmd: '', // 临时保存发送的命令
-    tempCmd: '', //临时发送的命令
     currentTimeOutName: '', // 当前定时器的name
   },
 
@@ -349,6 +348,7 @@ Page({
     this.setData({
       fuweiDialogShow: true
     })
+    // this.turnToGexingset();
   },
 
 

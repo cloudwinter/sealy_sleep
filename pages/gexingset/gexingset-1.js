@@ -49,7 +49,11 @@ Page({
     pingtangSelected: false,
     cetangSelected: false,
     startTime: '',
-    endTime: ''
+    endTime: '',
+    failedDialogShow: false, // 通信失败的对话框
+    tempSaveCmd: '', // 临时保存发送的命令
+    currentTimeOutName: '', // 当前定时器的name
+
   },
 
   /**
@@ -68,6 +72,7 @@ Page({
         imgSanjiaoTopNormal: '../../images/' + app.globalData.skin + '/sanjiao-top-normal@3x.png'
       },
     })
+    WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
   },
 
 
@@ -76,7 +81,46 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    WxNotificationCenter.removeNotification("BLUEREPLY", this);
+  },
 
+  /**
+   * 蓝牙回复回调
+   * @param {*} cmd 
+   */
+  blueReply(cmd) {
+    cmd = cmd.toUpperCase();
+    var prefix = cmd.substr(0, 12);
+    console.info('gexingshezhi-1->askBack', cmd, prefix);
+
+    if (cmd == 'FFFFFFFF050000D05D4B39') {
+      // 收到长按平躺的源码
+      this.clearCurrentTimeOut();
+      this.setData({
+        currentTimeOutName: '',
+        pingtangSelected: true
+      })
+    }
+    if (cmd == 'FFFFFFFF050000C05C8739') {
+      // 收到长按侧躺的源码
+      this.clearCurrentTimeOut();
+      this.setData({
+        currentTimeOutName: '',
+        cetangSelected: true
+      })
+    }
+    if (cmd == 'FFFFFFFF050000005E56F8') {
+      // 收到保存的源码
+      this.clearCurrentTimeOut();
+      util.showToast('设置完成');
+      this.setData({
+        currentTimeOutName: '',
+      })
+      // 返回上一页
+      wx.navigateBack({
+        delta: 1,
+      })
+    }
   },
 
 
@@ -314,9 +358,7 @@ Page({
       this.sendBlueCmd('D05D4B39', ({
         success: (res) => {
           console.info('tapPingtang->发送成功');
-          that.setData({
-            pingtangSelected: true
-          });
+          that.startCurrentTimeOut('通讯中...', 3);
         },
         fail: (res) => {
           console.error('tapPingtang->发送失败', res);
@@ -337,9 +379,7 @@ Page({
       this.sendBlueCmd('C05C8739', ({
         success: (res) => {
           console.info('tapCetang->发送成功');
-          that.setData({
-            cetangSelected: true
-          });
+          that.startCurrentTimeOut('通讯中...', 3);
         },
         fail: (res) => {
           console.error('tapCetang->发送失败', res);
@@ -363,11 +403,7 @@ Page({
         this.sendBlueCmd('005E56F8', ({
           success: (res) => {
             console.info('tabSave->发送成功');
-            util.showToast('设置完成');
-            // 返回上一页
-            wx.navigateBack({
-              delta: 1,
-            })
+            that.startCurrentTimeOut('通讯中...', 3);
           },
           fail: (res) => {
             console.error('tabSave->发送失败', res);
@@ -377,10 +413,50 @@ Page({
         util.showToast('请先完成 平躺/侧躺的个性位置设置!');
         return;
       }
-
-
     }
   },
+
+
+
+  /**
+   * 检查通讯正常
+   */
+  startCurrentTimeOut(loadingStr, timeOutSeconds) {
+    let that = this;
+    util.showLoading(loadingStr);
+    let timeOutName = setTimeout(() => {
+      console.info('startCurrentTimeOut', loadingStr, timeOutSeconds);
+      util.hideLoading();
+      that.setData({
+        failedDialogShow: true,
+        currentTimeOutName: '',
+      })
+    }, timeOutSeconds * 1000);
+    return timeOutName;
+  },
+
+  /**
+   * 清除当前的定时器
+   */
+  clearCurrentTimeOut() {
+    let timeOutName = this.data.currentTimeOutName;
+    if (timeOutName) {
+      clearTimeout(timeOutName);
+      util.hideLoading();
+      this.setData({
+        currentTimeOutName: '',
+      })
+    }
+  },
+
+  /**
+   * 关闭对话框
+   */
+  onFailedModalClick: function () {
+    this.setData({
+      failedDialogShow: false
+    })
+  }
 
 
 

@@ -71,7 +71,7 @@ Page({
     failedDialogShow: false, // 通信失败的对话框
     tempSaveCmd: '', // 临时保存发送的命令
     tempCmd: '', //临时发送的命令
-    hasReceiveOrigCmd: false, //收到原码
+    currentTimeOutName: '', // 当前定时器的name
   },
 
   /**
@@ -148,13 +148,10 @@ Page({
     console.info('smart->askBack', cmd, prefix);
     // 压力带蓝牙回复实时数据或者实时在床数据 ，会回复三次帧数据
     let tempSaveCmd = this.data.tempSaveCmd;
+    let that = this;
     if (cmd == tempSaveCmd) {
-      // 保存处理
-      util.hideLoading();
-      // 收到保存的原码回码
-      this.setData({
-        hasReceiveOrigCmd: true
-      })
+      // 下一步处理
+      this.clearCurrentTimeOut();
       // 更新全局变量
       let sleepInduction = this.data.sleepInduction;
       app.globalData.sleepInduction = sleepInduction;
@@ -164,24 +161,32 @@ Page({
       return;
     }
     if (cmd == 'FFFFFFFF0500000008D6C6') {
-      util.showLoading('复位中...');
-      setTimeout(function () {
-        util.hideLoading();
-      }, 2000);
+      let timeOutName = this.startCurrentTimeOut('复位中...', 100);
+      this.setData({
+        currentTimeOutName: timeOutName
+      })
+
+      // FIXME TEST 
+      // setTimeout(() => {
+      //   that.blueReply('FFFFFFFF0500008208B666')
+      // }, 2000);
+
     }
     if (cmd == 'FFFFFFFF0500008208B666') {
-      util.hideLoading();
+      this.clearCurrentTimeOut();
       this.setData({
-        nextDialogShow: true
+        nextDialogShow: true,
+        currentTimeOutName: ''
       })
+
     }
     if (cmd == 'FFFFFFFF050000F03FD310') {
       // 下一步处理
-      util.hideLoading();
-      that.turnToGexingset();
+      this.clearCurrentTimeOut();
       this.setData({
-        hasReceiveOrigCmd: true
+        currentTimeOutName: ''
       })
+      this.turnToGexingset();
     }
 
   },
@@ -320,7 +325,16 @@ Page({
     util.sendBlueCmd(connected, cmd, ({
       success: (res) => {
         console.info('onNextModalClick->发送成功');
-        that.checkSendSuccess();
+        let timeOutName = that.startCurrentTimeOut('加载中...', 3);
+        that.setData({
+          currentTimeOutName: timeOutName
+        })
+
+        // FIXME TEST
+        // setTimeout(() => {
+        //     that.blueReply(cmd);
+        // }, 2000);
+
       },
       fail: (res) => {
         console.error('onNextModalClick->发送失败', res);
@@ -342,7 +356,7 @@ Page({
   turnToGexingset() {
     let connected = this.data.connected;
     let name = connected.name.toUpperCase();
-    console.info('turnToGexingset:',connected,name);
+    console.info('turnToGexingset:', connected, name);
     if (name.indexOf('SEALY') >= 0 || name.indexOf('QMS2') >= 0) {
       wx.navigateTo({
         url: '/pages/gexingset/gexingset-2',
@@ -369,10 +383,12 @@ Page({
     util.sendBlueCmd(connected, cmd, ({
       success: (res) => {
         console.info('onNextModalClick->发送成功');
+        let timeoutName = that.startCurrentTimeOut("加载中...", 3);
         that.setData({
-          tempSaveCmd: cmd
+          tempSaveCmd: cmd,
+          currentTimeOutName: timeoutName,
         })
-        that.checkSendSuccess();
+
       },
       fail: (res) => {
         console.error('onNextModalClick->发送失败', res);
@@ -385,22 +401,32 @@ Page({
   /**
    * 检查通讯正常
    */
-  checkSendSuccess() {
+  startCurrentTimeOut(loadingStr, timeOutSeconds) {
     let that = this;
-    util.showLoading('加载中...');
-    setTimeout(() => {
+    util.showLoading(loadingStr);
+    let timeOutName = setTimeout(() => {
+      console.info('startCurrentTimeOut', loadingStr, timeOutSeconds);
       util.hideLoading();
-      let hasReceiveOrigCmd = that.data.hasReceiveOrigCmd;
-      if (hasReceiveOrigCmd) {
-        that.setData({
-          hasReceiveOrigCmd: false
-        })
-      } else {
-        that.setData({
-          failedDialogShow: true
-        })
-      }
-    }, 3000);
+      that.setData({
+        failedDialogShow: true,
+        currentTimeOutName: '',
+      })
+    }, timeOutSeconds * 1000);
+    return timeOutName;
+  },
+
+  /**
+   * 清除当前的定时器
+   */
+  clearCurrentTimeOut() {
+    let timeOutName = this.data.currentTimeOutName;
+    if (timeOutName) {
+      clearTimeout(timeOutName);
+      util.hideLoading();
+      this.setData({
+        currentTimeOutName: '',
+      })
+    }
   },
 
   /**

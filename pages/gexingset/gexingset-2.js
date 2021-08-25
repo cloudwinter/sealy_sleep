@@ -394,27 +394,66 @@ Page({
    */
   tabSave: function () {
     var that = this;
-    var longClick = this.longClick();
-    if (longClick) {
-      // 长按
-      let pingtangSelected = this.data.pingtangSelected;
-      let cetangSelected = this.data.cetangSelected;
-      if (pingtangSelected && cetangSelected) {
-        this.sendBlueCmd('005E56F8', ({
-          success: (res) => {
-            console.info('tabSave->发送成功');
-            that.startCurrentTimeOut('通讯中...', 3);
-          },
-          fail: (res) => {
-            console.error('tabSave->发送失败', res);
-          }
-        }));
-      } else {
-        util.showToast('请先完成 平躺/侧躺的个性位置设置!');
-        return;
-      }
+    // 长按
+    let pingtangSelected = this.data.pingtangSelected;
+    let cetangSelected = this.data.cetangSelected;
+    if (pingtangSelected && cetangSelected) {
+      this.sendBlueCmd('005E56F8', ({
+        success: (res) => {
+          console.info('tabSave->发送成功');
+          that.startCurrentTimeOut('通讯中...', 3);
+        },
+        fail: (res) => {
+          console.error('tabSave->发送失败', res);
+        }
+      }));
+    } else {
+      util.showToast('请先完成 平躺/侧躺的个性位置设置!');
+      return;
+    }
+
+  },
+
+
+  /**
+   * 检查通讯正常
+   */
+  startCurrentTimeOut(loadingStr, timeOutSeconds) {
+    let that = this;
+    util.showLoading(loadingStr);
+    let timeOutName = setTimeout(() => {
+      console.info('startCurrentTimeOut', loadingStr, timeOutSeconds);
+      util.hideLoading();
+      that.setData({
+        failedDialogShow: true,
+        currentTimeOutName: '',
+      })
+    }, timeOutSeconds * 1000);
+    return timeOutName;
+  },
+
+  /**
+   * 清除当前的定时器
+   */
+  clearCurrentTimeOut() {
+    let timeOutName = this.data.currentTimeOutName;
+    if (timeOutName) {
+      clearTimeout(timeOutName);
+      util.hideLoading();
+      this.setData({
+        currentTimeOutName: '',
+      })
     }
   },
+
+  /**
+   * 关闭对话框
+   */
+  onFailedModalClick: function () {
+    this.setData({
+      failedDialogShow: false
+    })
+  }
 
 
 

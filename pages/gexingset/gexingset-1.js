@@ -394,26 +394,25 @@ Page({
    */
   tabSave: function () {
     var that = this;
-    var longClick = this.longClick();
-    if (longClick) {
-      // 长按
-      let pingtangSelected = this.data.pingtangSelected;
-      let cetangSelected = this.data.cetangSelected;
-      if (pingtangSelected && cetangSelected) {
-        this.sendBlueCmd('005E56F8', ({
-          success: (res) => {
-            console.info('tabSave->发送成功');
-            that.startCurrentTimeOut('通讯中...', 3);
-          },
-          fail: (res) => {
-            console.error('tabSave->发送失败', res);
-          }
-        }));
-      } else {
-        util.showToast('请先完成 平躺/侧躺的个性位置设置!');
-        return;
-      }
+
+    // 长按
+    let pingtangSelected = this.data.pingtangSelected;
+    let cetangSelected = this.data.cetangSelected;
+    if (pingtangSelected && cetangSelected) {
+      this.sendBlueCmd('005E56F8', ({
+        success: (res) => {
+          console.info('tabSave->发送成功');
+          that.startCurrentTimeOut('通讯中...', 3);
+        },
+        fail: (res) => {
+          console.error('tabSave->发送失败', res);
+        }
+      }));
+    } else {
+      util.showToast('请先完成 平躺/侧躺的个性位置设置!');
+      return;
     }
+
   },
 
 

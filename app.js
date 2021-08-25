@@ -38,7 +38,7 @@ App({
     screenWidth: '',
     navHeight: '',
     connected:{},  // 当前已连接的设备信息
-    hasSleepInduction: true, // 智能睡眠感应开关
+    hasSleepInduction: false, // 智能睡眠感应开关
     sleepInduction: {  //智能睡眠感应信息
       status:'00',  // 00 关闭，01开启 其他定时
       nightLight:'00', // 智能夜灯 00 关闭 01开启

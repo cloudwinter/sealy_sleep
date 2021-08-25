@@ -68,15 +68,15 @@
 
     <!-- 保存按钮 -->
     <view style="display:flex;justify-content:center">
-      <view class="save-button" bindtouchstart="touchLongStart" bindtouchend="touchLongEnd" catchtap="tabSave">保存</view>
+      <view class="save-button" bindtap="tabSave">保存</view>
     </view>
 
     <!-- tips -->
     <view style="display:flex;justify-content:center;margin-top:60rpx">
       <view class="view-tips">
-        <view class="tips">1.平躺在床上，通过微调按键，调整到您最舒服的位置后，长按平躺；</view>
-        <view class="tips">2.侧躺在床上，通过微调按键，调整到您最舒服的位置后，长按侧躺；</view>
-        <view class="tips">3.长按完成键即可完成设置。</view>
+        <view class="tips">1.平躺在床上，通过微调按键，调整到您最舒服的位置后，长按平躺3秒后松开；</view>
+        <view class="tips">2.侧躺在床上，通过微调按键，调整到您最舒服的位置后，长按侧躺3秒后松开；</view>
+        <view class="tips">3.完成平躺/侧躺个性位置设置后，按下保存即可完成设置</view>
       </view>
     </view>
 

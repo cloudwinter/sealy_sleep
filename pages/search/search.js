@@ -516,7 +516,8 @@ Page({
       if (name) {
         if (name.indexOf('Sealy') >= 0 ||
           name.indexOf('QMS2') >= 0 ||
-          name.indexOf('QMS-MQ') >= 0) {
+          name.indexOf('QMS-MQ') >= 0 ||
+          name.indexOf('QMS3') >= 0) {
           return true;
         }
       }

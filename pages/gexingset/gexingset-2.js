@@ -278,7 +278,7 @@ Page({
       if (top) {
         cmd = '000D16C5';
       } else {
-        cmd = '00OE56C4';
+        cmd = '000E56C4';
       }
       this.sendBlueCmd(cmd);
     }
@@ -358,7 +358,10 @@ Page({
       this.sendBlueCmd('D05D4B39', ({
         success: (res) => {
           console.info('tapPingtang->发送成功');
-          that.startCurrentTimeOut('通讯中...', 3);
+          let timeOutName = that.startCurrentTimeOut('通讯中...', 3);
+          that.setData({
+            currentTimeOutName: timeOutName
+          })
         },
         fail: (res) => {
           console.error('tapPingtang->发送失败', res);
@@ -379,7 +382,10 @@ Page({
       this.sendBlueCmd('C05C8739', ({
         success: (res) => {
           console.info('tapCetang->发送成功');
-          that.startCurrentTimeOut('通讯中...', 3);
+          let timeOutName = that.startCurrentTimeOut('通讯中...', 3);
+          that.setData({
+            currentTimeOutName: timeOutName
+          })
         },
         fail: (res) => {
           console.error('tapCetang->发送失败', res);
@@ -401,7 +407,10 @@ Page({
       this.sendBlueCmd('005E56F8', ({
         success: (res) => {
           console.info('tabSave->发送成功');
-          that.startCurrentTimeOut('通讯中...', 3);
+          let timeOutName = that.startCurrentTimeOut('通讯中...', 3);
+          that.setData({
+            currentTimeOutName: timeOutName
+          })
         },
         fail: (res) => {
           console.error('tabSave->发送失败', res);

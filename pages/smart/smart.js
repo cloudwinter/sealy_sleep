@@ -188,6 +188,15 @@ Page({
       this.turnToGexingset();
     }
 
+    if (cmd = 'FFFFFFFF050000F03FD310') {
+      // 重新设置
+      this.clearCurrentTimeOut();
+      this.setData({
+        currentTimeOutName: '',
+        fuweiDialogShow: true
+      })
+    }
+
   },
 
 
@@ -345,10 +354,25 @@ Page({
    * 重新设置
    */
   resetMode: function () {
-    this.setData({
-      fuweiDialogShow: true
-    })
-    // this.turnToGexingset();
+    // this.setData({
+    //   fuweiDialogShow: true
+    // })
+    let that = this;
+    let cmd = 'FFFFFFFF050000F03FD310';
+    util.sendBlueCmd(connected, cmd, ({
+      success: (res) => {
+        console.info('resetMode->发送成功');
+        let timeoutName = that.startCurrentTimeOut("加载中...", 3);
+        that.setData({
+          currentTimeOutName: timeoutName,
+        })
+
+      },
+      fail: (res) => {
+        console.error('resetMode->发送失败', res);
+        util.showToast("通讯不成功，请检查硬件连接");
+      }
+    }));
   },
 
 

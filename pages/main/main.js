@@ -337,11 +337,11 @@ Page({
       that.sendRequestAlarmCmd(connected);
       setTimeout(function () {
         // 发送压力板指令
+        console.info('main->sendInitCmd 发送压力指令 time', new Date().getTime());
         that.sendBlueCmd('FFFFFFFF0200010B040E04');
         // 延时150ms发送页面初始化操作
         setTimeout(that.postInit, 150, connected);
-      },150)
-
+      },300)
     }, 150)
 
   },

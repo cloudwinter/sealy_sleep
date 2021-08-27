@@ -333,18 +333,25 @@ Page({
 
     // 延迟150ms发送时间指令
     setTimeout(function () {
-      // 发送时间校验指令
-      that.sendRequestAlarmCmd(connected);
+
+      // 发送压力板指令
+      console.info('main->sendInitCmd 发送压力指令 time', new Date().getTime());
+      that.sendBlueCmd('FFFFFFFF0200010B040E04');
+
       setTimeout(function () {
-        // 发送压力板指令
-        console.info('main->sendInitCmd 发送压力指令 time', new Date().getTime());
-        that.sendBlueCmd('FFFFFFFF0200010B040E04');
-        // 延时150ms发送页面初始化操作
-        setTimeout(that.postInit, 150, connected);
-      },300)
+        // 延时150ms页面初始化指令
+        that.postInit(connected)
+        // 延时150ms发送闹钟指令(时间校验指令)
+        setTimeout(that.sendRequestAlarmCmd, 200, connected);
+      }, 150)
     }, 150)
 
   },
+
+
+
+
+
 
 
   /**
@@ -370,7 +377,7 @@ Page({
         received.indexOf('FFFFFFFF01000413') >= 0) {
         // 有闹钟功能
         this.setAlarm(received, deviceId);
-      } else if(received.indexOf('FFFFFFFF0200020F04') >= 0) {
+      } else if (received.indexOf('FFFFFFFF0200020F04') >= 0) {
         // 有智能睡眠感应
         this.setSmart(received, deviceId);
       }
@@ -386,15 +393,15 @@ Page({
   setSmart: function (cmd, deviceId) {
     console.error('main->setSmart-->开启智能睡眠设置', cmd, deviceId);
     let status = cmd.substr(18, 2);
-    let nightLight = cmd.substr(22,2);
-    let mode = cmd.substr(20,2);
-    let gexingModel = cmd.substr(24,2);
+    let nightLight = cmd.substr(22, 2);
+    let mode = cmd.substr(20, 2);
+    let gexingModel = cmd.substr(24, 2);
     app.globalData.hasSleepInduction = true;
     app.globalData.sleepInduction = {
-      status:status,
-      nightLight:nightLight,
-      mode:mode,
-      gexingModel:gexingModel,
+      status: status,
+      nightLight: nightLight,
+      mode: mode,
+      gexingModel: gexingModel,
     }
   },
 

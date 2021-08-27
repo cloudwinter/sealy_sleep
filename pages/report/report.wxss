@@ -153,6 +153,9 @@
   height: 55rpx;
   display: flex;
   align-items: center;
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  justify-content: center;
 }
 
 

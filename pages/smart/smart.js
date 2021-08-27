@@ -358,6 +358,7 @@ Page({
     //   fuweiDialogShow: true
     // })
     let that = this;
+    let connected = this.data.connected;
     let cmd = 'FFFFFFFF050000F03FD310';
     util.sendBlueCmd(connected, cmd, ({
       success: (res) => {

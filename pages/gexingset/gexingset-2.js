@@ -91,7 +91,7 @@ Page({
   blueReply(cmd) {
     cmd = cmd.toUpperCase();
     var prefix = cmd.substr(0, 12);
-    console.info('gexingshezhi-1->askBack', cmd, prefix);
+    console.info('gexingshezhi-2->askBack', cmd, prefix);
 
     if (cmd == 'FFFFFFFF050000D05D4B39') {
       // 收到长按平躺的源码

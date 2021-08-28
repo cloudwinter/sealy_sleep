@@ -188,7 +188,7 @@ Page({
       this.turnToGexingset();
     }
 
-    if (cmd = 'FFFFFFFF050000FF3FD6E0') {
+    if (cmd == 'FFFFFFFF050000FF3FD6E0') {
       // 重新设置
       this.clearCurrentTimeOut();
       this.setData({
@@ -317,6 +317,7 @@ Page({
     if (ctype == 'confirm') {
       // 一键复位
       util.sendBlueCmd(connected, "FFFFFFFF0500000008D6C6");
+
     }
   },
 

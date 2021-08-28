@@ -342,7 +342,7 @@ Page({
         // 延时150ms页面初始化指令
         that.postInit(connected)
         // 延时150ms发送闹钟指令(时间校验指令)
-        setTimeout(that.sendRequestAlarmCmd, 200, connected);
+        setTimeout(that.sendRequestAlarmCmd, 1000, connected);
       }, 150)
     }, 150)
 

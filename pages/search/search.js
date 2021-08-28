@@ -474,7 +474,7 @@ Page({
           }
           console.log('device connected:', that.data.connected);
           app.globalData.connected = that.data.connected;
-          app.globalData.hasSleepInduction = true;
+          app.globalData.hasSleepInduction = false;
           var sleepInduction = {
             status:'00',  // 00 关闭，01开启 其他定时
             nightLight:'00', // 智能夜灯 00 关闭 01开启

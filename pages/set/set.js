@@ -83,10 +83,10 @@ Page({
    */
   onShow: function () {
     let alarmStatus = this.data.alarmStatus;
+    let smartStatus = this.data.smartStatus;
     if (util.isNotEmptyObject(this.data.connected)) {
       let hasSleepInduction = app.globalData.hasSleepInduction;
       let inductionStatus = app.globalData.sleepInduction.status;
-      let smartStatus = '已关闭';
       if (hasSleepInduction && inductionStatus == '01') {
           smartStatus = '已开启';
       }

@@ -86,7 +86,7 @@ Page({
       connected: connected,
       sleepInduction: sleepInduction,
       timer: timer,
-      fuweiDialogShow
+      fuweiDialogShow:fuweiDialogShow,
     })
 
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
@@ -188,7 +188,7 @@ Page({
       this.turnToGexingset();
     }
 
-    if (cmd = 'FFFFFFFF050000F03FD310') {
+    if (cmd = 'FFFFFFFF050000FF3FD6E0') {
       // 重新设置
       this.clearCurrentTimeOut();
       this.setData({
@@ -359,7 +359,7 @@ Page({
     // })
     let that = this;
     let connected = this.data.connected;
-    let cmd = 'FFFFFFFF050000F03FD310';
+    let cmd = 'FFFFFFFF050000FF3FD6E0';
     util.sendBlueCmd(connected, cmd, ({
       success: (res) => {
         console.info('resetMode->发送成功');

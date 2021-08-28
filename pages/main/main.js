@@ -326,17 +326,18 @@ Page({
    * 在各个页面发送指令之前发送指令
    */
   sendInitCmd: function (connected) {
-    console.info('main->sendInitCmd 发送灯光指令 time', new Date().getTime());
+    
     let that = this;
-    // 先发送灯光指令
-    that.sendBlueCmd('FFFFFFFF050000FF23D729');
+
+    // 发送压力板指令
+    console.info('main->sendInitCmd 发送压力指令 time', new Date().getTime());
+    that.sendBlueCmd('FFFFFFFF0200010B040E04');
 
     // 延迟150ms发送时间指令
     setTimeout(function () {
-
-      // 发送压力板指令
-      console.info('main->sendInitCmd 发送压力指令 time', new Date().getTime());
-      that.sendBlueCmd('FFFFFFFF0200010B040E04');
+      console.info('main->sendInitCmd 发送灯光指令 time', new Date().getTime());
+      // 先发送灯光指令
+      that.sendBlueCmd('FFFFFFFF050000FF23D729');
 
       setTimeout(function () {
         // 延时150ms页面初始化指令
@@ -344,7 +345,7 @@ Page({
         // 延时150ms发送闹钟指令(时间校验指令)
         setTimeout(that.sendRequestAlarmCmd, 1000, connected);
       }, 150)
-    }, 150)
+    }, 200)
 
   },
 
@@ -377,7 +378,7 @@ Page({
         received.indexOf('FFFFFFFF01000413') >= 0) {
         // 有闹钟功能
         this.setAlarm(received, deviceId);
-      } else if (received.indexOf('FFFFFFFF0200020F04') >= 0) {
+      } else if (received.indexOf('FFFFFFFF0200020F') >= 0) {
         // 有智能睡眠感应
         this.setSmart(received, deviceId);
       }

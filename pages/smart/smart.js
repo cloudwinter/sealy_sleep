@@ -407,12 +407,16 @@ Page({
     let that = this;
     util.sendBlueCmd(connected, cmd, ({
       success: (res) => {
-        console.info('onNextModalClick->发送成功');
+        console.info('save->发送成功');
         let timeoutName = that.startCurrentTimeOut("加载中...", 3);
         that.setData({
           tempSaveCmd: cmd,
           currentTimeOutName: timeoutName,
         })
+
+        // setTimeout(() => {
+        //   that.blueReply(cmd);
+        // }, 200);
 
       },
       fail: (res) => {

@@ -56,7 +56,7 @@ Page({
     let hasSleepInduction = app.globalData.hasSleepInduction;
     let inductionStatus = app.globalData.sleepInduction.status;
     if (hasSleepInduction && inductionStatus == '01') {
-        smartStatus = '已开启';
+      smartStatus = '已开启';
     }
     this.setData({
       skin: app.globalData.skin,
@@ -88,7 +88,9 @@ Page({
       let hasSleepInduction = app.globalData.hasSleepInduction;
       let inductionStatus = app.globalData.sleepInduction.status;
       if (hasSleepInduction && inductionStatus == '01') {
-          smartStatus = '已开启';
+        smartStatus = '已开启';
+      } else {
+        smartStatus = '已关闭';
       }
 
       let alarm = configManager.getAlarm(this.data.connected.deviceId);

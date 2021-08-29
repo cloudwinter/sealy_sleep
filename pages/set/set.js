@@ -87,12 +87,29 @@ Page({
     if (util.isNotEmptyObject(this.data.connected)) {
       let hasSleepInduction = app.globalData.hasSleepInduction;
       let inductionStatus = app.globalData.sleepInduction.status;
-      if (hasSleepInduction && inductionStatus == '01') {
-        smartStatus = '已开启';
-      } else {
-        smartStatus = '已关闭';
+      if(hasSleepInduction) {
+        if(inductionStatus == '01') {
+          smartStatus = '已开启';
+        } if (inductionStatus == '11') {
+          smartStatus = "定时开启 20:00";
+        } else if (inductionStatus == '12') {
+          smartStatus = "定时开启 20:30";
+        } else if (inductionStatus == '13') {
+          smartStatus = "定时开启 21:00";
+        } else if (inductionStatus == '14') {
+          smartStatus = "定时开启 21:30";
+        } else if (inductionStatus == '15') {
+          smartStatus = "定时开启 22:00";
+        } else if (inductionStatus == '16') {
+          smartStatus = "定时开启 22:30";
+        } else if (inductionStatus == '17') {
+          smartStatus = "定时开启 23:00";
+        } else if (inductionStatus == '18') {
+          smartStatus = "定时开启 23:30";
+        } else {
+          smartStatus = "关闭";
+        }
       }
-
       let alarm = configManager.getAlarm(this.data.connected.deviceId);
       if (util.isNotEmptyObject(alarm)) {
         if (alarm.isOpenAlarm) {

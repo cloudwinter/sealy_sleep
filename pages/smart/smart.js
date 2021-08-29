@@ -159,7 +159,7 @@ Page({
       })
       return;
     }
-    if (cmd == 'FFFFFFFF0500000008D6C6') {
+    if (cmd == 'FFFFFFFF0500000208D7A6') {
       let timeOutName = this.startCurrentTimeOut('复位中...', 100);
       this.setData({
         currentTimeOutName: timeOutName
@@ -316,7 +316,7 @@ Page({
     })
     if (ctype == 'confirm') {
       // 一键复位
-      util.sendBlueCmd(connected, "FFFFFFFF0500000008D6C6");
+      util.sendBlueCmd(connected, "FFFFFFFF0500000208D7A6");
 
     }
   },

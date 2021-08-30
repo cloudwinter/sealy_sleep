@@ -295,8 +295,8 @@ Page({
       console.info('main->onBLECharacteristicValueChange', res);
       var buffer = res.value;
       var received = util.ab2hex(buffer);
-      //received = 'ffffffff0200020f04010005c7704'
-      console.info('main->onBLECharacteristicValueChange-->received', received);
+      //received = 'ffffffff0200020f04010101011704'
+      //console.info('main->onBLECharacteristicValueChange-->received', received);
       that.blueReply(received, connected);
       WxNotificationCenter.postNotificationName('BLUEREPLY', received);
     });
@@ -345,7 +345,7 @@ Page({
         // 延时150ms发送闹钟指令(时间校验指令)
         setTimeout(that.sendRequestAlarmCmd, 1000, connected);
       }, 150)
-    }, 200)
+    }, 300)
 
   },
 
@@ -399,10 +399,10 @@ Page({
     let gexingModel = cmd.substr(24, 2);
     app.globalData.hasSleepInduction = true;
     app.globalData.sleepInduction = {
-      status: status,
-      nightLight: nightLight,
-      mode: mode,
-      gexingModel: gexingModel,
+      status: util.isNotEmptyStr(status)?status:'00',
+      nightLight: util.isNotEmptyStr(nightLight)?nightLight:'00',
+      mode: util.isNotEmptyStr(mode)?mode:'00',
+      gexingModel: util.isNotEmptyStr(gexingModel)?gexingModel:'00',
     }
   },
 

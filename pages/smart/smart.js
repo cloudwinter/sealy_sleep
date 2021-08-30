@@ -79,6 +79,7 @@ Page({
   onLoad: function (options) {
     let connected = configManager.getCurrentConnected();
     let sleepInduction = app.globalData.sleepInduction;
+    console.info('onLoad',sleepInduction,connected);
     let timer = this.getTimer(sleepInduction.status);
     let fuweiDialogShow = sleepInduction.gexingModel == '01' ? false : true;
     this.setData({

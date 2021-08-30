@@ -87,10 +87,11 @@ Page({
     if (util.isNotEmptyObject(this.data.connected)) {
       let hasSleepInduction = app.globalData.hasSleepInduction;
       let inductionStatus = app.globalData.sleepInduction.status;
-      if(hasSleepInduction) {
-        if(inductionStatus == '01') {
+      console.info('onShow', inductionStatus);
+      if (hasSleepInduction) {
+        if (inductionStatus == '01') {
           smartStatus = '已开启';
-        } if (inductionStatus == '11') {
+        } else if (inductionStatus == '11') {
           smartStatus = "定时开启 20:00";
         } else if (inductionStatus == '12') {
           smartStatus = "定时开启 20:30";

@@ -79,7 +79,7 @@ Page({
   onLoad: function (options) {
     let connected = configManager.getCurrentConnected();
     let sleepInduction = app.globalData.sleepInduction;
-    console.info('onLoad',sleepInduction,connected);
+    console.info('onLoad', sleepInduction, connected);
     let timer = this.getTimer(sleepInduction.status);
     let fuweiDialogShow = sleepInduction.gexingModel == '01' ? false : true;
     this.setData({
@@ -87,7 +87,7 @@ Page({
       connected: connected,
       sleepInduction: sleepInduction,
       timer: timer,
-      fuweiDialogShow:fuweiDialogShow,
+      fuweiDialogShow: fuweiDialogShow,
     })
 
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
@@ -384,7 +384,8 @@ Page({
     let connected = this.data.connected;
     let name = connected.name.toUpperCase();
     console.info('turnToGexingset:', connected, name);
-    if (name.indexOf('SEALY') >= 0 || name.indexOf('QMS2') >= 0) {
+    if (name.indexOf('SEALY') >= 0 || name.indexOf('QMS2') >= 0 ||
+      name.indexOf('QMS-MQ') >= 0) {
       wx.navigateTo({
         url: '/pages/gexingset/gexingset-2',
       })

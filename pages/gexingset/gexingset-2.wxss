@@ -189,10 +189,10 @@
 
 .tips {
 
-  font-size: 24rpx;
+  font-size: 28rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
-  color: #696969;
+  color: #5EA2D7;
   display: flex;
 }
 

@@ -208,4 +208,38 @@
   margin-left: 40rpx;
   margin-right: 40rpx;
   text-align: center;
+  flex-direction: column;
+}
+
+.dialog-item {
+  height: 100%;
+  width: 90%;
+  background: #2B2D36;
+  display: flex;
+  align-items: center;
+  color: #FFFFFF;
+}
+
+.dialog-item .checkbox {
+  margin-left: 20rpx;
+}
+
+.dialog-item-name {
+  margin-left: 10rpx;
+}
+
+.set-dialog-button {
+  font-size: 30rpx;
+}
+
+
+.modal-box-button1 {
+  font-size: 30rpx;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  background-color: #2B2D36;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

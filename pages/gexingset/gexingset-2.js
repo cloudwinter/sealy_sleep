@@ -54,6 +54,12 @@ Page({
     failedDialogShow: false, // 通信失败的对话框
     tempSaveCmd: '', // 临时保存发送的命令
     currentTimeOutName: '', // 当前定时器的name
+    setDialogShow: false,
+    eeValue: '00', // 00,01,02
+    aa: '4560',
+    bb: '4560',
+    cc: '4560',
+    dd: '4560',
   },
 
   /**
@@ -116,11 +122,38 @@ Page({
       this.setData({
         currentTimeOutName: '',
       })
+      this.sendSetBlueCmd();
       // 返回上一页
-      wx.navigateBack({
-        delta: 1,
+      // wx.navigateBack({
+      //   delta: 1,
+      // })
+    }
+    if (cmd.indexOf('FFFFFFFF02000413') >= 0) {
+      let AAAA = cmd.substr(18, 2) + cmd.substr(16, 2);
+      let BBBB = cmd.substr(22, 2) + cmd.substr(20, 2);
+      let CCCC = cmd.substr(26, 2) + cmd.substr(24, 2);
+      let DDDD = cmd.substr(30, 2) + cmd.substr(28, 2);
+      let EE = cmd.substr(32, 2);
+      this.setData({
+        setDialogShow: true,
+        aa: util.str16To10(AAAA),
+        bb: util.str16To10(BBBB),
+        cc: util.str16To10(CCCC),
+        dd: util.str16To10(DDDD),
+        eeValue: EE
       })
     }
+  },
+
+  /**
+   * 发送蓝牙命令
+   */
+  sendSetBlueCmd() {
+    var connected = this.data.connected;
+    let cmd = 'FFFFFFFF0200030BFF';
+    let cmdCrc = crcUtil.HexToCSU16(cmd);
+    cmd = cmd + cmdCrc;
+    util.sendBlueCmd(connected, cmd, options);
   },
 
 
@@ -462,7 +495,25 @@ Page({
     this.setData({
       failedDialogShow: false
     })
-  }
+  },
+
+
+  /**
+   * 设置对话框的点击事件
+   */
+  onSetModalClick: function (e) {
+    var ctype = e.currentTarget.dataset.ctype;
+    console.info('onSetModalClick:', ctype, e);
+    this.setData({
+      setDialogShow: false
+    })
+    if (ctype == 'confirm') {
+      // 返回上一页
+      wx.navigateBack({
+        delta: 1,
+      })
+    }
+  },
 
 
 

@@ -151,13 +151,13 @@
           <block wx:if="{{eeValue == '00'}}">重新设置</block>
           <block wx:if="{{eeValue == '07'}}">
             <view>
-              <view>已完成调整</view>
+              <view>已完成位置调整</view>
               <view>重新设置</view>
             </view>
           </block>
           <block wx:if="{{eeValue == '1E'}}">
             <view>
-              <view>已完成调整</view>
+              <view>已完成位置调整</view>
               <view>重新设置</view>
             </view>
           </block>

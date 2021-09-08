@@ -514,6 +514,11 @@ Page({
       wx.navigateBack({
         delta: 1,
       })
+    } else {
+      this.setData({
+        pingtangSelected:false,
+        cetangSelected:false
+      })
     }
   },
 

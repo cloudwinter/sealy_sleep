@@ -153,7 +153,7 @@ Page({
     let cmd = 'FFFFFFFF0200030BFF';
     let cmdCrc = crcUtil.HexToCSU16(cmd);
     cmd = cmd + cmdCrc;
-    util.sendBlueCmd(connected, cmd, options);
+    util.sendBlueCmd(connected, cmd);
   },
 
 

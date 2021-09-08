@@ -125,15 +125,15 @@
           <view class="dialog-item-name" style="">{{aa}}</view>
         </view>
         <view class="dialog-item" hover-class="item-hover" style="margin-top:10rpx;">
-          <view class="dialog-item-name" style="">平躺门限值：</view>
+          <view class="dialog-item-name" style="">平躺特征值：</view>
           <view class="dialog-item-name" style="">{{bb}}</view>
         </view>
         <view class="dialog-item" hover-class="item-hover" style="margin-top:10rpx;">
-          <view class="dialog-item-name" style="">平躺门限值：</view>
+          <view class="dialog-item-name" style="">侧躺门限值：</view>
           <view class="dialog-item-name" style="">{{cc}}</view>
         </view>
         <view class="dialog-item" hover-class="item-hover" style="margin-top:10rpx;">
-          <view class="dialog-item-name" style="">平躺门限值：</view>
+          <view class="dialog-item-name" style="">侧躺特征值：</view>
           <view class="dialog-item-name" style="">{{dd}}</view>
         </view>
         <view class="dialog-item" hover-class="item-hover" style="margin-top:10rpx;">

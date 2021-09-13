@@ -12,6 +12,13 @@
   border:3rpx solid #5EA2D7;
 }
 
+.dark .shezhi-button-bg {
+  width: 90% !important;
+  height: 120rpx;
+  border-radius: 120rpx;
+  background: #1E1F24;
+}
+
 
 .orange .button-bg {
   background: #6E269A;
@@ -30,7 +37,7 @@
   height: 120rpx;
   padding-top: 20rpx;
   width: 100%;
-  margin-top: 100rpx;
+  margin-top: 60rpx;
 }
 
 .jiyi .button {
@@ -144,4 +151,45 @@
 .anjiian-content .name{
   color: #5EA2D7;
   font-size: 24rpx;
+}
+
+.sleep-smart {
+  width: 100%;
+  height: 120rpx;
+  justify-content: center;
+  display: flex;
+  margin-top: 10rpx;
+}
+
+.shezhi-content {
+  width: 90%;
+  height: 120rpx;
+  margin-top: 36rpx;
+  display: flex;
+  align-items: center;
+}
+
+
+.shezhi-button-left {
+  flex: 1;
+  color: #5EA2D7;
+  font-size: 28rpx;
+  margin-left: 62rpx;
+}
+
+.shezhi-button-right {
+  display: flex;
+  align-items: center;
+  margin-right: 50rpx;
+}
+
+.shezhi-button-name {
+  color: #5EA2D7;
+  font-size: 28rpx;
+}
+
+.shezhi-button-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 20rpx;
 }

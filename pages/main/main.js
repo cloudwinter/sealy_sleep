@@ -162,6 +162,7 @@ Page({
       nowPage: "kuaijie",
       nowIndex: 0
     })
+    WxNotificationCenter.postNotificationName('VIEWSHOW');
   },
   toWeitiao() {
     this.setData({

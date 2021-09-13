@@ -34,7 +34,9 @@ Component({
     lingyali: false,
     zhihan: false,
     startTime: '',
-    endTime: ''
+    endTime: '',
+    smartStatus: "已关闭",
+    hasSleepInduction: true
   },
 
 
@@ -44,10 +46,42 @@ Component({
   pageLifetimes: {
     show: function () {
       // 设置当前的皮肤样式
+
+      console.info("kuaijie-K2->show", app.globalData);
+      let smartStatus = '已关闭';
+      let hasSleepInduction = app.globalData.hasSleepInduction;
+      let inductionStatus = app.globalData.sleepInduction.status;
+      console.info('onShow', inductionStatus);
+      if (hasSleepInduction) {
+        if (inductionStatus == '01') {
+          smartStatus = '已开启';
+        } else if (inductionStatus == '11') {
+          smartStatus = "定时开启 20:00";
+        } else if (inductionStatus == '12') {
+          smartStatus = "定时开启 20:30";
+        } else if (inductionStatus == '13') {
+          smartStatus = "定时开启 21:00";
+        } else if (inductionStatus == '14') {
+          smartStatus = "定时开启 21:30";
+        } else if (inductionStatus == '15') {
+          smartStatus = "定时开启 22:00";
+        } else if (inductionStatus == '16') {
+          smartStatus = "定时开启 22:30";
+        } else if (inductionStatus == '17') {
+          smartStatus = "定时开启 23:00";
+        } else if (inductionStatus == '18') {
+          smartStatus = "定时开启 23:30";
+        } else {
+          smartStatus = "关闭";
+        }
+      }
       this.setData({
+        hasSleepInduction: hasSleepInduction,
+        smartStatus: smartStatus,
         skin: app.globalData.skin
       })
     }
+
   },
 
   lifetimes: {
@@ -57,6 +91,7 @@ Component({
       var that = this;
       WxNotificationCenter.addNotification("INIT", that.initConnected, that);
       WxNotificationCenter.addNotification("BLUEREPLY", that.blueReply, that);
+      WxNotificationCenter.addNotification("VIEWSHOW", that.viewShow, that);
     },
     ready: function () {
       // 在组件在视图层布局完成后执行
@@ -81,6 +116,7 @@ Component({
    * 组件的方法列表
    */
   methods: {
+
     /**
      * 连接后初始化
      * @param {*} connected 
@@ -91,8 +127,44 @@ Component({
       that.setData({
         connected: connected,
       })
-      WxNotificationCenter.removeNotification("INIT",that);
+      WxNotificationCenter.removeNotification("INIT", that);
       that.askJiyiStatus(connected, that);
+    },
+
+    viewShow() {
+      var that = this.observer;
+      let smartStatus = that.data.smartStatus
+      console.info('kuaijie-K2->viewShow:', this.observer);
+      let hasSleepInduction = app.globalData.hasSleepInduction;
+      let inductionStatus = app.globalData.sleepInduction.status;
+      console.info('onShow', inductionStatus);
+      if (hasSleepInduction) {
+        if (inductionStatus == '01') {
+          smartStatus = '已开启';
+        } else if (inductionStatus == '11') {
+          smartStatus = "定时开启 20:00";
+        } else if (inductionStatus == '12') {
+          smartStatus = "定时开启 20:30";
+        } else if (inductionStatus == '13') {
+          smartStatus = "定时开启 21:00";
+        } else if (inductionStatus == '14') {
+          smartStatus = "定时开启 21:30";
+        } else if (inductionStatus == '15') {
+          smartStatus = "定时开启 22:00";
+        } else if (inductionStatus == '16') {
+          smartStatus = "定时开启 22:30";
+        } else if (inductionStatus == '17') {
+          smartStatus = "定时开启 23:00";
+        } else if (inductionStatus == '18') {
+          smartStatus = "定时开启 23:30";
+        } else {
+          smartStatus = "关闭";
+        }
+      }
+      that.setData({
+        hasSleepInduction: hasSleepInduction,
+        smartStatus: smartStatus,
+      })
     },
 
     /**
@@ -163,7 +235,7 @@ Component({
     },
 
 
-  
+
 
     /**
      * 蓝牙回复回调
@@ -251,6 +323,12 @@ Component({
     sendBlueCmd(cmd, options) {
       var connected = this.data.connected;
       util.sendBlueCmd(connected, sendPrefix + cmd, options);
+      let sleepInduction = app.globalData.sleepInduction;
+      sleepInduction.status = '00';
+      app.globalData.sleepInduction = sleepInduction;
+      this.setData({
+        smartStatus: '关闭'
+      })
     },
 
 
@@ -567,6 +645,17 @@ Component({
       })
       // 单击
       this.sendBlueCmd('0008D6C6');
+    },
+
+
+    /**
+     * 智能睡眠设置
+     * @param {*} e 
+     */
+    smart: function (e) {
+      wx.navigateTo({
+        url: '/pages/induction/induction',
+      })
     },
 
 

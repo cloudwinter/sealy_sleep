@@ -405,6 +405,7 @@ Page({
       mode: util.isNotEmptyStr(mode)?mode:'00',
       gexingModel: util.isNotEmptyStr(gexingModel)?gexingModel:'00',
     }
+    WxNotificationCenter.postNotificationName('VIEWSHOW');
   },
 
   /**

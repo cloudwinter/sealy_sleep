@@ -173,7 +173,6 @@
 .shezhi-button-left {
   flex: 1;
   color: #5EA2D7;
-  font-size: 28rpx;
   margin-left: 62rpx;
 }
 
@@ -185,7 +184,6 @@
 
 .shezhi-button-name {
   color: #5EA2D7;
-  font-size: 28rpx;
 }
 
 .shezhi-button-icon {

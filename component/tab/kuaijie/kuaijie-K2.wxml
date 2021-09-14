@@ -27,12 +27,11 @@
 		</view>
 	</view>
 
-	<view class="sleep-smart" hidden="{{!hasSleepInduction}}">
-		<view class="shezhi-content shezhi-button-bg" bindtap="smart">
+	<view class="sleep-smart"  hidden="{{!hasSleepInduction}}" >
+		<view class="shezhi-content shezhi-button-bg" catchtap="smart">
 			<view class="shezhi-button-left">智能睡眠</view>
 			<view class="shezhi-button-right">
-				<view class="shezhi-button-name">{{smartStatus}}</view>
-				<image class="shezhi-button-icon" src="../../../images/{{skin}}/row@3x.png"></image>
+				<view class="shezhi-button-name">{{swichSmart}}</view>
 			</view>
 		</view>
 	</view>

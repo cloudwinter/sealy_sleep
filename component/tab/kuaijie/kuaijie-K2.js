@@ -35,7 +35,7 @@ Component({
     zhihan: false,
     startTime: '',
     endTime: '',
-    smartStatus: "已关闭",
+    swichSmart: "关闭",
     hasSleepInduction: true
   },
 
@@ -48,36 +48,22 @@ Component({
       // 设置当前的皮肤样式
 
       console.info("kuaijie-K2->show", app.globalData);
-      let smartStatus = '已关闭';
+      let swichSmart = '关闭';
       let hasSleepInduction = app.globalData.hasSleepInduction;
       let inductionStatus = app.globalData.sleepInduction.status;
       console.info('onShow', inductionStatus);
       if (hasSleepInduction) {
         if (inductionStatus == '01') {
-          smartStatus = '已开启';
-        } else if (inductionStatus == '11') {
-          smartStatus = "定时开启 20:00";
-        } else if (inductionStatus == '12') {
-          smartStatus = "定时开启 20:30";
-        } else if (inductionStatus == '13') {
-          smartStatus = "定时开启 21:00";
-        } else if (inductionStatus == '14') {
-          smartStatus = "定时开启 21:30";
-        } else if (inductionStatus == '15') {
-          smartStatus = "定时开启 22:00";
-        } else if (inductionStatus == '16') {
-          smartStatus = "定时开启 22:30";
-        } else if (inductionStatus == '17') {
-          smartStatus = "定时开启 23:00";
-        } else if (inductionStatus == '18') {
-          smartStatus = "定时开启 23:30";
+          swichSmart = '开启';
+        } else if(inductionStatus == '00') {
+          swichSmart = "关闭";
         } else {
-          smartStatus = "关闭";
+          swichSmart = "定时开启";
         }
       }
       this.setData({
         hasSleepInduction: hasSleepInduction,
-        smartStatus: smartStatus,
+        swichSmart: swichSmart,
         skin: app.globalData.skin
       })
     }
@@ -133,37 +119,23 @@ Component({
 
     viewShow() {
       var that = this.observer;
-      let smartStatus = that.data.smartStatus
+      let swichSmart = that.data.swichSmart
       console.info('kuaijie-K2->viewShow:', this.observer);
       let hasSleepInduction = app.globalData.hasSleepInduction;
       let inductionStatus = app.globalData.sleepInduction.status;
       console.info('onShow', inductionStatus);
       if (hasSleepInduction) {
         if (inductionStatus == '01') {
-          smartStatus = '已开启';
-        } else if (inductionStatus == '11') {
-          smartStatus = "定时开启 20:00";
-        } else if (inductionStatus == '12') {
-          smartStatus = "定时开启 20:30";
-        } else if (inductionStatus == '13') {
-          smartStatus = "定时开启 21:00";
-        } else if (inductionStatus == '14') {
-          smartStatus = "定时开启 21:30";
-        } else if (inductionStatus == '15') {
-          smartStatus = "定时开启 22:00";
-        } else if (inductionStatus == '16') {
-          smartStatus = "定时开启 22:30";
-        } else if (inductionStatus == '17') {
-          smartStatus = "定时开启 23:00";
-        } else if (inductionStatus == '18') {
-          smartStatus = "定时开启 23:30";
+          swichSmart = '开启';
+        } else if(inductionStatus == '00') {
+          swichSmart = "关闭";
         } else {
-          smartStatus = "关闭";
+          swichSmart = "定时开启";
         }
       }
       that.setData({
         hasSleepInduction: hasSleepInduction,
-        smartStatus: smartStatus,
+        swichSmart: swichSmart,
       })
     },
 
@@ -327,7 +299,7 @@ Component({
       sleepInduction.status = '00';
       app.globalData.sleepInduction = sleepInduction;
       this.setData({
-        smartStatus: '关闭'
+        swichSmart: '关闭'
       })
     },
 
@@ -653,9 +625,25 @@ Component({
      * @param {*} e 
      */
     smart: function (e) {
-      wx.navigateTo({
-        url: '/pages/induction/induction',
+      var connected = this.data.connected;
+      let swichSmart = this.data.swichSmart;
+      let sleepInduction = app.globalData.sleepInduction;
+      let cmd = '';
+      if(swichSmart == '开启') {
+        cmd = 'FFFFFFFF050000F03FD310'
+        swichSmart = '关闭';
+        sleepInduction.status = '00';
+      } else {
+        cmd = 'FFFFFFFF050000003F9710'
+        swichSmart = '开启';
+        sleepInduction.status = '01';
+      }
+      util.sendBlueCmd(connected, cmd);
+      this.setData({
+        swichSmart:swichSmart
       })
+      app.globalData.sleepInduction = sleepInduction;
+
     },
 
 

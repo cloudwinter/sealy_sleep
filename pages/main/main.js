@@ -395,8 +395,8 @@ Page({
   setSmart: function (cmd, deviceId) {
     console.error('main->setSmart-->开启智能睡眠设置', cmd, deviceId);
     let status = cmd.substr(18, 2);
-    let nightLight = cmd.substr(22, 2);
-    let mode = cmd.substr(20, 2);
+    let nightLight = cmd.substr(20, 2);
+    let mode = cmd.substr(22, 2);
     let gexingModel = cmd.substr(24, 2);
     app.globalData.hasSleepInduction = true;
     app.globalData.sleepInduction = {

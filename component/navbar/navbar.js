@@ -1,4 +1,6 @@
 // component/navbar/navbar.js
+const util = require('../../utils/util');
+const configManager = require('../../utils/configManager');
 
 Component({
   options: {
@@ -94,6 +96,10 @@ Component({
         wx.navigateTo({
           url: '/pages/set/set',
         })
+        let connected = configManager.getCurrentConnected();
+        if(connected){
+            util.sendBlueCmd(connected, 'FFFFFFFF0200010B040E04');
+        }        
       }
 
   }

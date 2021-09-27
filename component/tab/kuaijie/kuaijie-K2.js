@@ -143,8 +143,8 @@ Component({
      * 询问记忆状态
      */
     askJiyiStatus(connected, cur) {
-      var name = connected.name;
-      if (name.indexOf('QMS-MQ') >= 0 || name.indexOf('QMS2') >= 0 || name.indexOf('Sealy')) {
+      var name = connected.name.toUpperCase();
+      if (name.indexOf('QMS-MQ') >= 0 || name.indexOf('QMS2') >= 0 || name.indexOf('SEALY') >= 0) {
         cur.setData({
           askType: '2'
         })

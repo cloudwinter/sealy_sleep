@@ -1,3 +1,4 @@
+/* pages/inductionset/inductionset.wxss */
 /* pages/smart/smart.wxss */
 .dark .shezhi-button-bg {
   width: 90% !important;
@@ -71,6 +72,7 @@
 }
 
 
+
 .item-left {
   flex: 1;
   color: white;
@@ -81,7 +83,7 @@
 .item-right {
   display: flex;
   align-items: center;
-  margin-right: 25rpx;
+  margin-right: 50rpx;
 }
 
 .item-right-name {
@@ -149,8 +151,8 @@
 
 .model-line {
   width: 100%;
-  height: 1px;
-  background: #000000;
+  height: 1rpx;
+  background: #eee;
 }
 
 .modal-box-body {
@@ -161,10 +163,9 @@
 .dialog-item {
   height: 80rpx;
   width: 100%;
-  background: #2B2D36;
+  background: #FFFFFF;
   display: flex;
   align-items: center;
-  color: #FFFFFF;
 }
 
 .dialog-item .checkbox {
@@ -185,36 +186,4 @@
   display: block;
   padding: 5px;
   width: 100%;
-}
-
-.row-line {
-  height: 1px;
-  background-color: #121316;
-}
-
-.button {
-  width: 100%;
-  height: 90rpx;
-  background: #1E1F24;
-  display: flex;
-  justify-content: center;
-  margin-top: 48rpx;
-  color: #5EA2D7;
-  font-size: 28rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-  align-items: center;
-}
-
-.model-content {
-  font-size: 36rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-  color: #FFFFFF;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  margin-top: 47rpx;
-  margin-bottom: 47rpx;
-  margin-left: 40rpx;
-  margin-right: 40rpx;
-  text-align: center;
 }

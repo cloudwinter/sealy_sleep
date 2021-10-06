@@ -164,7 +164,7 @@ Page({
       var firstAutoConnected = this.data.firstAutoConnected;
       console.log('onBluetoothDeviceFound 启动', lastConnectedDeviceId, firstAutoConnected);
       wx.onBluetoothDeviceFound(function (res) {
-        console.log("onBluetoothDeviceFound 搜索到", res);
+        //console.log("onBluetoothDeviceFound 搜索到", res);
         if (res.devices[0]) {
           var mac = util.ab2hex(res.devices[0].advertisData);
           var sn = mac.slice(4, 8);
@@ -193,7 +193,7 @@ Page({
                     RSSI: res.devices[0].RSSI,
                     deviceId: res.devices[0].deviceId
                   })
-                  console.log("当前 devicesList", devs);
+                  //console.log("当前 devicesList", devs);
                   that.setData({
                     devices: devs
                   });
@@ -454,7 +454,7 @@ Page({
         deviceId: deviceId,
         serviceId: serviceId,
         success: function (res) {
-          console.log("getBLcharac", res);
+          //console.log("getBLcharac", res);
           for (var i = 0; i < res.characteristics.length; i++) {
             if (res.characteristics[i].properties.notify) {
               console.log("getBLcharac", res.characteristics[i].uuid);
@@ -473,6 +473,15 @@ Page({
             }
           }
           console.log('device connected:', that.data.connected);
+          app.globalData.connected = that.data.connected;
+          app.globalData.hasSleepInduction = false;
+          var sleepInduction = {
+            status:'00',  // 00 关闭，01开启 其他定时
+            nightLight:'00', // 智能夜灯 00 关闭 01开启
+            mode:'00', // 模式 00 预设位置 01 个性位置
+            gexingModel:'00'  // 个性模式 00 个性未设置 01 个性已设置
+          }
+          app.globalData.sleepInduction = sleepInduction;
           configManager.putCurrentConnected(that.data.connected);
           that.turnToMain(true);
         },
@@ -515,7 +524,8 @@ Page({
       if (name) {
         if (name.indexOf('Sealy') >= 0 ||
           name.indexOf('QMS2') >= 0 ||
-          name.indexOf('QMS-MQ') >= 0) {
+          name.indexOf('QMS-MQ') >= 0 ||
+          name.indexOf('QMS3') >= 0) {
           return true;
         }
       }

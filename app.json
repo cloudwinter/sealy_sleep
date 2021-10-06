@@ -6,9 +6,12 @@
     "pages/set/set",
     "pages/introduce/introduce",
     "pages/alarm/alarm",
+    "pages/induction/induction",
+    "pages/report/report",
+    "pages/wmreport/wmreport",
     "pages/smart/smart",
-    "pages/report/report"
-
+    "pages/gexingset/gexingset-1",
+    "pages/gexingset/gexingset-2"
   ],
   "window": {
     "backgroundTextStyle": "light",

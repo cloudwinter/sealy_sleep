@@ -34,12 +34,15 @@ Page({
     selectedRadio: 'drak',
     alarmStatus: '未设置',
     alarmSwitch: false,
+    smartStatus: "已关闭",
+    hasSleepInduction: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.info('set->onLoad:', app.globalData, this.data.hasSleepInduction);
     let connected = configManager.getCurrentConnected();
     let alarmSwitch = false;
     let status = this.data.status;
@@ -49,12 +52,20 @@ Page({
     } else {
       status = '未连接';
     }
+    let smartStatus = '已关闭';
+    let hasSleepInduction = app.globalData.hasSleepInduction;
+    let inductionStatus = app.globalData.sleepInduction.status;
+    if (hasSleepInduction && inductionStatus == '01') {
+      smartStatus = '已开启';
+    }
     this.setData({
       skin: app.globalData.skin,
       selectedRadio: app.globalData.skin,
       connected: connected,
       status: status,
       alarmSwitch: alarmSwitch,
+      smartStatus: smartStatus,
+      hasSleepInduction: hasSleepInduction,
     })
   },
 
@@ -67,23 +78,50 @@ Page({
   },
 
 
-    /**
+  /**
    * 
    */
   onShow: function () {
     let alarmStatus = this.data.alarmStatus;
+    let smartStatus = this.data.smartStatus;
     if (util.isNotEmptyObject(this.data.connected)) {
+      let hasSleepInduction = app.globalData.hasSleepInduction;
+      let inductionStatus = app.globalData.sleepInduction.status;
+      console.info('onShow', inductionStatus);
+      if (hasSleepInduction) {
+        if (inductionStatus == '01') {
+          smartStatus = '已开启';
+        } else if (inductionStatus == '11') {
+          smartStatus = "定时开启 20:00";
+        } else if (inductionStatus == '12') {
+          smartStatus = "定时开启 20:30";
+        } else if (inductionStatus == '13') {
+          smartStatus = "定时开启 21:00";
+        } else if (inductionStatus == '14') {
+          smartStatus = "定时开启 21:30";
+        } else if (inductionStatus == '15') {
+          smartStatus = "定时开启 22:00";
+        } else if (inductionStatus == '16') {
+          smartStatus = "定时开启 22:30";
+        } else if (inductionStatus == '17') {
+          smartStatus = "定时开启 23:00";
+        } else if (inductionStatus == '18') {
+          smartStatus = "定时开启 23:30";
+        } else {
+          smartStatus = "关闭";
+        }
+      }
       let alarm = configManager.getAlarm(this.data.connected.deviceId);
       if (util.isNotEmptyObject(alarm)) {
-        if(alarm.isOpenAlarm) {
+        if (alarm.isOpenAlarm) {
           alarmStatus = '已开启';
         } else {
-          if(alarm.time) {
+          if (alarm.time) {
             alarmStatus = '已关闭';
           } else {
             alarmStatus = '未设置';
           }
-          
+
         }
       } else {
         alarmStatus = '未设置';
@@ -94,7 +132,8 @@ Page({
 
 
     this.setData({
-      alarmStatus: alarmStatus
+      alarmStatus: alarmStatus,
+      smartStatus: smartStatus,
     })
   },
 
@@ -150,9 +189,9 @@ Page({
   },
 
 
-  smart:function(e) {
+  smart: function (e) {
     wx.navigateTo({
-      url: '/pages/smart/smart',
+      url: '/pages/induction/induction',
     })
   },
 

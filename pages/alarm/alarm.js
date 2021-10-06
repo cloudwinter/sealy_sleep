@@ -123,7 +123,7 @@ Page({
       let alarm = configManager.getAlarm(connected.deviceId);
       if (util.isNotEmptyObject(alarm)) {
         let periodList = this.data.periodList;
-        if (alarm.period.length > 0) {
+        if (alarm.period && alarm.period.length > 0) {
           periodList.forEach(item => {
             if (alarm.period.indexOf(item.id) >= 0) {
               item.checked = true;

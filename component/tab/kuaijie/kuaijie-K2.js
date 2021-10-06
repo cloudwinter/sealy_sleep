@@ -34,7 +34,9 @@ Component({
     lingyali: false,
     zhihan: false,
     startTime: '',
-    endTime: ''
+    endTime: '',
+    swichSmart: "关闭",
+    hasSleepInduction: true
   },
 
 
@@ -44,10 +46,28 @@ Component({
   pageLifetimes: {
     show: function () {
       // 设置当前的皮肤样式
+
+      console.info("kuaijie-K2->show", app.globalData);
+      let swichSmart = '关闭';
+      let hasSleepInduction = app.globalData.hasSleepInduction;
+      let inductionStatus = app.globalData.sleepInduction.status;
+      console.info('onShow', inductionStatus);
+      if (hasSleepInduction) {
+        if (inductionStatus == '01') {
+          swichSmart = '开启';
+        } else if(inductionStatus == '00') {
+          swichSmart = "关闭";
+        } else {
+          swichSmart = "定时开启";
+        }
+      }
       this.setData({
+        hasSleepInduction: hasSleepInduction,
+        swichSmart: swichSmart,
         skin: app.globalData.skin
       })
     }
+
   },
 
   lifetimes: {
@@ -57,6 +77,7 @@ Component({
       var that = this;
       WxNotificationCenter.addNotification("INIT", that.initConnected, that);
       WxNotificationCenter.addNotification("BLUEREPLY", that.blueReply, that);
+      WxNotificationCenter.addNotification("VIEWSHOW", that.viewShow, that);
     },
     ready: function () {
       // 在组件在视图层布局完成后执行
@@ -81,6 +102,7 @@ Component({
    * 组件的方法列表
    */
   methods: {
+
     /**
      * 连接后初始化
      * @param {*} connected 
@@ -91,16 +113,38 @@ Component({
       that.setData({
         connected: connected,
       })
-      WxNotificationCenter.removeNotification("INIT",that);
+      WxNotificationCenter.removeNotification("INIT", that);
       that.askJiyiStatus(connected, that);
+    },
+
+    viewShow() {
+      var that = this.observer;
+      let swichSmart = that.data.swichSmart
+      console.info('kuaijie-K2->viewShow:', this.observer);
+      let hasSleepInduction = app.globalData.hasSleepInduction;
+      let inductionStatus = app.globalData.sleepInduction.status;
+      console.info('onShow', inductionStatus);
+      if (hasSleepInduction) {
+        if (inductionStatus == '01') {
+          swichSmart = '开启';
+        } else if(inductionStatus == '00') {
+          swichSmart = "关闭";
+        } else {
+          swichSmart = "定时开启";
+        }
+      }
+      that.setData({
+        hasSleepInduction: hasSleepInduction,
+        swichSmart: swichSmart,
+      })
     },
 
     /**
      * 询问记忆状态
      */
     askJiyiStatus(connected, cur) {
-      var name = connected.name;
-      if (name.indexOf('QMS-MQ') >= 0 || name.indexOf('QMS2') >= 0 || name.indexOf('Sealy')) {
+      var name = connected.name.toUpperCase();
+      if (name.indexOf('QMS-MQ') >= 0 || name.indexOf('QMS2') >= 0 || name.indexOf('SEALY') >= 0) {
         cur.setData({
           askType: '2'
         })
@@ -163,7 +207,7 @@ Component({
     },
 
 
-  
+
 
     /**
      * 蓝牙回复回调
@@ -251,6 +295,12 @@ Component({
     sendBlueCmd(cmd, options) {
       var connected = this.data.connected;
       util.sendBlueCmd(connected, sendPrefix + cmd, options);
+      let sleepInduction = app.globalData.sleepInduction;
+      sleepInduction.status = '00';
+      app.globalData.sleepInduction = sleepInduction;
+      this.setData({
+        swichSmart: '关闭'
+      })
     },
 
 
@@ -567,6 +617,33 @@ Component({
       })
       // 单击
       this.sendBlueCmd('0008D6C6');
+    },
+
+
+    /**
+     * 智能睡眠设置
+     * @param {*} e 
+     */
+    smart: function (e) {
+      var connected = this.data.connected;
+      let swichSmart = this.data.swichSmart;
+      let sleepInduction = app.globalData.sleepInduction;
+      let cmd = '';
+      if(swichSmart == '开启') {
+        cmd = 'FFFFFFFF050000F03FD310'
+        swichSmart = '关闭';
+        sleepInduction.status = '00';
+      } else {
+        cmd = 'FFFFFFFF050000003F9710'
+        swichSmart = '开启';
+        sleepInduction.status = '01';
+      }
+      util.sendBlueCmd(connected, cmd);
+      this.setData({
+        swichSmart:swichSmart
+      })
+      app.globalData.sleepInduction = sleepInduction;
+
     },
 
 

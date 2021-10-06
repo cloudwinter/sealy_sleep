@@ -30,28 +30,40 @@ Page({
         "iconPath": "../../images/" + app.globalData.skin + "/tab_kuaijie_normal@2x.png",
         "text": "快捷",
         "tapFunction": "toKuaijie",
-        "active": "active"
+        "active": "active",
+        "show": true
       },
       {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_weitiao_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_weitiao_normal@2x.png",
         "text": "微调",
         "tapFunction": "toWeitiao",
-        "active": ""
+        "active": "",
+        "show": true
+      },
+      {
+        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_anno_selected@2x.png",
+        "iconPath": "../../images/" + app.globalData.skin + "/tab_anno_normal@2x.png",
+        "text": "智能睡眠",
+        "tapFunction": "toSleep",
+        "active": "active",
+        "show": true
       },
       {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_anno_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_anno_normal@2x.png",
         "text": "按摩",
         "tapFunction": "toAnmo",
-        "active": "active"
+        "active": "active",
+        "show": true
       },
       {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_dengguang_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_dengguang_normal@2x.png",
         "text": "灯光",
         "tapFunction": "toDengguang",
-        "active": ""
+        "active": "",
+        "show": true
       }
     ],
     periodList: [{
@@ -111,6 +123,7 @@ Page({
       })
       this.notifyBLECharacteristicValueChange();
       //this.getBLService(connected.deviceId);
+
     }
   },
 
@@ -124,8 +137,6 @@ Page({
     this.setData({
       skin: skin
     })
-
-    //WxNotificationCenter.postNotificationName('INIT',this.data.connected);
   },
 
 
@@ -170,16 +181,35 @@ Page({
       nowIndex: 1
     })
   },
+  toSleep() {
+    this.setData({
+      nowPage: "sleep",
+      nowIndex: 2
+    })
+  },
   toAnmo() {
     this.setData({
       nowPage: "anmo",
-      nowIndex: 2
+      nowIndex: 3
     })
   },
   toDengguang() {
     this.setData({
       nowPage: "dengguang",
-      nowIndex: 3
+      nowIndex: 4
+    })
+  },
+
+  /**
+   * 设置智能睡眠显示
+   */
+  setSleepShow(){
+    let tabbar = this.data.tabBar;
+    let that = this;
+    console.info("main->设置智能睡眠显示");
+    tabbar[2].show = true;
+    that.setData({
+      tabBar: tabbar
     })
   },
 
@@ -327,7 +357,7 @@ Page({
    * 在各个页面发送指令之前发送指令
    */
   sendInitCmd: function (connected) {
-    
+
     let that = this;
 
     // 发送压力板指令
@@ -381,6 +411,7 @@ Page({
         this.setAlarm(received, deviceId);
       } else if (received.indexOf('FFFFFFFF0200020F') >= 0) {
         // 有智能睡眠感应
+        this.setSleepShow();
         this.setSmart(received, deviceId);
       }
 
@@ -400,10 +431,10 @@ Page({
     let gexingModel = cmd.substr(24, 2);
     app.globalData.hasSleepInduction = true;
     app.globalData.sleepInduction = {
-      status: util.isNotEmptyStr(status)?status:'00',
-      nightLight: util.isNotEmptyStr(nightLight)?nightLight:'00',
-      mode: util.isNotEmptyStr(mode)?mode:'00',
-      gexingModel: util.isNotEmptyStr(gexingModel)?gexingModel:'00',
+      status: util.isNotEmptyStr(status) ? status : '00',
+      nightLight: util.isNotEmptyStr(nightLight) ? nightLight : '00',
+      mode: util.isNotEmptyStr(mode) ? mode : '00',
+      gexingModel: util.isNotEmptyStr(gexingModel) ? gexingModel : '00',
     }
     WxNotificationCenter.postNotificationName('VIEWSHOW');
   },

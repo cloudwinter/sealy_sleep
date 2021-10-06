@@ -25,6 +25,12 @@
   color: #5EA2D7;
 }
 
+
+.text {
+  color: #5EA2D7 ;
+  font-size: 28rpx;
+}
+
 .dh-button {
   border: 1px solid #5EA2D7;
   border-radius: 40rpx;
@@ -36,131 +42,91 @@
 
 
 .anjian {
-  display: flex;
   width: 100%;
-  height: 100%;
-  flex-direction: column;
-  margin-top: 140rpx;
-  align-items: center;
-}
-
-.dengguang-button-bg {
-  display: flex;
-  width: 90% !important;
-  height: 120rpx;
-  border-radius: 120rpx;
-  /* background: #1E1F24;
-  border-color: #5A9927; */
-  color: white;
-  align-items: center;
-  justify-content: center;
-  margin-top: 40rpx;
-  font-weight:normal;
-  font-size: 30rpx;
-  letter-spacing:2rpx;
-}
-
-/* .button-bg-selected {
-  display: flex;
-  width: 90% !important;
-  height: 120rpx;
-  border-radius: 120rpx;
-  background-color: #1E1F24;
-  border:3rpx solid #5A9927;
-  color: white;
-  align-items: center;
-  justify-content: center;
-  margin-top: 40rpx;
-  font-size: 30rpx;
-  letter-spacing:2rpx;
-} */
-
-
-/********* 按摩类型 ************** */
-.anmo-type {
-  width: 100%;
-  margin-top: 17rpx;
+  margin-top: 50rpx;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
-.anmo-content {
+.anjian-item {
+  height: 100rpx;
   width: 90%;
-  height: 120rpx;
-  margin-top: 40rpx;
   display: flex;
-  align-items: center;
-  flex-direction: column;
 }
 
-.anmo-button-bg {
-  width: 90% !important;
-  height: 120rpx;
-  border-radius: 120rpx;
+.oval {
   background: #1E1F24;
-  /* position: absolute;
-  z-index: -1; */
-}
-
-.anmo-button-top {
-  width: 100%;
-  flex: auto;
   display: flex;
   align-items: center;
-}
-
-.anmo-button-top-left {
-  width: 90rpx;
-  height: 100%;
-  padding-left: 80rpx;
-  display: flex;
-  align-items: center;
-}
-
-.anmo-button-icon {
-  width: 45rpx;
-  height: 45rpx;
-}
-
-.anmo-button-top-right {
-  width: 90rpx;
-  height: 100%;
-  padding-right: 80rpx;
-  display: flex;
-  align-items: center;
-  flex-direction: row-reverse;
-}
-
-.anmo-button-top-middle {
-  flex: auto;
-  display: flex;
-  align-items: center;
+  flex: 1;
+  width: 30%;
   justify-content: center;
 }
 
-.anmo-button-bottom {
-  width: 85%;
+
+.anjian-item .left {
+  flex: 1;
+  margin-left: 38rpx;
+  height: 100%;
   display: flex;
-  height: 4px;
+  align-items: center;
 }
 
-.line10 {
-  width: 9.4%;
-  height: 4rpx;
-  background: #5EA2D7;
-  border-radius: 4rpx;
-  margin-right: 2rpx;
+.anjian-item .right {
+  display: flex;
+  align-items: center;
+  margin-right: 38rpx;
+  height: 100%;
+}
+
+.right-icon {
+  width: 16rpx;
+  height: 28rpx;
+  margin-left: 20rpx;
 }
 
 
-.anmo-type-icon{
-  width: 39rpx;
-  height: 39rpx;
+.oval-button {
+  border: 1px solid #5EA2D7;
+  border-radius: 40rpx;
+  padding-left: 40rpx;
+  padding-right: 40rpx;
+  padding-top: 5rpx;
+  padding-bottom: 5rpx;
 }
 
-.anmo-type-name {
-  color: #5EA2D7;
-  font-size: 26rpx;
-  margin-left: 19rpx;
+.oval-content {
+  display: flex;
+}
+
+
+.vertical-middle {
+  width: 10rpx;
+}
+
+.oval-content-middle {
+  width: 20rpx;
+}
+
+.wx-switch-input {
+  width: 88rpx !important;
+  height: 44rpx !important;
+  background: #5EA2D7 !important;
+  border: #5EA2D7 !important;
+  /* 2018-07-18 重置开关边框颜色 */
+}
+
+
+/*白色样式（false的样式）*/
+.wx-switch-input::before {
+  width: 88rpx !important;
+  height: 44rpx !important;
+}
+
+/*绿色样式（true的样式）*/
+.wx-switch-input::after {
+  width: 88rpx !important;
+  height: 44rpx !important;
 }

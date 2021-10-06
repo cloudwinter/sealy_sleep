@@ -42,8 +42,8 @@ Page({
         "show": true
       },
       {
-        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_anno_selected@2x.png",
-        "iconPath": "../../images/" + app.globalData.skin + "/tab_anno_normal@2x.png",
+        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_sleep_selected@2x.png",
+        "iconPath": "../../images/" + app.globalData.skin + "/tab_sleep_normal@2x.png",
         "text": "智能睡眠",
         "tapFunction": "toSleep",
         "active": "active",

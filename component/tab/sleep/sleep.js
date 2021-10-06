@@ -21,6 +21,7 @@ Component({
   data: {
     skin: app.globalData.skin,
     display: app.globalData.display,
+    screenHeight:app.globalData.screenHeight,
     connected: {},
     currentSelected: '',
     isLightShow: false,
@@ -32,7 +33,8 @@ Component({
     show: function () {
       // 设置当前的皮肤样式
       this.setData({
-        skin: app.globalData.skin
+        skin: app.globalData.skin,
+        screenHeight:app.globalData.screenHeight-52
       })
     }
   },

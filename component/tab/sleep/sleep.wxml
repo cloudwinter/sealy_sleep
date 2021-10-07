@@ -4,9 +4,9 @@
     <view class="top" style="margin-top:{{display=='high'?90:0}}rpx;">
       <view class="donghuaqu">
         <view class="dh-content">
-          <view class="text" style="margin-top:70rpx;">特征值：AA</view>
-          <view class="text" style="margin-top:20rpx;">辅助值：KK</view>
-          <view class="text dh-button" style="margin-top:20rpx;">获取实时数值</view>
+          <view class="text" style="margin-top:70rpx;">特征值：{{tezhegnzhi}}</view>
+          <view class="text" style="margin-top:20rpx;">辅助值：{{fuzhuzhi}}</view>
+          <view class="text dh-button" style="margin-top:20rpx;" bindtap="getRTDB">获取实时数值</view>
         </view>
       </view>
     </view>
@@ -17,7 +17,9 @@
         <view class="oval" style="border-radius: 100rpx 0px 0px 100rpx;">
           <view class="left text">身高(cm)</view>
           <view class="right">
-            <view class="text">168</view>
+            <!-- <view class="text">{{shenggao}}</view> -->
+            <input type="number" class="input text" value="{{shenggao}}" disabled="{{!canEdit}}" maxlength="3" 
+            data-type="shenggao" bindinput="inputChange"/>
             <image class="right-icon" src="../../../images/{{skin}}/row_blue@2x.png"></image>
           </view>
         </view>
@@ -25,7 +27,9 @@
         <view class="oval" style="border-radius: 0rpx 100rpx 100rpx 0rpx;">
           <view class="left text">体重(kg)</view>
           <view class="right">
-            <view class="text">168</view>
+            <!-- <view class="text">{{tizhong}}</view> -->
+            <input type="number" class="input text" value="{{tizhong}}" disabled="{{!canEdit}}" maxlength="3" 
+            data-type="tizhong" bindinput="inputChange"/>
             <image class="right-icon" src="../../../images/{{skin}}/row_blue@2x.png"></image>
           </view>
         </view>
@@ -34,11 +38,11 @@
       <!-- 平躺、侧躺 -->
       <view class="anjian-item" style="margin-top:30rpx;">
         <view class="oval" style="border-radius: 20rpx 0px 0px 0rpx;">
-          <view class="oval-button text">平躺</view>
+          <view class="oval-button text" bindtap="getPT">平躺</view>
         </view>
         <view class="vertical-middle"></view>
         <view class="oval" style="border-radius: 0rpx 20rpx 0rpx 0rpx;">
-          <view class="oval-button text">平躺</view>
+          <view class="oval-button text" bindtap="getCT">侧躺</view>
         </view>
       </view>
 
@@ -48,7 +52,9 @@
           <view class="oval-content">
             <view class="text">特征值</view>
             <view class="oval-content-middle"></view>
-            <view class="text">120</view>
+            <!-- <view class="text">{{ptTezhengzhi}}</view> -->
+            <input type="number" class="input2 text" value="{{ptTezhengzhi}}" disabled="{{!canEdit}}" maxlength="5"
+            data-type="ptTezhengzhi" bindinput="inputChange" />
           </view>
         </view>
         <view class="vertical-middle"></view>
@@ -56,7 +62,9 @@
           <view class="oval-content">
             <view class="text">特征值</view>
             <view class="oval-content-middle"></view>
-            <view class="text">120</view>
+            <!-- <view class="text">{{ctTezhengzhi}}</view> -->
+            <input type="number" class="input2 text" value="{{ctTezhengzhi}}" disabled="{{!canEdit}}" maxlength="5"
+            data-type="ctTezhengzhi" bindinput="inputChange" />
           </view>
         </view>
       </view>
@@ -67,7 +75,9 @@
           <view class="oval-content">
             <view class="text">背部角度</view>
             <view class="oval-content-middle"></view>
-            <view class="text">2</view>
+            <!-- <view class="text">{{ptBeibujiaodu}}</view> -->
+            <input type="number" class="input text" value="{{ptBeibujiaodu}}" disabled="{{!canEdit}}" maxlength="2"
+              data-type="ptBeibujiaodu" bindinput="inputChange" />
           </view>
         </view>
         <view class="vertical-middle"></view>
@@ -75,49 +85,33 @@
           <view class="oval-content">
             <view class="text">背部角度</view>
             <view class="oval-content-middle"></view>
-            <view class="text">5</view>
+            <!-- <view class="text">{{ctBeibujiaodu}}</view> -->
+            <input type="number" class="input text" value="{{ctBeibujiaodu}}" disabled="{{!canEdit}}" maxlength="2"
+              data-type="ctBeibujiaodu" bindinput="inputChange" />
           </view>
         </view>
       </view>
 
-      <!-- 平躺/侧躺 腰部角度 -->
-      <view class="anjian-item" style="margin-top:1px;">
-        <view class="oval">
-          <view class="oval-content">
-            <view class="text">腰部角度</view>
-            <view class="oval-content-middle"></view>
-            <view class="text">2</view>
-          </view>
-        </view>
-        <view class="vertical-middle"></view>
-        <view class="oval">
-          <view class="oval-content">
-            <view class="text">腰部角度</view>
-            <view class="oval-content-middle"></view>
-            <view class="text">5</view>
-          </view>
-        </view>
-      </view>
 
       <!-- 智能睡眠、智能夜灯 -->
       <view class="anjian-item" style="margin-top:30rpx;">
         <view class="oval" style="border-radius: 100rpx 0px 0px 100rpx;">
           <view class="left text">智能睡眠</view>
           <view class="right">
-            <switch color="#5EA2D7" style="zoom:0.8;width:80rpx;" />
+            <switch checked="{{zhinengShuimian}}" bindchange="switchSM" color="#5EA2D7" style="zoom:0.8;width:80rpx;" />
           </view>
         </view>
         <view class="vertical-middle"></view>
         <view class="oval" style="border-radius: 0rpx 100rpx 100rpx 0rpx;">
           <view class="left text">智能夜灯</view>
           <view class="right">
-            <switch color="#5EA2D7" style="zoom:0.8" />
+            <switch checked="{{zhinengYedeng}}" bindchange="switchYD" color="#5EA2D7" style="zoom:0.8" />
           </view>
         </view>
       </view>
 
       <!-- 智能睡眠获取 -->
-      <view class="anjian-item" style="margin-top:30rpx;">
+      <view class="anjian-item" style="margin-top:30rpx;" bindtap="jumpSleep">
         <view class="oval" style="border-radius: 100rpx 100rpx 100rpx 100rpx;">
           <view class="left text">智能睡眠获取</view>
           <view class="right">
@@ -127,9 +121,9 @@
       </view>
 
       <!-- 保存 -->
-      <view class="anjian-item" style="margin-top:30rpx;">
+      <view class="anjian-item" style="margin-top:30rpx;" bindtap="save">
         <view class="oval" style="border-radius: 100rpx 100rpx 100rpx 100rpx;">
-          <view class="text">保存</view>
+          <view class="text">{{canEdit?'保存':'更改'}}</view>
         </view>
       </view>
 

@@ -101,6 +101,14 @@
   display: flex;
 }
 
+.oval .input {
+  width: 60rpx;
+}
+
+.oval .input2 {
+  width: 80rpx;
+}
+
 
 .vertical-middle {
   width: 10rpx;

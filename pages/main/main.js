@@ -47,7 +47,7 @@ Page({
         "text": "智能睡眠",
         "tapFunction": "toSleep",
         "active": "active",
-        "show": true
+        "show": false
       },
       {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_anno_selected@2x.png",
@@ -123,7 +123,6 @@ Page({
       })
       this.notifyBLECharacteristicValueChange();
       //this.getBLService(connected.deviceId);
-
     }
   },
 
@@ -186,6 +185,7 @@ Page({
       nowPage: "sleep",
       nowIndex: 2
     })
+    WxNotificationCenter.postNotificationName('VIEWSHOW');
   },
   toAnmo() {
     this.setData({

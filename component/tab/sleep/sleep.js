@@ -4,7 +4,8 @@
 const app = getApp();
 const util = require('../../../utils/util')
 const WxNotificationCenter = require('../../../utils/WxNotificationCenter')
-const sendPrefix = 'FFFFFFFF050000'; // 发送码前缀
+const crcUtil = require('../../../utils/crcUtil');
+
 
 
 Component({
@@ -21,11 +22,21 @@ Component({
   data: {
     skin: app.globalData.skin,
     display: app.globalData.display,
-    screenHeight:app.globalData.screenHeight,
+    screenHeight: app.globalData.screenHeight,
     connected: {},
     currentSelected: '',
-    isLightShow: false,
-    lineItems: [] //灯光亮度
+    canEdit: true,
+    startGetRTDB: false,
+    tezhegnzhi: 10,
+    fuzhuzhi: 10,
+    shenggao: 168,
+    tizhong: 55,
+    ptTezhengzhi: 120,
+    ctTezhengzhi: 120,
+    ptBeibujiaodu: 5,
+    ctBeibujiaodu: 5,
+    zhinengShuimian: false,
+    zhinengYedeng: false
   },
 
 
@@ -34,7 +45,7 @@ Component({
       // 设置当前的皮肤样式
       this.setData({
         skin: app.globalData.skin,
-        screenHeight:app.globalData.screenHeight-52
+        screenHeight: app.globalData.screenHeight - 52
       })
     }
   },
@@ -42,16 +53,17 @@ Component({
   lifetimes: {
     created: function () {
       // 在组件实例刚刚被创建时执行
-      console.info("dengguang-->created", app.globalData.display);
+      console.info("sleep-->created", app.globalData.display);
       var that = this;
       WxNotificationCenter.addNotification("INIT", that.initConnected, that);
       WxNotificationCenter.addNotification("BLUEREPLY", that.blueReply, that);
+      WxNotificationCenter.addNotification("VIEWSHOW", that.viewShow, that);
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
       console.info("attached");
       this.setData({
-        display:app.globalData.display
+        display: app.globalData.display
       })
     },
     detached: function () {
@@ -68,71 +80,99 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    /**
-     * 连接后初始化
-     * @param {*} connected 
-     */
-    initConnected(connected) {
-      var that = this.observer;
-      console.info('dengguang->initConnected:', connected, this.observer);
-      that.setData({
-        connected: connected,
-      })
-      //WxNotificationCenter.removeNotification("INIT",that);
-    },
-
 
     /**
      * 发送蓝牙命令
      */
     sendBlueCmd(cmd, options) {
       var connected = this.data.connected;
-      util.sendBlueCmd(connected, sendPrefix + cmd, options);
+      util.sendBlueCmd(connected, cmd, options);
     },
 
-      /**
+    /**
+     * 连接后初始化
+     * @param {*} connected 
+     */
+    initConnected(connected) {
+      var that = this.observer;
+      console.info('sleep->initConnected:', connected, this.observer);
+      that.setData({
+        connected: connected,
+      })
+    },
+
+    /**
+     * 界面显示
+     */
+    viewShow() {
+      // 询问各个开关的状态
+      var that = this.observer;
+      that.sendBlueCmd('FFFFFFFF02000A0A1204');
+    },
+
+
+
+    /**
      * 蓝牙回复回调
      * @param {*} cmd 
      */
     blueReply(cmd) {
       var that = this.observer;
-      var lineItems = that.data.lineItems;
-      var prefix = cmd.substr(0, 14).toUpperCase();
-      if ('FFFFFFFF050001' != prefix) {
+      cmd = cmd.toUpperCase();
+      var prefix = cmd.substr(0, 16);
+      if (prefix == 'FFFFFFFF02000A14') {
+        // 开关状态回复
+        let shenggao = util.str16To10(cmd.substr(16, 2));
+        let tizhong = util.str16To10(cmd.substr(18, 2));
+        let ptTezhengzhi = util.str16To10(cmd.substr(20, 2)) * 2;
+        let ctTezhengzhi = util.str16To10(cmd.substr(22, 2)) * 2;
+        let ptBeibujiaodu = util.str16To10(cmd.substr(28, 1));
+        let ctBeibujiaodu = util.str16To10(cmd.substr(29, 1));
+        let zhinengShuimian = cmd.substr(32, 2) == '01' ? true : false;
+        let zhinengYedeng = cmd.substr(34, 2) == '01' ? true : false;
+        that.setData({
+          shenggao: shenggao,
+          tizhong: tizhong,
+          ptTezhengzhi: ptTezhengzhi,
+          ctTezhengzhi: ctTezhengzhi,
+          ptBeibujiaodu: ptBeibujiaodu,
+          ctBeibujiaodu: ctBeibujiaodu,
+          zhinengShuimian: zhinengShuimian,
+          zhinengYedeng: zhinengYedeng
+        })
         return;
       }
-      that.setData({
-        isLightShow: true,
-      })
-
-      var level = cmd.substr(14, 2).toUpperCase();
-      console.info('dengguang->blueReply 收到的蓝牙回复', cmd, level);
-      if ('01' == level) {
-        lineItems = [1];
-      } else if ('02' == level) {
-        lineItems = [1, 1];
-      } else if ('03' == level) {
-        lineItems = [1, 1, 1];
-      } else if ('04' == level) {
-        lineItems = [1, 1, 1, 1];
-      } else if ('05' == level) {
-        lineItems = [1, 1, 1, 1, 1];
-      } else if ('06' == level) {
-        lineItems = [1, 1, 1, 1, 1, 1];
-      } else if ('07' == level) {
-        lineItems = [1, 1, 1, 1, 1, 1, 1];
-      } else if ('08' == level) {
-        lineItems = [1, 1, 1, 1, 1, 1, 1, 1];
-      } else if ('09' == level) {
-        lineItems = [1, 1, 1, 1, 1, 1, 1, 1, 1];
-      } else if ('0A' == level) {
-        lineItems = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-      } else if ('00' == level) {
-        lineItems = [];
+      var prefixRTDB = cmd.substr(0, 18);
+      if (prefixRTDB == 'FFFFFFFF0200090F03') {
+        let AAAA = cmd.substr(20, 2) + cmd.substr(18, 2);
+        let KKKK = cmd.substr(24, 2) + cmd.substr(22, 2);
+        let tezhegnzhi = util.str16To10(AAAA);
+        let fuzhuzhi = util.str16To10(KKKK);
+        that.setData({
+          tezhegnzhi: tezhegnzhi,
+          fuzhuzhi: fuzhuzhi
+        })
+        return;
       }
-      that.setData({
-        lineItems: lineItems
-      })
+      if (prefixRTDB == 'FFFFFFFF0200090D01') {
+        let AAAA = cmd.substr(20, 2) + cmd.substr(18, 2);
+        let tezhegnzhi = util.str16To10(AAAA);
+        that.setData({
+          tezhegnzhi: tezhegnzhi,
+          ptTezhengzhi: tezhegnzhi
+        })
+        return;
+      }
+      if (prefixRTDB == 'FFFFFFFF0200090D02') {
+        let AAAA = cmd.substr(20, 2) + cmd.substr(18, 2);
+        let tezhegnzhi = util.str16To10(AAAA);
+        that.setData({
+          tezhegnzhi: tezhegnzhi,
+          ctTezhengzhi: tezhegnzhi
+        })
+        return;
+      }
+
     },
 
 
@@ -142,117 +182,181 @@ Component({
 
 
     /**********************点击事件************* */
-    click(e) {
-      var that = this;
-      var currentSelected = this.data.currentSelected;
-      var time = e.currentTarget.dataset.time;
-      console.info('click->' + time);
 
-      var cmd = '';
-      if (time == '10min') {
-        cmd = '001916CA';
-      } else if (time == '8h') {
-        cmd = '001A56CB';
-      } else if (time == '10h') {
-        cmd = '001B970B';
+    /**
+     * 获取实时数值
+     */
+    getRTDB() {
+      let startGetRTDB = this.data.startGetRTDB;
+      this.setData({
+        startGetRTDB: !startGetRTDB,
+      })
+      console.info('点击获取实时数值按钮');
+      this.getRepeatRTDB(0);
+    },
+
+    /**
+     * 重复获取实时数值
+     * @param {}} count 
+     */
+    getRepeatRTDB(count) {
+      let startGetRTDB = this.data.startGetRTDB;
+      if (!startGetRTDB) {
+        console.info('getRepeatRTDB 停止获取实时数值');
+        return;
       }
+      if (count > 10) {
+        // 最多重复10次
+        this.setData({
+          startGetRTDB: !startGetRTDB,
+        })
+        console.info('getRepeatRTDB 最多重复10次获取实时数值');
+        return;
+      }
+      console.info('getRepeatRTDB 重复获取实时数值 第' + count + '次');
+      this.sendBlueCmd('FFFFFFFF0200090F03000000001804');
+      count++;
+      let that = this;
+      setTimeout(() => {
+        that.getRepeatRTDB(count);
+      }, 2000);
+    },
+
+    /**
+     * 点击平躺
+     */
+    getPT() {
+      this.sendBlueCmd('FFFFFFFF0200090D0100001504');
+    },
+
+    /**
+     * 点击侧躺
+     */
+    getCT() {
+      this.sendBlueCmd('FFFFFFFF0200090D0200001604');
+    },
+
+    /**
+     * 切换智能睡眠
+     * @param {*} type 
+     */
+    switchSM() {
+      let zhinengShuimian = this.data.zhinengShuimian;
+      this.setData({
+        zhinengShuimian: !zhinengShuimian
+      })
+    },
+
+    /**
+     * 切换智能夜灯
+     */
+    switchYD() {
+      let zhinengYedeng = this.data.zhinengYedeng;
+      this.setData({
+        zhinengYedeng: !zhinengYedeng
+      })
+    },
+
+    /**
+     * 输入框监听事件
+     * @param {*} e 
+     */
+    inputChange(e) {
+      let val = e.detail.value;
+      let dataType = e.currentTarget.dataset.type;
+      console.info("inputChange", dataType, val);
+      if (dataType == 'ptBeibujiaodu') {
+        if (val > 10) {
+          val = 10;
+        }
+        this.setData({
+          ptBeibujiaodu: val
+        })
+        return val;
+      } else if (dataType == 'ctBeibujiaodu') {
+        if (val > 10) {
+          val = 10;
+        }
+        this.setData({
+          ctBeibujiaodu: val
+        })
+        return val;
+      } else if (dataType == 'ptTezhengzhi') {
+        this.setData({
+          ptTezhengzhi: val
+        })
+      } else if (dataType == 'ctTezhengzhi') {
+        this.setData({
+          ctTezhengzhi: val
+        })
+      } else if (dataType == 'shenggao') {
+        if (val > 255) {
+          val = 255;
+        }
+        this.setData({
+          shenggao: val
+        })
+        return val;
+      } else if (dataType == 'tizhong') {
+        if (val > 255) {
+          val = 255;
+        }
+        this.setData({
+          tizhong: val
+        })
+        return val;
+      }
+    },
+
+    /**
+     * 跳转到睡眠感应界面
+     */
+    jumpSleep() {
+      wx.navigateTo({
+        url: '/pages/induction/induction'
+      })
+    },
+
+    /**
+     * 保存
+     */
+    save() {
+      let canEdit = this.data.canEdit;
+      if (!canEdit) {
+        this.setData({
+          canEdit: true
+        })
+        return;
+      }
+      let cmdPrefix = 'FFFFFFFF02000B14';
+      let DD = util.str10To16(this.data.shenggao);
+      let EE = util.str10To16(this.data.tizhong);
+      let BB = util.str10To16(parseInt(this.data.ptTezhengzhi / 2));
+      let CC = util.str10To16(parseInt(this.data.ctTezhengzhi / 2));
+      let RS = '00';
+      let UV = '00';
+      let G = util.str10To16(this.data.ptBeibujiaodu).substr(1, 1);
+      let H = util.str10To16(this.data.ctBeibujiaodu).substr(1, 1);
+      let MN = '00';
+      let SS = this.data.zhinengShuimian ? '01' : '00';
+      let LL = this.data.zhinengYedeng ? '01' : '00';
+      let cmd = cmdPrefix + DD + EE + BB + CC + RS + UV + G + H + MN + SS + LL;
+      let XXYY = crcUtil.HexToCSU16(cmd);
+      cmd = cmd + XXYY;
+      let that = this;
       this.sendBlueCmd(cmd, ({
         success: (res) => {
-          if (time == currentSelected) {
-            that.setData({
-              currentSelected: ''
-            })
-          } else {
-            that.setData({
-              currentSelected: time
-            })
-          }
+          console.info('save->发送成功');
+          that.setData({
+            canEdit: false
+          })
         },
         fail: (res) => {
-
+          console.error('save->发送失败', res);
+          util.showToast("通讯不成功，请检查硬件连接");
         }
       }));
     },
-
-
-    /**
-     * 亮度减小
-     * @param {*} e 
-     */
-    tapMinus(e) {
-      let lineItems = this.data.lineItems;
-      if (lineItems.length == 0) {
-        util.showToast('当前亮度已经调整到最小');
-        return;
-      }
-      lineItems.splice(lineItems.length - 1, 1);
-      this.sendDengguangLevelCmd(lineItems.length);
-      this.setData({
-        lineItems: lineItems
-      })
-    },
-
-    /**
-     * 亮度增加
-     * @param {*} e 
-     */
-    tapPlus(e) {
-      let lineItems = this.data.lineItems;
-      if (lineItems.length == 10) {
-        util.showToast('当前亮度已经调整到最大');
-        return;
-      }
-      lineItems.push(1);
-      this.sendDengguangLevelCmd(lineItems.length);
-      this.setData({
-        lineItems: lineItems
-      })
-    },
-
-    /**
-     * 发送灯光的命令
-     * @param {*} level 
-     */
-    sendDengguangLevelCmd(level) {
-      let cmd = sendPrefix;
-      switch (level) {
-        case 0:
-          cmd += '002396D9';
-          break;
-        case 1:
-          cmd += '01239749';
-          break;
-        case 2:
-          cmd += '022397B9';
-          break;
-        case 3:
-          cmd += '03239629';
-          break;
-        case 4:
-          cmd += '04239419';
-          break;
-        case 5:
-          cmd += '05239589';
-          break;
-        case 6:
-          cmd += '06239579';
-          break;
-        case 7:
-          cmd += '072394E9';
-          break;
-        case 8:
-          cmd += '08239119';
-          break;
-        case 9:
-          cmd += '09239089';
-          break;
-        case 10:
-          cmd += 'A0239079';
-          break;
-      }
-      util.sendBlueCmd(this.data.connected, cmd)
-    },
-
 
   }
 })

@@ -214,7 +214,7 @@ Component({
         return;
       }
       console.info('getRepeatRTDB 重复获取实时数值 第' + count + '次');
-      this.sendBlueCmd('FFFFFFFF0200090F03000000001804');
+      this.sendBlueCmd('FFFFFFFF0200090F03000000001904');
       count++;
       let that = this;
       setTimeout(() => {

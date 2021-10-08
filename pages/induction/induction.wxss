@@ -78,6 +78,8 @@
   color: white;
   font-size: 28rpx;
   margin-left: 31rpx;
+  display: flex;
+  justify-content: center;
 }
 
 .item-right {

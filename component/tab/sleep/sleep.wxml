@@ -34,7 +34,7 @@
       </view>
 
       <!-- 平躺、侧躺 -->
-      <view class="anjian-item" style="margin-top:30rpx;">
+      <view class="anjian-item" style="margin-top:20rpx;">
         <view class="oval" style="border-radius: 20rpx 0px 0px 0rpx;">
           <view class="oval-button text" bindtap="getPT">平躺</view>
         </view>
@@ -92,7 +92,7 @@
 
 
       <!-- 智能睡眠、智能夜灯 -->
-      <view class="anjian-item" style="margin-top:30rpx;">
+      <view class="anjian-item" style="margin-top:20rpx;">
         <view class="oval" style="border-radius: 100rpx 0px 0px 100rpx;">
           <view class="left text">智能睡眠</view>
           <view class="right">
@@ -109,7 +109,7 @@
       </view>
 
       <!-- 智能睡眠获取 -->
-      <view class="anjian-item" style="margin-top:30rpx;" bindtap="jumpSleep">
+      <view class="anjian-item" style="margin-top:20rpx;" bindtap="jumpSleep">
         <view class="oval" style="border-radius: 100rpx 100rpx 100rpx 100rpx;">
           <view class="left text">睡眠报告</view>
           <view class="right">
@@ -119,7 +119,7 @@
       </view>
 
       <!-- 保存 -->
-      <view class="anjian-item" style="margin-top:30rpx;" bindtap="save">
+      <view class="anjian-item" style="margin-top:20rpx;" bindtap="save">
         <view class="oval" style="border-radius: 100rpx 100rpx 100rpx 100rpx;">
           <view class="text">{{canEdit?'保存':'更改'}}</view>
         </view>

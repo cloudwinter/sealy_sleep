@@ -4,9 +4,9 @@
     <view class="top" style="margin-top:{{display=='high'?90:0}}rpx;">
       <view class="donghuaqu">
         <view class="dh-content">
-          <view class="text" style="margin-top:70rpx;">特征值：{{tezhegnzhi}}</view>
-          <view class="text" style="margin-top:20rpx;">辅助值：{{fuzhuzhi}}</view>
-          <view class="text dh-button" style="margin-top:20rpx;" bindtap="getRTDB">获取实时数值</view>
+          <view class="text dh-button" style="margin-top:70rpx;" bindtap="getRTDB">实时参数</view>
+          <view class="text" style="margin-top:20rpx;">A：{{tezhegnzhi}}</view>
+          <view class="text" style="margin-top:20rpx;">B：{{fuzhuzhi}}</view>
         </view>
       </view>
     </view>
@@ -19,7 +19,7 @@
           <view class="right">
             <!-- <view class="text">{{shenggao}}</view> -->
             <input type="number" class="input1 inputtext" value="{{shenggao == 0?'':shenggao}}" disabled="{{!canEdit}}" maxlength="3" 
-            data-type="shenggao" bindinput="inputChange" placeholder="请输入"/>
+            data-type="shenggao" bindinput="inputChange" placeholder="请输入" placeholder-style="color:#FFFFFF"/>
           </view>
         </view>
         <view class="vertical-middle"></view>
@@ -28,7 +28,7 @@
           <view class="right">
             <!-- <view class="text">{{tizhong}}</view> -->
             <input type="number" class="input1 inputtext" value="{{tizhong == 0?'':tizhong}}" disabled="{{!canEdit}}" maxlength="3" 
-            data-type="tizhong" bindinput="inputChange" placeholder="请输入"/>
+            data-type="tizhong" bindinput="inputChange" placeholder="请输入" placeholder-style="color:#FFFFFF"/>
           </view>
         </view>
       </view>
@@ -48,7 +48,7 @@
       <view class="anjian-item" style="margin-top:1px;">
         <view class="oval">
           <view class="oval-content">
-            <view class="text">特征值</view>
+            <view class="text">参数</view>
             <view class="oval-content-middle"></view>
             <!-- <view class="text">{{ptTezhengzhi}}</view> -->
             <input type="number" class="input2 inputtext" value="{{ptTezhengzhi}}" disabled="{{!canEdit}}" maxlength="5"
@@ -58,7 +58,7 @@
         <view class="vertical-middle"></view>
         <view class="oval">
           <view class="oval-content">
-            <view class="text">特征值</view>
+            <view class="text">参数</view>
             <view class="oval-content-middle"></view>
             <!-- <view class="text">{{ctTezhengzhi}}</view> -->
             <input type="number" class="input2 inputtext" value="{{ctTezhengzhi}}" disabled="{{!canEdit}}" maxlength="5"
@@ -74,7 +74,7 @@
             <view class="text">背部角度</view>
             <view class="oval-content-middle"></view>
             <!-- <view class="text">{{ptBeibujiaodu}}</view> -->
-            <input type="number" class="input inputtext" value="{{ptBeibujiaodu}}" disabled="{{!canEdit}}" maxlength="2"
+            <input type="number" class="input inputtext" value="{{ptBeibujiaodu}}" disabled="{{!canEdit}}" maxlength="1"
               data-type="ptBeibujiaodu" bindinput="inputChange" />
           </view>
         </view>
@@ -84,7 +84,7 @@
             <view class="text">背部角度</view>
             <view class="oval-content-middle"></view>
             <!-- <view class="text">{{ctBeibujiaodu}}</view> -->
-            <input type="number" class="input inputtext" value="{{ctBeibujiaodu}}" disabled="{{!canEdit}}" maxlength="2"
+            <input type="number" class="input inputtext" value="{{ctBeibujiaodu}}" disabled="{{!canEdit}}" maxlength="1"
               data-type="ctBeibujiaodu" bindinput="inputChange" />
           </view>
         </view>
@@ -111,7 +111,7 @@
       <!-- 智能睡眠获取 -->
       <view class="anjian-item" style="margin-top:30rpx;" bindtap="jumpSleep">
         <view class="oval" style="border-radius: 100rpx 100rpx 100rpx 100rpx;">
-          <view class="left text">智能睡眠获取</view>
+          <view class="left text">睡眠报告</view>
           <view class="right">
             <image class="right-icon" src="../../../images/{{skin}}/row_blue@2x.png"></image>
           </view>

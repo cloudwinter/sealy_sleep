@@ -282,13 +282,21 @@ Component({
         })
         return val;
       } else if (dataType == 'ptTezhengzhi') {
+        if (val > 100) {
+          val = 100;
+        }
         this.setData({
           ptTezhengzhi: val
         })
+        return val;
       } else if (dataType == 'ctTezhengzhi') {
+        if (val > 500) {
+          val = 500;
+        }
         this.setData({
           ctTezhengzhi: val
         })
+        return val;
       } else if (dataType == 'shenggao') {
         if (val > 255) {
           val = 255;

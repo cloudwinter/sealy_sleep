@@ -24,7 +24,7 @@
       </view>
 
       <view class="headline">睡眠报告</view>
-      <!-- 月报告 -->
+      <!-- 日报告 -->
       <view class="item" bindtap="report" data-type="1" style="width:100%;margin-top:17rpx;">
         <view class="item-left">日报告</view>
         <view class="item-right">

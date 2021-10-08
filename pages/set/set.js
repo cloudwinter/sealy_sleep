@@ -191,7 +191,7 @@ Page({
 
   smart: function (e) {
     wx.navigateTo({
-      url: '/pages/induction/induction',
+      url: '/pages/smart/smart'
     })
   },
 

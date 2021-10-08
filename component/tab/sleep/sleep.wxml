@@ -18,8 +18,8 @@
           <view class="left text">身高(cm)</view>
           <view class="right">
             <!-- <view class="text">{{shenggao}}</view> -->
-            <input type="number" class="input inputtext" value="{{shenggao}}" disabled="{{!canEdit}}" maxlength="3" 
-            data-type="shenggao" bindinput="inputChange"/>
+            <input type="number" class="input1 inputtext" value="{{shenggao == 0?'':shenggao}}" disabled="{{!canEdit}}" maxlength="3" 
+            data-type="shenggao" bindinput="inputChange" placeholder="请输入"/>
             <image class="right-icon" src="../../../images/{{skin}}/row_blue@2x.png"></image>
           </view>
         </view>
@@ -28,8 +28,8 @@
           <view class="left text">体重(kg)</view>
           <view class="right">
             <!-- <view class="text">{{tizhong}}</view> -->
-            <input type="number" class="input inputtext" value="{{tizhong}}" disabled="{{!canEdit}}" maxlength="3" 
-            data-type="tizhong" bindinput="inputChange"/>
+            <input type="number" class="input1 inputtext" value="{{tizhong == 0?'':tizhong}}" disabled="{{!canEdit}}" maxlength="3" 
+            data-type="tizhong" bindinput="inputChange" placeholder="请输入"/>
             <image class="right-icon" src="../../../images/{{skin}}/row_blue@2x.png"></image>
           </view>
         </view>

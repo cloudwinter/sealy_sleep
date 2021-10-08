@@ -109,6 +109,9 @@
 .oval .input {
   width: 60rpx;
 }
+.oval .input1 {
+  width: 80rpx;
+}
 
 .oval .input2 {
   width: 80rpx;

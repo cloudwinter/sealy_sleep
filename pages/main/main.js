@@ -105,6 +105,8 @@ Page({
     kuaijieType: 'K2',
     weitiaoType: 'W4',
     connected: {},
+    sleepClickTime: 0,
+    kuaijieClickTime: 0,
   },
 
   /**
@@ -168,11 +170,17 @@ Page({
   /******------>tab切换 start */
 
   toKuaijie() {
+    let kuaijieClickTime = this.data.kuaijieClickTime;
+    let currentTime = new Date().getTime();
+    if (currentTime - kuaijieClickTime > 1000) {
+      WxNotificationCenter.postNotificationName('VIEWSHOW');
+    }
     this.setData({
       nowPage: "kuaijie",
-      nowIndex: 0
+      nowIndex: 0,
+      kuaijieClickTime: currentTime
     })
-    WxNotificationCenter.postNotificationName('VIEWSHOW');
+
   },
   toWeitiao() {
     this.setData({
@@ -181,11 +189,16 @@ Page({
     })
   },
   toSleep() {
+    let sleepClickTime = this.data.sleepClickTime;
+    let currentTime = new Date().getTime();
+    if (currentTime - sleepClickTime > 1000) {
+      WxNotificationCenter.postNotificationName('VIEWSHOW');
+    }
     this.setData({
       nowPage: "sleep",
-      nowIndex: 2
+      nowIndex: 2,
+      sleepClickTime: currentTime
     })
-    WxNotificationCenter.postNotificationName('VIEWSHOW');
   },
   toAnmo() {
     this.setData({
@@ -203,7 +216,7 @@ Page({
   /**
    * 设置智能睡眠显示
    */
-  setSleepShow(){
+  setSleepShow() {
     let tabbar = this.data.tabBar;
     let that = this;
     console.info("main->设置智能睡眠显示");

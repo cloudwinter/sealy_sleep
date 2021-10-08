@@ -20,7 +20,6 @@
             <!-- <view class="text">{{shenggao}}</view> -->
             <input type="number" class="input1 inputtext" value="{{shenggao == 0?'':shenggao}}" disabled="{{!canEdit}}" maxlength="3" 
             data-type="shenggao" bindinput="inputChange" placeholder="请输入"/>
-            <image class="right-icon" src="../../../images/{{skin}}/row_blue@2x.png"></image>
           </view>
         </view>
         <view class="vertical-middle"></view>
@@ -30,7 +29,6 @@
             <!-- <view class="text">{{tizhong}}</view> -->
             <input type="number" class="input1 inputtext" value="{{tizhong == 0?'':tizhong}}" disabled="{{!canEdit}}" maxlength="3" 
             data-type="tizhong" bindinput="inputChange" placeholder="请输入"/>
-            <image class="right-icon" src="../../../images/{{skin}}/row_blue@2x.png"></image>
           </view>
         </view>
       </view>

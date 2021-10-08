@@ -329,8 +329,9 @@ Component({
         return;
       }
       let cmdPrefix = 'FFFFFFFF02000B14';
-      let DD = util.str10To16(this.data.shenggao);
-      let EE = util.str10To16(this.data.tizhong);
+      let DD = util.str10To16(this.data.shenggao == '' ? 0 : this.data.shenggao);
+      let EE = util.str10To16(this.data.tizhong == '' ? 0 : this.data.tizhong);
+      console.info('save',DD,EE);
       let BB = util.str10To16(parseInt(this.data.ptTezhengzhi / 2));
       let CC = util.str10To16(parseInt(this.data.ctTezhengzhi / 2));
       let RS = '00';

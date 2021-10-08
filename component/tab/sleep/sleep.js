@@ -205,12 +205,12 @@ Component({
         console.info('getRepeatRTDB 停止获取实时数值');
         return;
       }
-      if (count > 10) {
-        // 最多重复10次
+      if (count > 30) {
+        // 最多重复30次
         this.setData({
           startGetRTDB: !startGetRTDB,
         })
-        console.info('getRepeatRTDB 最多重复10次获取实时数值');
+        console.info('getRepeatRTDB 最多重复30次获取实时数值');
         return;
       }
       console.info('getRepeatRTDB 重复获取实时数值 第' + count + '次');

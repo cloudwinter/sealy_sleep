@@ -18,7 +18,7 @@
           <view class="left text">身高(cm)</view>
           <view class="right">
             <!-- <view class="text">{{shenggao}}</view> -->
-            <input type="number" class="input text" value="{{shenggao}}" disabled="{{!canEdit}}" maxlength="3" 
+            <input type="number" class="input inputtext" value="{{shenggao}}" disabled="{{!canEdit}}" maxlength="3" 
             data-type="shenggao" bindinput="inputChange"/>
             <image class="right-icon" src="../../../images/{{skin}}/row_blue@2x.png"></image>
           </view>
@@ -28,7 +28,7 @@
           <view class="left text">体重(kg)</view>
           <view class="right">
             <!-- <view class="text">{{tizhong}}</view> -->
-            <input type="number" class="input text" value="{{tizhong}}" disabled="{{!canEdit}}" maxlength="3" 
+            <input type="number" class="input inputtext" value="{{tizhong}}" disabled="{{!canEdit}}" maxlength="3" 
             data-type="tizhong" bindinput="inputChange"/>
             <image class="right-icon" src="../../../images/{{skin}}/row_blue@2x.png"></image>
           </view>
@@ -53,7 +53,7 @@
             <view class="text">特征值</view>
             <view class="oval-content-middle"></view>
             <!-- <view class="text">{{ptTezhengzhi}}</view> -->
-            <input type="number" class="input2 text" value="{{ptTezhengzhi}}" disabled="{{!canEdit}}" maxlength="5"
+            <input type="number" class="input2 inputtext" value="{{ptTezhengzhi}}" disabled="{{!canEdit}}" maxlength="5"
             data-type="ptTezhengzhi" bindinput="inputChange" />
           </view>
         </view>
@@ -63,7 +63,7 @@
             <view class="text">特征值</view>
             <view class="oval-content-middle"></view>
             <!-- <view class="text">{{ctTezhengzhi}}</view> -->
-            <input type="number" class="input2 text" value="{{ctTezhengzhi}}" disabled="{{!canEdit}}" maxlength="5"
+            <input type="number" class="input2 inputtext" value="{{ctTezhengzhi}}" disabled="{{!canEdit}}" maxlength="5"
             data-type="ctTezhengzhi" bindinput="inputChange" />
           </view>
         </view>
@@ -76,7 +76,7 @@
             <view class="text">背部角度</view>
             <view class="oval-content-middle"></view>
             <!-- <view class="text">{{ptBeibujiaodu}}</view> -->
-            <input type="number" class="input text" value="{{ptBeibujiaodu}}" disabled="{{!canEdit}}" maxlength="2"
+            <input type="number" class="input inputtext" value="{{ptBeibujiaodu}}" disabled="{{!canEdit}}" maxlength="2"
               data-type="ptBeibujiaodu" bindinput="inputChange" />
           </view>
         </view>
@@ -86,7 +86,7 @@
             <view class="text">背部角度</view>
             <view class="oval-content-middle"></view>
             <!-- <view class="text">{{ctBeibujiaodu}}</view> -->
-            <input type="number" class="input text" value="{{ctBeibujiaodu}}" disabled="{{!canEdit}}" maxlength="2"
+            <input type="number" class="input inputtext" value="{{ctBeibujiaodu}}" disabled="{{!canEdit}}" maxlength="2"
               data-type="ctBeibujiaodu" bindinput="inputChange" />
           </view>
         </view>

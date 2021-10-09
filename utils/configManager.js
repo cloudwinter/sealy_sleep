@@ -4,6 +4,7 @@ const _LAST_CONNECT_KEY = 'last_connected'
 const _CONNECTED_KEY = 'connected'
 const _ALARM_KEY = 'alarm:'
 const _ALARM_SHOW_KEY = 'show:alarm:'
+const _SLEEP_HAS_SAVED_KEY = 'sleep:has:saved:'
 const _PROPS = {
   _ID: 'id'
 }
@@ -261,6 +262,33 @@ function showAlarmSwitch(deviceId) {
 }
 
 
+/**
+ * 设置sleepTab保存状态
+ * @param {*} show 
+ * @param {*} deviceId 
+ */
+function putSleepTabSaveStatus(hasSaved,deviceId) {
+  let key = _SLEEP_HAS_SAVED_KEY+deviceId;
+  wx.setStorage({
+    data: hasSaved,
+    key: key,
+  })
+}
+
+/**
+ * 获取sleepTab保存状态
+ * @param {*} deviceId 
+ */
+function getSleepTabSaveStatus(deviceId) {
+  let key = _SLEEP_HAS_SAVED_KEY+deviceId;
+  var hasSaved = wx.getStorageSync(key);
+  if(hasSaved) {
+    return true;
+  }
+  return false;
+}
+
+
 
 
 
@@ -283,4 +311,6 @@ module.exports = {
   getAlarm,
   putAlarmSwitch,
   showAlarmSwitch,
+  putSleepTabSaveStatus,
+  getSleepTabSaveStatus
 }

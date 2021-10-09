@@ -5,6 +5,7 @@ const app = getApp();
 const util = require('../../../utils/util')
 const WxNotificationCenter = require('../../../utils/WxNotificationCenter')
 const crcUtil = require('../../../utils/crcUtil');
+const configManager = require('../../../utils/configManager');
 
 
 
@@ -37,7 +38,8 @@ Component({
     ctBeibujiaodu: 5,
     zhinengShuimian: false,
     zhinengYedeng: false,
-    showExceptionParamDialog: false
+    showExceptionParamDialog: false,
+    topClickTime: 0,
   },
 
 
@@ -97,8 +99,10 @@ Component({
     initConnected(connected) {
       var that = this.observer;
       console.info('sleep->initConnected:', connected, this.observer);
+      let saveStatus = configManager.getSleepTabSaveStatus(connected.deviceId);
       that.setData({
         connected: connected,
+        canEdit:!saveStatus
       })
     },
 
@@ -132,7 +136,7 @@ Component({
         let zhinengShuimian = cmd.substr(32, 2) == '01' ? true : false;
         let zhinengYedeng = cmd.substr(34, 2) == '01' ? true : false;
         let showExceptionParamDialog = false;
-        if(ptTezhengzhi >= 100 || ctTezhengzhi <= 50){
+        if (ptTezhengzhi >= 100 || ctTezhengzhi <= 50) {
           showExceptionParamDialog = true;
         }
         that.setData({
@@ -144,7 +148,7 @@ Component({
           ctBeibujiaodu: ctBeibujiaodu,
           zhinengShuimian: zhinengShuimian,
           zhinengYedeng: zhinengYedeng,
-          showExceptionParamDialog:showExceptionParamDialog
+          showExceptionParamDialog: showExceptionParamDialog
         })
         return;
       }
@@ -193,9 +197,17 @@ Component({
      * 获取实时数值
      */
     getRTDB() {
+      let topClickTime = this.data.topClickTime;
+      let currentTime = new Date().getTime();
+      if (currentTime - topClickTime < 2000) {
+        console.info('getRTDB 连接点击事件小于2s 不处理');
+        return;
+      }
+
       let startGetRTDB = this.data.startGetRTDB;
       this.setData({
         startGetRTDB: !startGetRTDB,
+        topClickTime: currentTime,
       })
       console.info('点击获取实时数值按钮');
       this.getRepeatRTDB(0);

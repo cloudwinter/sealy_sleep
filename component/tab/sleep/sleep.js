@@ -100,9 +100,11 @@ Component({
       var that = this.observer;
       console.info('sleep->initConnected:', connected, this.observer);
       let saveStatus = configManager.getSleepTabSaveStatus(connected.deviceId);
+      let zhinengShuimian = app.globalData.zhinengShuimian;
       that.setData({
         connected: connected,
-        canEdit:!saveStatus
+        canEdit:!saveStatus,
+        zhinengShuimian:zhinengShuimian
       })
     },
 
@@ -150,6 +152,7 @@ Component({
           zhinengYedeng: zhinengYedeng,
           showExceptionParamDialog: showExceptionParamDialog
         })
+        app.globalData.zhinengShuimian = zhinengShuimian;
         return;
       }
       var prefixRTDB = cmd.substr(0, 18);
@@ -377,6 +380,7 @@ Component({
           that.setData({
             canEdit: false
           })
+          app.globalData.zhinengShuimian = SS;
         },
         fail: (res) => {
           console.error('save->发送失败', res);

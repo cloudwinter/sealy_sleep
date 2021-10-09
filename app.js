@@ -39,6 +39,7 @@ App({
     navHeight: '',
     connected: {}, // 当前已连接的设备信息
     hasSleepInduction: false, // 智能睡眠感应开关
+    zhinengShuimian:'00', // 智能睡眠状态
     sleepTimer: '00', // 智能睡眠定时
     sleepInduction: { //智能睡眠感应信息
       status: '00', // 00 关闭，01开启 其他定时

@@ -35,8 +35,8 @@ Component({
     zhihan: false,
     startTime: '',
     endTime: '',
-    swichSmart: "关闭",
-    hasSleepInduction: true
+    hasSleepInduction: true,
+    zhinengShuimian:'00',
   },
 
 
@@ -46,24 +46,10 @@ Component({
   pageLifetimes: {
     show: function () {
       // 设置当前的皮肤样式
-
       console.info("kuaijie-K2->show", app.globalData);
-      let swichSmart = '关闭';
       let hasSleepInduction = app.globalData.hasSleepInduction;
-      let inductionStatus = app.globalData.sleepInduction.status;
-      console.info('onShow', inductionStatus);
-      if (hasSleepInduction) {
-        if (inductionStatus == '01') {
-          swichSmart = '开启';
-        } else if(inductionStatus == '00') {
-          swichSmart = "关闭";
-        } else {
-          swichSmart = "定时开启";
-        }
-      }
       this.setData({
         hasSleepInduction: hasSleepInduction,
-        swichSmart: swichSmart,
         skin: app.globalData.skin
       })
     }
@@ -119,23 +105,10 @@ Component({
 
     viewShow() {
       var that = this.observer;
-      let swichSmart = that.data.swichSmart
       console.info('kuaijie-K2->viewShow:', this.observer);
       let hasSleepInduction = app.globalData.hasSleepInduction;
-      let inductionStatus = app.globalData.sleepInduction.status;
-      console.info('onShow', inductionStatus);
-      if (hasSleepInduction) {
-        if (inductionStatus == '01') {
-          swichSmart = '开启';
-        } else if(inductionStatus == '00') {
-          swichSmart = "关闭";
-        } else {
-          swichSmart = "定时开启";
-        }
-      }
       that.setData({
         hasSleepInduction: hasSleepInduction,
-        swichSmart: swichSmart,
       })
     },
 
@@ -202,10 +175,14 @@ Component({
         setTimeout(() => {
           this.sendAskBlueCmd(zhihan)
         }, 500);
+        setTimeout(() => {
+          this.sendSleepAskBlueCmd()
+        }, 800);
       }
 
     },
 
+    
 
 
 
@@ -278,6 +255,23 @@ Component({
         }
       }
 
+      var sleepPrefix = cmd.substr(0, 16);
+      if (sleepPrefix == 'FFFFFFFF02000A14') {
+        let zhinengShuimian = cmd.substr(32, 2) == '01' ? true : false;
+        that.setData({
+          zhinengShuimian:zhinengShuimian
+        })
+      }
+
+    },
+
+
+    /**
+     * 发送智能睡眠记忆状态命令
+     */
+    sendSleepAskBlueCmd() {
+      var connected = this.data.connected;
+      util.sendBlueCmd(connected, 'FFFFFFFF02000A0A1204');
     },
 
     /**
@@ -295,11 +289,9 @@ Component({
     sendBlueCmd(cmd, options) {
       var connected = this.data.connected;
       util.sendBlueCmd(connected, sendPrefix + cmd, options);
-      let sleepInduction = app.globalData.sleepInduction;
-      sleepInduction.status = '00';
-      app.globalData.sleepInduction = sleepInduction;
+      app.globalData.zhinengShuimian = '00';
       this.setData({
-        swichSmart: '关闭'
+        zhinengShuimian: '00'
       })
     },
 
@@ -626,23 +618,20 @@ Component({
      */
     smart: function (e) {
       var connected = this.data.connected;
-      let swichSmart = this.data.swichSmart;
-      let sleepInduction = app.globalData.sleepInduction;
+      let zhinengShuimian = this.data.zhinengShuimian;
       let cmd = '';
-      if(swichSmart == '开启') {
+      if(zhinengShuimian == '01') {
         cmd = 'FFFFFFFF050000F03FD310'
-        swichSmart = '关闭';
-        sleepInduction.status = '00';
+        zhinengShuimian = '00';
       } else {
         cmd = 'FFFFFFFF050000003F9710'
-        swichSmart = '开启';
-        sleepInduction.status = '01';
+        zhinengShuimian = '01';
       }
       util.sendBlueCmd(connected, cmd);
       this.setData({
-        swichSmart:swichSmart
+        zhinengShuimian:zhinengShuimian
       })
-      app.globalData.sleepInduction = sleepInduction;
+      app.globalData.zhinengShuimian = zhinengShuimian;
 
     },
 

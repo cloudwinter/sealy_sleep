@@ -47,7 +47,7 @@ Page({
         "text": "智能睡眠",
         "tapFunction": "toSleep",
         "active": "active",
-        "show": true
+        "show": false
       },
       {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_anno_selected@2x.png",

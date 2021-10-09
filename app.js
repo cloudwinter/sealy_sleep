@@ -37,14 +37,14 @@ App({
     screenHeight: '',
     screenWidth: '',
     navHeight: '',
-    connected:{},  // 当前已连接的设备信息
+    connected: {}, // 当前已连接的设备信息
     hasSleepInduction: false, // 智能睡眠感应开关
-    sleepInduction: {  //智能睡眠感应信息
-      status:'00',  // 00 关闭，01开启 其他定时
-      nightLight:'00', // 智能夜灯 00 关闭 01开启
-      mode:'00', // 模式 00 预设位置 01 个性位置
-      gexingModel:'00'  // 个性模式 00 个性未设置 01 个性已设置
-
+    sleepTimer: '00', // 智能睡眠定时
+    sleepInduction: { //智能睡眠感应信息
+      status: '00', // 00 关闭，01开启 其他定时
+      nightLight: '00', // 智能夜灯 00 关闭 01开启
+      mode: '00', // 模式 00 预设位置 01 个性位置
+      gexingModel: '00' // 个性模式 00 个性未设置 01 个性已设置
     }
 
   }

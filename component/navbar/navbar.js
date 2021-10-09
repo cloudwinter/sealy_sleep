@@ -98,7 +98,7 @@ Component({
         })
         let connected = configManager.getCurrentConnected();
         if(connected){
-            util.sendBlueCmd(connected, 'FFFFFFFF0200010B040E04');
+            util.sendBlueCmd(connected, 'FFFFFFFF02000E0B001704');
         }        
       }
 

@@ -47,7 +47,7 @@ Page({
         "text": "智能睡眠",
         "tapFunction": "toSleep",
         "active": "active",
-        "show": false
+        "show": true
       },
       {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_anno_selected@2x.png",
@@ -375,7 +375,7 @@ Page({
 
     // 发送压力板指令
     console.info('main->sendInitCmd 发送压力指令 time', new Date().getTime());
-    that.sendBlueCmd('FFFFFFFF0200010B040E04');
+    that.sendBlueCmd('FFFFFFFF02000E0B001704');
 
     // 延迟150ms发送时间指令
     setTimeout(function () {
@@ -422,10 +422,10 @@ Page({
         received.indexOf('FFFFFFFF01000413') >= 0) {
         // 有闹钟功能
         this.setAlarm(received, deviceId);
-      } else if (received.indexOf('FFFFFFFF0200020F') >= 0) {
+      } else if (received.indexOf('FFFFFFFF02000E0B') >= 0) {
         // 有智能睡眠感应
         this.setSleepShow();
-        this.setSmart(received, deviceId);
+        this.setTimer(received, deviceId);
       }
 
     }
@@ -436,19 +436,10 @@ Page({
    * @param {*} cmd 
    * @param {*} deviceId 
    */
-  setSmart: function (cmd, deviceId) {
+  setTimer: function (cmd, deviceId) {
     console.error('main->setSmart-->开启智能睡眠设置', cmd, deviceId);
-    let status = cmd.substr(18, 2);
-    let nightLight = cmd.substr(20, 2);
-    let mode = cmd.substr(22, 2);
-    let gexingModel = cmd.substr(24, 2);
     app.globalData.hasSleepInduction = true;
-    app.globalData.sleepInduction = {
-      status: util.isNotEmptyStr(status) ? status : '00',
-      nightLight: util.isNotEmptyStr(nightLight) ? nightLight : '00',
-      mode: util.isNotEmptyStr(mode) ? mode : '00',
-      gexingModel: util.isNotEmptyStr(gexingModel) ? gexingModel : '00',
-    }
+    app.globalData.sleepTimer = cmd.substr(16, 2);
     WxNotificationCenter.postNotificationName('VIEWSHOW');
   },
 

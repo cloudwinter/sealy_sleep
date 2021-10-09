@@ -36,7 +36,8 @@ Component({
     ptBeibujiaodu: 5,
     ctBeibujiaodu: 5,
     zhinengShuimian: false,
-    zhinengYedeng: false
+    zhinengYedeng: false,
+    showExceptionParamDialog: false
   },
 
 
@@ -130,6 +131,10 @@ Component({
         let ctBeibujiaodu = util.str16To10(cmd.substr(29, 1));
         let zhinengShuimian = cmd.substr(32, 2) == '01' ? true : false;
         let zhinengYedeng = cmd.substr(34, 2) == '01' ? true : false;
+        let showExceptionParamDialog = false;
+        if(ptTezhengzhi >= 100 || ctTezhengzhi <= 50){
+          showExceptionParamDialog = true;
+        }
         that.setData({
           shenggao: shenggao,
           tizhong: tizhong,
@@ -138,7 +143,8 @@ Component({
           ptBeibujiaodu: ptBeibujiaodu,
           ctBeibujiaodu: ctBeibujiaodu,
           zhinengShuimian: zhinengShuimian,
-          zhinengYedeng: zhinengYedeng
+          zhinengYedeng: zhinengYedeng,
+          showExceptionParamDialog:showExceptionParamDialog
         })
         return;
       }
@@ -339,7 +345,7 @@ Component({
       let cmdPrefix = 'FFFFFFFF02000B14';
       let DD = util.str10To16(this.data.shenggao == '' ? 0 : this.data.shenggao);
       let EE = util.str10To16(this.data.tizhong == '' ? 0 : this.data.tizhong);
-      console.info('save',DD,EE);
+      console.info('save', DD, EE);
       let BB = util.str10To16(parseInt(this.data.ptTezhengzhi / 2));
       let CC = util.str10To16(parseInt(this.data.ctTezhengzhi / 2));
       let RS = '00';
@@ -367,5 +373,10 @@ Component({
       }));
     },
 
+    onModalClick() {
+      this.setData({
+        showExceptionParamDialog: false
+      })
+    },
   }
 })

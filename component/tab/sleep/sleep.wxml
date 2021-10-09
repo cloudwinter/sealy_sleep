@@ -71,7 +71,7 @@
       <view class="anjian-item" style="margin-top:1px;">
         <view class="oval">
           <view class="oval-content">
-            <view class="text">背部角度</view>
+            <view class="text">背部位置</view>
             <view class="oval-content-middle"></view>
             <!-- <view class="text">{{ptBeibujiaodu}}</view> -->
             <input type="number" class="input {{canEdit?'inputtext':'text'}}" value="{{ptBeibujiaodu}}" disabled="{{!canEdit}}" maxlength="1"
@@ -81,7 +81,7 @@
         <view class="vertical-middle"></view>
         <view class="oval">
           <view class="oval-content">
-            <view class="text">背部角度</view>
+            <view class="text">背部位置</view>
             <view class="oval-content-middle"></view>
             <!-- <view class="text">{{ctBeibujiaodu}}</view> -->
             <input type="number" class="input {{canEdit?'inputtext':'text'}}" value="{{ctBeibujiaodu}}" disabled="{{!canEdit}}" maxlength="1"

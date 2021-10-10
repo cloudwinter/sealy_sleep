@@ -315,7 +315,7 @@ Page({
       var connected = this.data.connected;
       let currentSelectedTimerId = this.data.currentSelectedTimerId;
       let cmd = 'FFFFFFFF02000D0B' + currentSelectedTimerId + '1704';
-      util.sendBlueCmd(connected, "FFFFFFFF0500000208D7A6");
+      util.sendBlueCmd(connected, cmd);
       let currentSelectedTimerName = this.data.currentSelectedTimerName;
       app.globalData.sleepTimer = currentSelectedTimerId;
       this.setData({

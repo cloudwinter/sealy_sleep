@@ -64,14 +64,20 @@ Component({
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
-      console.info("attached");
+      console.info("sleep-->attached");
       this.setData({
         display: app.globalData.display
       })
+      let that = this
+      setTimeout(() => {
+        that.setData({
+          showExceptionParamDialog:true
+        })
+      }, 5000);
     },
     detached: function () {
       // 在组件实例被从页面节点树移除时执行
-      console.info("detached");
+      console.info("sleep-->detached");
       var that = this;
       WxNotificationCenter.removeNotification("INIT", that);
       WxNotificationCenter.removeNotification("BLUEREPLY", that);
@@ -313,6 +319,8 @@ Component({
       } else if (dataType == 'ctTezhengzhi') {
         if (val > 500) {
           val = 500;
+        } else if(val < 50) {
+          val = 50
         }
         this.setData({
           ctTezhengzhi: val
@@ -351,6 +359,8 @@ Component({
      */
     save() {
       let canEdit = this.data.canEdit;
+      let connected = this.data.connected;
+      configManager.putSleepTabSaveStatus(!canEdit,connected.deviceId)
       if (!canEdit) {
         this.setData({
           canEdit: true

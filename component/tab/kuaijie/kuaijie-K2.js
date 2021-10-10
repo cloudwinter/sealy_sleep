@@ -175,10 +175,10 @@ Component({
         setTimeout(() => {
           this.sendAskBlueCmd(zhihan)
         }, 500);
-        setTimeout(() => {
-          this.sendSleepAskBlueCmd()
-        }, 800);
       }
+      setTimeout(() => {
+        this.sendSleepAskBlueCmd()
+      }, 800);
 
     },
 

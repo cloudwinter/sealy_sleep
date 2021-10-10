@@ -71,7 +71,7 @@ Component({
       let that = this
       setTimeout(() => {
         that.setData({
-          showExceptionParamDialog:true
+          showExceptionParamDialog: true
         })
       }, 5000);
     },
@@ -109,8 +109,8 @@ Component({
       let zhinengShuimian = app.globalData.zhinengShuimian;
       that.setData({
         connected: connected,
-        canEdit:!saveStatus,
-        zhinengShuimian:zhinengShuimian
+        canEdit: !saveStatus,
+        zhinengShuimian: zhinengShuimian
       })
     },
 
@@ -143,10 +143,6 @@ Component({
         let ctBeibujiaodu = util.str16To10(cmd.substr(29, 1));
         let zhinengShuimian = cmd.substr(32, 2) == '01' ? true : false;
         let zhinengYedeng = cmd.substr(34, 2) == '01' ? true : false;
-        let showExceptionParamDialog = false;
-        if (ptTezhengzhi >= 100 || ctTezhengzhi <= 50) {
-          showExceptionParamDialog = true;
-        }
         that.setData({
           shenggao: shenggao,
           tizhong: tizhong,
@@ -156,7 +152,6 @@ Component({
           ctBeibujiaodu: ctBeibujiaodu,
           zhinengShuimian: zhinengShuimian,
           zhinengYedeng: zhinengYedeng,
-          showExceptionParamDialog: showExceptionParamDialog
         })
         app.globalData.zhinengShuimian = zhinengShuimian;
         return;
@@ -176,18 +171,28 @@ Component({
       if (prefixRTDB == 'FFFFFFFF0200090D01') {
         let AAAA = cmd.substr(20, 2) + cmd.substr(18, 2);
         let tezhegnzhi = util.str16To10(AAAA);
+        let showExceptionParamDialog = false;
+        if (tezhegnzhi >= 100) {
+          showExceptionParamDialog = true;
+        }
         that.setData({
           tezhegnzhi: tezhegnzhi,
-          ptTezhengzhi: tezhegnzhi
+          ptTezhengzhi: tezhegnzhi,
+          showExceptionParamDialog: showExceptionParamDialog
         })
         return;
       }
       if (prefixRTDB == 'FFFFFFFF0200090D02') {
         let AAAA = cmd.substr(20, 2) + cmd.substr(18, 2);
         let tezhegnzhi = util.str16To10(AAAA);
+        let showExceptionParamDialog = false;
+        if (tezhegnzhi <= 50) {
+          showExceptionParamDialog = true;
+        }
         that.setData({
           tezhegnzhi: tezhegnzhi,
-          ctTezhengzhi: tezhegnzhi
+          ctTezhengzhi: tezhegnzhi,
+          showExceptionParamDialog: showExceptionParamDialog
         })
         return;
       }
@@ -319,7 +324,7 @@ Component({
       } else if (dataType == 'ctTezhengzhi') {
         if (val > 500) {
           val = 500;
-        } else if(val < 50) {
+        } else if (val < 50) {
           val = 50
         }
         this.setData({
@@ -360,7 +365,7 @@ Component({
     save() {
       let canEdit = this.data.canEdit;
       let connected = this.data.connected;
-      configManager.putSleepTabSaveStatus(!canEdit,connected.deviceId)
+      configManager.putSleepTabSaveStatus(!canEdit, connected.deviceId)
       if (!canEdit) {
         this.setData({
           canEdit: true

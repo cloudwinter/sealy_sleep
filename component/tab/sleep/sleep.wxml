@@ -132,7 +132,7 @@
   </scroll-view>
 
   <!-- 通信失败 -->
-  <view class="modal-dialog" hidden="{{!showExceptionParamDialog}}">
+  <view class="modal-dialog" hidden="true">
     <view class="modal-box">
       <view class="model-content">
         建议您将压力带下移5CM 后重新设置

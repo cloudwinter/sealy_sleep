@@ -255,9 +255,9 @@ Component({
         }
       }
 
-      var sleepPrefix = cmd.substr(0, 16);
+      var sleepPrefix = cmd.substr(0, 16).toUpperCase();
       if (sleepPrefix == 'FFFFFFFF02000A14') {
-        let zhinengShuimian = cmd.substr(32, 2) == '01' ? true : false;
+        let zhinengShuimian = cmd.substr(32, 2);
         that.setData({
           zhinengShuimian:zhinengShuimian
         })

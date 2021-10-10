@@ -68,12 +68,6 @@ Component({
       this.setData({
         display: app.globalData.display
       })
-      let that = this
-      setTimeout(() => {
-        that.setData({
-          showExceptionParamDialog: true
-        })
-      }, 5000);
     },
     detached: function () {
       // 在组件实例被从页面节点树移除时执行
@@ -109,7 +103,7 @@ Component({
       let zhinengShuimian = app.globalData.zhinengShuimian;
       that.setData({
         connected: connected,
-        canEdit: !saveStatus,
+        canEdit: saveStatus,
         zhinengShuimian: zhinengShuimian
       })
     },
@@ -171,28 +165,18 @@ Component({
       if (prefixRTDB == 'FFFFFFFF0200090D01') {
         let AAAA = cmd.substr(20, 2) + cmd.substr(18, 2);
         let tezhegnzhi = util.str16To10(AAAA);
-        let showExceptionParamDialog = false;
-        if (tezhegnzhi >= 100) {
-          showExceptionParamDialog = true;
-        }
         that.setData({
           tezhegnzhi: tezhegnzhi,
           ptTezhengzhi: tezhegnzhi,
-          showExceptionParamDialog: showExceptionParamDialog
         })
         return;
       }
       if (prefixRTDB == 'FFFFFFFF0200090D02') {
         let AAAA = cmd.substr(20, 2) + cmd.substr(18, 2);
         let tezhegnzhi = util.str16To10(AAAA);
-        let showExceptionParamDialog = false;
-        if (tezhegnzhi <= 50) {
-          showExceptionParamDialog = true;
-        }
         that.setData({
           tezhegnzhi: tezhegnzhi,
           ctTezhengzhi: tezhegnzhi,
-          showExceptionParamDialog: showExceptionParamDialog
         })
         return;
       }
@@ -324,8 +308,6 @@ Component({
       } else if (dataType == 'ctTezhengzhi') {
         if (val > 500) {
           val = 500;
-        } else if (val < 50) {
-          val = 50
         }
         this.setData({
           ctTezhengzhi: val

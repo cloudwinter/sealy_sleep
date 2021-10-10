@@ -2,6 +2,7 @@
 const configManager = require('../../utils/configManager');
 const util = require('../../utils/util');
 const WxNotificationCenter = require('../../utils/WxNotificationCenter');
+const crcUtil = require('../../utils/crcUtil');
 const app = getApp();
 const timerList = [{
     id: '00',
@@ -315,6 +316,7 @@ Page({
       var connected = this.data.connected;
       let currentSelectedTimerId = this.data.currentSelectedTimerId;
       let cmd = 'FFFFFFFF02000D0B' + currentSelectedTimerId + '1704';
+      cmd = cmd + crcUtil.HexToCSU16(cmd);
       util.sendBlueCmd(connected, cmd);
       let currentSelectedTimerName = this.data.currentSelectedTimerName;
       app.globalData.sleepTimer = currentSelectedTimerId;

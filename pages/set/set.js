@@ -315,7 +315,7 @@ Page({
       // 发送设置定时指令
       var connected = this.data.connected;
       let currentSelectedTimerId = this.data.currentSelectedTimerId;
-      let cmd = 'FFFFFFFF02000D0B' + currentSelectedTimerId + '1704';
+      let cmd = 'FFFFFFFF02000D0B' + currentSelectedTimerId;
       cmd = cmd + crcUtil.HexToCSU16(cmd);
       util.sendBlueCmd(connected, cmd);
       let currentSelectedTimerName = this.data.currentSelectedTimerName;

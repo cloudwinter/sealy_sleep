@@ -33,7 +33,7 @@
           </view>
           <view class="column-line"></view>
           <view class="column">
-            <view class="column-title">最端在床时间</view>
+            <view class="column-title">最短在床时间</view>
             <view class="column-body">
               <view class="column-body-content">{{zaichuang.minTime}}</view>
               <view class="column-body-desc">小时/天</view>
@@ -71,7 +71,7 @@
           </view>
           <view class="column-line"></view>
           <view class="column">
-            <view class="column-title">最少翻身次数/天</view>
+            <view class="column-title">最少翻身次数</view>
             <view class="column-body">
               <view class="column-body-content">{{fansheng.minNum}}</view>
               <view class="column-body-desc">次/天</view>

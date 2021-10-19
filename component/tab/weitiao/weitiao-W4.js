@@ -111,11 +111,8 @@ Component({
      */
     sendBlueCmd(cmd, options) {
       var connected = this.data.connected;
-      
-      let sleepInduction = app.globalData.sleepInduction;
-      sleepInduction.status = '00';
-      app.globalData.sleepInduction = sleepInduction;
       util.sendBlueCmd(connected, sendPrefix + cmd, options);
+      app.globalData.zhinengShuimian = '00';
     },
 
     /**

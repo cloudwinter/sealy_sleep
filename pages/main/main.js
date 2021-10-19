@@ -30,28 +30,40 @@ Page({
         "iconPath": "../../images/" + app.globalData.skin + "/tab_kuaijie_normal@2x.png",
         "text": "快捷",
         "tapFunction": "toKuaijie",
-        "active": "active"
+        "active": "active",
+        "show": true
       },
       {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_weitiao_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_weitiao_normal@2x.png",
         "text": "微调",
         "tapFunction": "toWeitiao",
-        "active": ""
+        "active": "",
+        "show": true
+      },
+      {
+        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_sleep_selected@2x.png",
+        "iconPath": "../../images/" + app.globalData.skin + "/tab_sleep_normal@2x.png",
+        "text": "智能睡眠",
+        "tapFunction": "toSleep",
+        "active": "active",
+        "show": false
       },
       {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_anno_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_anno_normal@2x.png",
         "text": "按摩",
         "tapFunction": "toAnmo",
-        "active": "active"
+        "active": "active",
+        "show": true
       },
       {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_dengguang_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_dengguang_normal@2x.png",
         "text": "灯光",
         "tapFunction": "toDengguang",
-        "active": ""
+        "active": "",
+        "show": true
       }
     ],
     periodList: [{
@@ -93,6 +105,8 @@ Page({
     kuaijieType: 'K2',
     weitiaoType: 'W4',
     connected: {},
+    sleepClickTime: 0,
+    kuaijieClickTime: 0,
   },
 
   /**
@@ -124,8 +138,6 @@ Page({
     this.setData({
       skin: skin
     })
-
-    //WxNotificationCenter.postNotificationName('INIT',this.data.connected);
   },
 
 
@@ -158,11 +170,17 @@ Page({
   /******------>tab切换 start */
 
   toKuaijie() {
+    let kuaijieClickTime = this.data.kuaijieClickTime;
+    let currentTime = new Date().getTime();
+    if (currentTime - kuaijieClickTime > 1000) {
+      WxNotificationCenter.postNotificationName('VIEWSHOW');
+    }
     this.setData({
       nowPage: "kuaijie",
-      nowIndex: 0
+      nowIndex: 0,
+      kuaijieClickTime: currentTime
     })
-    WxNotificationCenter.postNotificationName('VIEWSHOW');
+
   },
   toWeitiao() {
     this.setData({
@@ -170,16 +188,41 @@ Page({
       nowIndex: 1
     })
   },
+  toSleep() {
+    let sleepClickTime = this.data.sleepClickTime;
+    let currentTime = new Date().getTime();
+    if (currentTime - sleepClickTime > 1000) {
+      WxNotificationCenter.postNotificationName('VIEWSHOW');
+    }
+    this.setData({
+      nowPage: "sleep",
+      nowIndex: 2,
+      sleepClickTime: currentTime
+    })
+  },
   toAnmo() {
     this.setData({
       nowPage: "anmo",
-      nowIndex: 2
+      nowIndex: 3
     })
   },
   toDengguang() {
     this.setData({
       nowPage: "dengguang",
-      nowIndex: 3
+      nowIndex: 4
+    })
+  },
+
+  /**
+   * 设置智能睡眠显示
+   */
+  setSleepShow() {
+    let tabbar = this.data.tabBar;
+    let that = this;
+    console.info("main->设置智能睡眠显示");
+    tabbar[2].show = true;
+    that.setData({
+      tabBar: tabbar
     })
   },
 
@@ -327,12 +370,12 @@ Page({
    * 在各个页面发送指令之前发送指令
    */
   sendInitCmd: function (connected) {
-    
+
     let that = this;
 
     // 发送压力板指令
     console.info('main->sendInitCmd 发送压力指令 time', new Date().getTime());
-    that.sendBlueCmd('FFFFFFFF0200010B040E04');
+    that.sendBlueCmd('FFFFFFFF02000E0B001704');
 
     // 延迟150ms发送时间指令
     setTimeout(function () {
@@ -379,9 +422,10 @@ Page({
         received.indexOf('FFFFFFFF01000413') >= 0) {
         // 有闹钟功能
         this.setAlarm(received, deviceId);
-      } else if (received.indexOf('FFFFFFFF0200020F') >= 0) {
+      } else if (received.indexOf('FFFFFFFF02000E0B') >= 0) {
         // 有智能睡眠感应
-        this.setSmart(received, deviceId);
+        this.setSleepShow();
+        this.setTimer(received, deviceId);
       }
 
     }
@@ -392,19 +436,10 @@ Page({
    * @param {*} cmd 
    * @param {*} deviceId 
    */
-  setSmart: function (cmd, deviceId) {
+  setTimer: function (cmd, deviceId) {
     console.error('main->setSmart-->开启智能睡眠设置', cmd, deviceId);
-    let status = cmd.substr(18, 2);
-    let nightLight = cmd.substr(20, 2);
-    let mode = cmd.substr(22, 2);
-    let gexingModel = cmd.substr(24, 2);
     app.globalData.hasSleepInduction = true;
-    app.globalData.sleepInduction = {
-      status: util.isNotEmptyStr(status)?status:'00',
-      nightLight: util.isNotEmptyStr(nightLight)?nightLight:'00',
-      mode: util.isNotEmptyStr(mode)?mode:'00',
-      gexingModel: util.isNotEmptyStr(gexingModel)?gexingModel:'00',
-    }
+    app.globalData.sleepTimer = cmd.substr(16, 2);
     WxNotificationCenter.postNotificationName('VIEWSHOW');
   },
 

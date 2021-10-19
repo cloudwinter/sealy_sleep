@@ -27,11 +27,11 @@
 		</view>
 	</view>
 
-	<view class="sleep-smart"  hidden="{{!hasSleepInduction}}" >
+	<view class="sleep-smart" hidden="{{!hasSleepInduction}}">
 		<view class="shezhi-content shezhi-button-bg" catchtap="smart">
 			<view class="shezhi-button-left">智能睡眠</view>
 			<view class="shezhi-button-right">
-				<view class="shezhi-button-name">{{swichSmart}}</view>
+				<view class="shezhi-button-name">{{zhinengShuimian=='01'?'开启':'关闭'}}</view>
 			</view>
 		</view>
 	</view>
@@ -53,7 +53,7 @@
 	</view>
 
 
-	<view class="anjianqu" style="margin-top:60rpx">
+	<view class="anjianqu" style="margin-top:33rpx">
 		<view class="anjian-left {{kandianshi ?'selected':'normal'}}">
 			<view class="anjiian-content" catchtap="tapKandianshi" bindtouchstart="touchStart" bindtouchend="touchEnd">
 				<image class="anjian-icon" src="../../../images/{{skin}}/kandianshi-xiao@3x.png"></image>

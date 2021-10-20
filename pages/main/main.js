@@ -25,7 +25,8 @@ Page({
     },
     nowPage: "kuaijie",
     nowIndex: 0,
-    tabBar: [{
+    tabBar: [
+      {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_kuaijie_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_kuaijie_normal@2x.png",
         "text": "快捷",
@@ -34,20 +35,20 @@ Page({
         "show": true
       },
       {
+        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_smartbed_selected@2x.png",
+        "iconPath": "../../images/" + app.globalData.skin + "/tab_smartbed_normal@2x.png",
+        "text": "智能床",
+        "tapFunction": "toSmartBed",
+        "active": "active",
+        "show": false
+      },
+      {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_weitiao_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_weitiao_normal@2x.png",
         "text": "微调",
         "tapFunction": "toWeitiao",
         "active": "",
         "show": true
-      },
-      {
-        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_sleep_selected@2x.png",
-        "iconPath": "../../images/" + app.globalData.skin + "/tab_sleep_normal@2x.png",
-        "text": "智能睡眠",
-        "tapFunction": "toSleep",
-        "active": "active",
-        "show": false
       },
       {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_anno_selected@2x.png",
@@ -64,6 +65,14 @@ Page({
         "tapFunction": "toDengguang",
         "active": "",
         "show": true
+      },
+      {
+        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_sleep_selected@2x.png",
+        "iconPath": "../../images/" + app.globalData.skin + "/tab_sleep_normal@2x.png",
+        "text": "智能睡眠",
+        "tapFunction": "toSmartSleep",
+        "active": "",
+        "show": false
       }
     ],
     periodList: [{
@@ -124,7 +133,6 @@ Page({
         weitiaoType: option.weitiaoType
       })
       this.notifyBLECharacteristicValueChange();
-      //this.getBLService(connected.deviceId);
     }
   },
 
@@ -138,6 +146,8 @@ Page({
     this.setData({
       skin: skin
     })
+
+    this.showStressBeltTab();
   },
 
 
@@ -169,6 +179,7 @@ Page({
 
   /******------>tab切换 start */
 
+
   toKuaijie() {
     let kuaijieClickTime = this.data.kuaijieClickTime;
     let currentTime = new Date().getTime();
@@ -180,26 +191,22 @@ Page({
       nowIndex: 0,
       kuaijieClickTime: currentTime
     })
-
   },
-  toWeitiao() {
+
+  toSmartBed(){
     this.setData({
-      nowPage: "weitiao",
+      nowPage: "smartbed",
       nowIndex: 1
     })
   },
-  toSleep() {
-    let sleepClickTime = this.data.sleepClickTime;
-    let currentTime = new Date().getTime();
-    if (currentTime - sleepClickTime > 1000) {
-      WxNotificationCenter.postNotificationName('VIEWSHOW');
-    }
+
+  toWeitiao() {
     this.setData({
-      nowPage: "sleep",
-      nowIndex: 2,
-      sleepClickTime: currentTime
+      nowPage: "weitiao",
+      nowIndex: 2
     })
   },
+
   toAnmo() {
     this.setData({
       nowPage: "anmo",
@@ -213,16 +220,47 @@ Page({
     })
   },
 
+  toSmartSleep(){
+    this.setData({
+      nowPage: "smartsleep",
+      nowIndex: 5
+    })
+  },
+
   /**
-   * 设置智能睡眠显示
+   * 设置压力带显示的tab
    */
-  setSleepShow() {
+  showStressBeltTab(){
     let tabbar = this.data.tabBar;
-    let that = this;
-    console.info("main->设置智能睡眠显示");
+    tabbar[0].show = false;
+    tabbar[1].show = true;
+    tabbar[2].show = false;
+    tabbar[3].show = true;
+    tabbar[4].show = true;
+    tabbar[5].show = true;
+    this.setData({
+      tabBar:tabbar,
+      nowPage: "smartbed",
+      nowIndex: 1,
+    })
+
+  },
+
+  /**
+   * 设置默认显示的tab
+   */
+  showDefaultTab(){
+    let tabbar = this.data.tabBar;
+    tabbar[0].show = true;
+    tabbar[1].show = false;
     tabbar[2].show = true;
-    that.setData({
-      tabBar: tabbar
+    tabbar[3].show = true;
+    tabbar[4].show = true;
+    tabbar[5].show = false;
+    this.setData({
+      tabBar:tabbar,
+      nowPage: "kuaijie",
+      nowIndex: 0,
     })
   },
 
@@ -230,9 +268,6 @@ Page({
 
 
   /*******-------------->蓝牙回调 start */
-
-
-
   /**
    * 获取连接设备的service服务
    */
@@ -345,10 +380,6 @@ Page({
       WxNotificationCenter.postNotificationName('BLUEREPLY', received);
     });
 
-    // setTimeout(function(){
-    //   util.sendBlueCmd(connected,'FFFFFFFF05000500E4C74A');
-    // },1000)
-
   },
 
   /**
@@ -424,7 +455,7 @@ Page({
         this.setAlarm(received, deviceId);
       } else if (received.indexOf('FFFFFFFF02000E0B') >= 0) {
         // 有智能睡眠感应
-        this.setSleepShow();
+        this.showStressBeltTab();
         this.setTimer(received, deviceId);
       }
 
@@ -437,7 +468,7 @@ Page({
    * @param {*} deviceId 
    */
   setTimer: function (cmd, deviceId) {
-    console.error('main->setSmart-->开启智能睡眠设置', cmd, deviceId);
+    console.error('main->setSmart-->设置智能睡眠定时', cmd, deviceId);
     app.globalData.hasSleepInduction = true;
     app.globalData.sleepTimer = cmd.substr(16, 2);
     WxNotificationCenter.postNotificationName('VIEWSHOW');

@@ -23,10 +23,6 @@ Component({
     skin: app.globalData.skin,
     display: app.globalData.display,
     connected: {},
-    currentAnjian: {
-      anjian: 'kandianshi', // kandianshi,lingyali,zhihan,fuyuan
-      name: '看电视' // 看电视，零压力，止鼾，复原，
-    },
     askType: '1', // 记忆类型 记忆1，记忆2
     jiyi1: false,
     jiyi2: false,
@@ -37,6 +33,8 @@ Component({
     endTime: '',
     hasSleepInduction: true,
     zhinengShuimian:'00',
+    bbtzPotion:1,  // 背部调整位置
+    tbtzPotion:1,  // 背腿调整位置
   },
 
 
@@ -431,12 +429,6 @@ Component({
      */
     tapKandianshi() {
       console.info("tapKandianshi");
-      this.setData({
-        currentAnjian: {
-          anjian: 'kandianshi',
-          name: '看电视'
-        }
-      })
       var that = this;
       var longClick = this.longClick();
       var kandianshiStatus = this.data.kandianshi;
@@ -488,12 +480,6 @@ Component({
      */
     tapLingyali() {
       console.info("tapLingyali");
-      this.setData({
-        currentAnjian: {
-          anjian: 'lingyali',
-          name: '零压力'
-        }
-      })
       var that = this;
       var longClick = this.longClick();
       var lingyaliStatus = this.data.lingyali;
@@ -544,12 +530,6 @@ Component({
      */
     tapZhihan() {
       console.info("tapZhihan");
-      this.setData({
-        currentAnjian: {
-          anjian: 'zhihan',
-          name: '止鼾'
-        }
-      })
       var that = this;
       var longClick = this.longClick();
       var zhihanStatus = this.data.zhihan;
@@ -601,12 +581,6 @@ Component({
      */
     tapFuyuan() {
       console.info("tapFuyuan");
-      this.setData({
-        currentAnjian: {
-          anjian: 'fuyuan',
-          name: '复原'
-        }
-      })
       // 单击
       this.sendBlueCmd('0008D6C6');
     },

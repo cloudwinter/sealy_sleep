@@ -1,90 +1,100 @@
 <!--component/tab/smartbed/smartbed.wxml-->
 <view class="{{skin}}" bindtap="tapBlank" data-blank="blank">
 
-<view class="top" style="margin-top:{{display=='high'?90:0}}rpx;">
-  <view class="donghuaqu">
-    <view class="dh-content">
-      <block wx:if="{{currentAnjian.anjian=='kandianshi'}}">
-        <image class="dh-icon" src="../../../images/{{skin}}/kandianshi-da@3x.png"></image>
-      </block>
-      <block wx:if="{{currentAnjian.anjian=='lingyali'}}">
-        <image class="dh-icon" src="../../../images/{{skin}}/lingyali-da@3x.png"></image>
-      </block>
-      <block wx:if="{{currentAnjian.anjian=='zhihan'}}">
-        <image class="dh-icon" src="../../../images/{{skin}}/zhihan-da@3x.png"></image>
-      </block>
-      <block wx:if="{{currentAnjian.anjian=='fuyuan'}}">
-        <image class="dh-icon" src="../../../images/{{skin}}/fuyuan-da@3x.png"></image>
-      </block>
-      <block wx:if="{{currentAnjian.anjian=='tingyinyue'}}">
-        <image class="dh-icon" src="../../../images/{{skin}}/tingyinyue-da@3x.png"></image>
-      </block>
-      <block wx:if="{{currentAnjian.anjian=='tuibufangsong'}}">
-        <image class="dh-icon" src="../../../images/{{skin}}/tuibufangsong-da@3x.png"></image>
-      </block>
-      <view class="dh-name">{{currentAnjian.name}}</view>
-    </view>
-  </view>
-</view>
-
-<view class="sleep-smart" hidden="{{!hasSleepInduction}}">
-  <view class="shezhi-content shezhi-button-bg" catchtap="smart">
-    <view class="shezhi-button-left">智能睡眠</view>
-    <view class="shezhi-button-right">
-      <view class="shezhi-button-name">{{zhinengShuimian=='01'?'开启':'关闭'}}</view>
-    </view>
-  </view>
-</view>
-
-<view class="jiyi">
-  <view class="button left {{jiyi1?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi1" bindtouchstart="touchStart"
-    bindtouchend="touchEnd">
-    <image class="dian" wx:if="{{jiyi1}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
-    <image class="dian" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image>
-    <view class="name {{jiyi1?'selected-text':'normal-text'}}">记忆一</view>
-  </view>
-  <view class="middle"></view>
-  <view class="button right {{jiyi2?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi2"
-    bindtouchstart="touchStart" bindtouchend="touchEnd">
-    <image class="dian" wx:if="{{jiyi2}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
-    <image class="dian" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image>
-    <view class="name {{jiyi2?'selected-text':'normal-text'}}">记忆二</view>
-  </view>
-</view>
-
-
-<view class="anjianqu" style="margin-top:33rpx">
-  <view class="anjian-left {{kandianshi ?'selected':'normal'}}">
-    <view class="anjiian-content" catchtap="tapKandianshi" bindtouchstart="touchStart" bindtouchend="touchEnd">
-      <image class="anjian-icon" src="../../../images/{{skin}}/kandianshi-xiao@3x.png"></image>
-      <view class="name">看电视</view>
-    </view>
-  </view>
-  <view style="width:30rpx" />
-  <view class="anjian-right {{lingyali ?'selected':'normal'}}">
-    <view class="anjiian-content" catchtap="tapLingyali" bindtouchstart="touchStart" bindtouchend="touchEnd">
-      <image class="anjian-icon" src="../../../images/{{skin}}/lingyali-xiao@3x.png"></image>
-      <view class="name">零压力</view>
-    </view>
-  </view>
-</view>
-
-
-<view class="anjianqu" style="margin-top:33rpx">
-  <view class="anjian-left {{zhihan ? 'selected':'normal'}}">
-    <view class="anjiian-content" catchtap="tapZhihan" bindtouchstart="touchStart" bindtouchend="touchEnd">
-      <image class="anjian-icon" src="../../../images/{{skin}}/zhihan-xiao@3x.png"></image>
-      <view class="name">止鼾</view>
-    </view>
-  </view>
-  <view style="width:30rpx" />
-  <view class="anjian-right">
-    <view class="anjiian-content" catchtap="tapFuyuan">
-      <image class="anjian-icon" src="../../../images/{{skin}}/fuyuan-xiao@3x.png"></image>
-      <view class="name">复原</view>
+  <view class="top" style="margin-top:40rpx;">
+    <view class="bed-donghuaqu">
+      <view class="donghuaqu-vertical-bg">
+        <view class="vertical-top">
+          <image class="sanjiao-icon" src="../../../images/{{skin}}/sanjiao_top@2x.png"></image>
+        </view>
+        <view class="vertical-middle">
+          <image wx:if="{{bbtzPotion==1}}" class="xiaoren-icon" src="../../../animation/{{skin}}/beibutiaozheng-1@3x.png"></image>
+          <image wx:if="{{bbtzPotion==2}}" class="xiaoren-icon" src="../../../animation/{{skin}}/beibutiaozheng-2@3x.png"></image>
+          <image wx:if="{{bbtzPotion==3}}" class="xiaoren-icon" src="../../../animation/{{skin}}/beibutiaozheng-3@3x.png"></image>
+        </view>
+        <view class="vertical-bottom">
+          <view class="vertical-top">
+            <image class="sanjiao-icon" src="../../../images/{{skin}}/sanjiao_bottom@2x.png"></image>
+          </view>
+        </view>
+      </view>
+      <view class="donghuaqu-middle"></view>
+      <view class="donghuaqu-vertical-bg">
+        <view class="vertical-top">
+          <image class="sanjiao-icon" src="../../../images/{{skin}}/sanjiao_top@2x.png"></image>
+        </view>
+        <view class="vertical-middle">
+          <image wx:if="{{tbtzPotion==1}}" class="xiaoren-icon" src="../../../animation/{{skin}}/tuibutiaozheng-1@3x.png"></image>
+          <image wx:if="{{tbtzPotion==2}}" class="xiaoren-icon" src="../../../animation/{{skin}}/tuibutiaozheng-2@3x.png"></image>
+          <image wx:if="{{tbtzPotion==3}}" class="xiaoren-icon" src="../../../animation/{{skin}}/tuibutiaozheng-3@3x.png"></image>
+        </view>
+        <view class="vertical-bottom">
+          <view class="vertical-top">
+            <image class="sanjiao-icon" src="../../../images/{{skin}}/sanjiao_bottom@2x.png"></image>
+          </view>
+        </view>
+      </view>
     </view>
   </view>
 
-</view>
+  <view class="sleep-smart">
+    <view class="shezhi-content shezhi-button-bg" catchtap="smart">
+      <view class="shezhi-button-left">智能睡眠</view>
+      <view class="shezhi-button-right">
+        <view class="shezhi-button-name">{{zhinengShuimian=='01'?'开启':'关闭'}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="jiyi">
+    <view class="button left {{jiyi1?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi1" bindtouchstart="touchStart"
+      bindtouchend="touchEnd">
+      <image class="dian" wx:if="{{jiyi1}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
+      <image class="dian" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image>
+      <view class="name {{jiyi1?'selected-text':'normal-text'}}">记忆一</view>
+    </view>
+    <view class="middle"></view>
+    <view class="button right {{jiyi2?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi2"
+      bindtouchstart="touchStart" bindtouchend="touchEnd">
+      <image class="dian" wx:if="{{jiyi2}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
+      <image class="dian" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image>
+      <view class="name {{jiyi2?'selected-text':'normal-text'}}">记忆二</view>
+    </view>
+  </view>
+
+
+  <view class="anjianqu" style="margin-top:33rpx">
+    <view class="anjian-left {{kandianshi ?'selected':'normal'}}">
+      <view class="anjiian-content" catchtap="tapKandianshi" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <image class="anjian-icon" src="../../../images/{{skin}}/kandianshi-xiao@3x.png"></image>
+        <view class="name">看电视</view>
+      </view>
+    </view>
+    <view style="width:30rpx" />
+    <view class="anjian-right {{lingyali ?'selected':'normal'}}">
+      <view class="anjiian-content" catchtap="tapLingyali" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <image class="anjian-icon" src="../../../images/{{skin}}/lingyali-xiao@3x.png"></image>
+        <view class="name">零压力</view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="anjianqu" style="margin-top:33rpx">
+    <view class="anjian-left {{zhihan ? 'selected':'normal'}}">
+      <view class="anjiian-content" catchtap="tapZhihan" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <image class="anjian-icon" src="../../../images/{{skin}}/zhihan-xiao@3x.png"></image>
+        <view class="name">止鼾</view>
+      </view>
+    </view>
+    <view style="width:30rpx" />
+    <view class="anjian-right">
+      <view class="anjiian-content" catchtap="tapFuyuan">
+        <image class="anjian-icon" src="../../../images/{{skin}}/fuyuan-xiao@3x.png"></image>
+        <view class="name">复原</view>
+      </view>
+    </view>
+
+  </view>
 
 </view>

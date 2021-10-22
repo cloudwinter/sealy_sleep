@@ -4,34 +4,36 @@
   <view class="top" style="margin-top:40rpx;">
     <view class="bed-donghuaqu">
       <view class="donghuaqu-vertical-bg">
-        <view class="vertical-top">
+        <view class="vertical-top" bindtouchstart="touchDHStart" bindtouchend="touchDHEnd" data-type="beibutzTop">
           <image class="sanjiao-icon" src="../../../images/{{skin}}/sanjiao_top@2x.png"></image>
         </view>
         <view class="vertical-middle">
-          <image wx:if="{{bbtzPotion==1}}" class="xiaoren-icon" src="../../../animation/{{skin}}/beibutiaozheng-1@3x.png"></image>
-          <image wx:if="{{bbtzPotion==2}}" class="xiaoren-icon" src="../../../animation/{{skin}}/beibutiaozheng-2@3x.png"></image>
-          <image wx:if="{{bbtzPotion==3}}" class="xiaoren-icon" src="../../../animation/{{skin}}/beibutiaozheng-3@3x.png"></image>
+          <image wx:if="{{bbtzPotion==1}}" class="xiaoren-icon"
+            src="../../../animation/{{skin}}/beibutiaozheng-1@3x.png"></image>
+          <image wx:if="{{bbtzPotion==2}}" class="xiaoren-icon"
+            src="../../../animation/{{skin}}/beibutiaozheng-2@3x.png"></image>
+          <image wx:if="{{bbtzPotion==3}}" class="xiaoren-icon"
+            src="../../../animation/{{skin}}/beibutiaozheng-3@3x.png"></image>
         </view>
-        <view class="vertical-bottom">
-          <view class="vertical-top">
-            <image class="sanjiao-icon" src="../../../images/{{skin}}/sanjiao_bottom@2x.png"></image>
-          </view>
+        <view class="vertical-bottom" bindtouchstart="touchDHStart" bindtouchend="touchDHEnd" data-type="beibutzBottom">
+          <image class="sanjiao-icon" src="../../../images/{{skin}}/sanjiao_bottom@2x.png"></image>
         </view>
       </view>
       <view class="donghuaqu-middle"></view>
       <view class="donghuaqu-vertical-bg">
-        <view class="vertical-top">
+        <view class="vertical-top" bindtouchstart="touchDHStart" bindtouchend="touchDHEnd" data-type="tuibutzTop">
           <image class="sanjiao-icon" src="../../../images/{{skin}}/sanjiao_top@2x.png"></image>
         </view>
         <view class="vertical-middle">
-          <image wx:if="{{tbtzPotion==1}}" class="xiaoren-icon" src="../../../animation/{{skin}}/tuibutiaozheng-1@3x.png"></image>
-          <image wx:if="{{tbtzPotion==2}}" class="xiaoren-icon" src="../../../animation/{{skin}}/tuibutiaozheng-2@3x.png"></image>
-          <image wx:if="{{tbtzPotion==3}}" class="xiaoren-icon" src="../../../animation/{{skin}}/tuibutiaozheng-3@3x.png"></image>
+          <image wx:if="{{tbtzPotion==1}}" class="xiaoren-icon"
+            src="../../../animation/{{skin}}/tuibutiaozheng-1@3x.png"></image>
+          <image wx:if="{{tbtzPotion==2}}" class="xiaoren-icon"
+            src="../../../animation/{{skin}}/tuibutiaozheng-2@3x.png"></image>
+          <image wx:if="{{tbtzPotion==3}}" class="xiaoren-icon"
+            src="../../../animation/{{skin}}/tuibutiaozheng-3@3x.png"></image>
         </view>
-        <view class="vertical-bottom">
-          <view class="vertical-top">
+        <view class="vertical-bottom" bindtouchstart="touchDHStart" bindtouchend="touchDHEnd" data-type="tuibutzBottom">
             <image class="sanjiao-icon" src="../../../images/{{skin}}/sanjiao_bottom@2x.png"></image>
-          </view>
         </view>
       </view>
     </view>
@@ -42,6 +44,8 @@
       <view class="shezhi-button-left">智能睡眠</view>
       <view class="shezhi-button-right">
         <view class="shezhi-button-name">{{zhinengShuimian=='01'?'开启':'关闭'}}</view>
+        <image style="width:20rpx;height:20rpx;margin-left:10rpx;"
+					src="../../../images/{{skin}}/dian_{{zhinengShuimian=='01'?'selected':'normal'}}@2x.png"></image>
       </view>
     </view>
   </view>

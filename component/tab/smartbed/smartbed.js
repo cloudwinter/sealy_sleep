@@ -62,7 +62,7 @@ Component({
       var that = this;
       WxNotificationCenter.addNotification("INIT", that.initConnected, that);
       WxNotificationCenter.addNotification("BLUEREPLY", that.blueReply, that);
-      WxNotificationCenter.addNotification("VIEWSHOW", that.viewShow, that);
+      WxNotificationCenter.addNotification("TAB_SMARTBED", that.viewShow, that);
     },
     ready: function () {
       // 在组件在视图层布局完成后执行
@@ -80,6 +80,7 @@ Component({
       console.info("kuaijie-k2-->detached");
       var that = this;
       WxNotificationCenter.removeNotification("BLUEREPLY", that);
+      WxNotificationCenter.removeNotification("TAB_SMARTBED", that);
     },
   },
 
@@ -94,7 +95,7 @@ Component({
      */
     initConnected(connected) {
       var that = this.observer;
-      console.info('kuaijie-K2->initConnected:', connected, this.observer);
+      console.info('smartbed->initConnected:', connected, this.observer);
       that.setData({
         connected: connected,
       })
@@ -104,11 +105,12 @@ Component({
 
     viewShow() {
       var that = this.observer;
-      console.info('kuaijie-K2->viewShow:', this.observer);
+      console.info('smartbed->viewShow:', this.observer);
       let hasSleepInduction = app.globalData.hasSleepInduction;
       that.setData({
         hasSleepInduction: hasSleepInduction,
       })
+      that.sendSleepAskBlueCmd();
     },
 
     /**

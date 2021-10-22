@@ -25,8 +25,7 @@ Page({
     },
     nowPage: "kuaijie",
     nowIndex: 0,
-    tabBar: [
-      {
+    tabBar: [{
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_kuaijie_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_kuaijie_normal@2x.png",
         "text": "快捷",
@@ -116,6 +115,7 @@ Page({
     connected: {},
     sleepClickTime: 0,
     kuaijieClickTime: 0,
+    smartBedClickTime: 0
   },
 
   /**
@@ -193,10 +193,16 @@ Page({
     })
   },
 
-  toSmartBed(){
+  toSmartBed() {
+    let smartBedClickTime = this.data.smartBedClickTime;
+    let currentTime = new Date().getTime();
+    if (currentTime - smartBedClickTime > 1000) {
+      WxNotificationCenter.postNotificationName('TAB_SMARTBED');
+    }
     this.setData({
       nowPage: "smartbed",
-      nowIndex: 1
+      nowIndex: 1,
+      smartBedClickTime:currentTime
     })
   },
 
@@ -220,7 +226,7 @@ Page({
     })
   },
 
-  toSmartSleep(){
+  toSmartSleep() {
     this.setData({
       nowPage: "smartsleep",
       nowIndex: 5
@@ -230,7 +236,7 @@ Page({
   /**
    * 设置压力带显示的tab
    */
-  showStressBeltTab(){
+  showStressBeltTab() {
     let tabbar = this.data.tabBar;
     tabbar[0].show = false;
     tabbar[1].show = true;
@@ -239,7 +245,7 @@ Page({
     tabbar[4].show = true;
     tabbar[5].show = true;
     this.setData({
-      tabBar:tabbar,
+      tabBar: tabbar,
       nowPage: "smartbed",
       nowIndex: 1,
     })
@@ -249,7 +255,7 @@ Page({
   /**
    * 设置默认显示的tab
    */
-  showDefaultTab(){
+  showDefaultTab() {
     let tabbar = this.data.tabBar;
     tabbar[0].show = true;
     tabbar[1].show = false;
@@ -258,7 +264,7 @@ Page({
     tabbar[4].show = true;
     tabbar[5].show = false;
     this.setData({
-      tabBar:tabbar,
+      tabBar: tabbar,
       nowPage: "kuaijie",
       nowIndex: 0,
     })

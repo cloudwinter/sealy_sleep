@@ -215,7 +215,18 @@ Component({
      * 智能夜灯
      */
     nightLight() {
-
+      let smartLight = this.data.smartLight;
+      if(smartLight) {
+        // 关闭
+        this.sendFullBlueCmd('FFFFFFFF0200110B001A04')
+      } else {
+        // 开启
+        this.sendFullBlueCmd('FFFFFFFF0200110B001B04')
+      }
+      this.setData({
+        smartLight:!smartLight
+      })
+      
     },
 
 

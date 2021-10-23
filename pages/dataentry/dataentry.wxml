@@ -3,8 +3,17 @@
   <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
     background="{{navbar.background}}" title="{{navbar.navTitle}}"></navbar>
 
+
+
   <view class="{{skin}}">
     <view class="content">
+
+      <view class="title-content">
+      <view class="tips-text">AA</view>
+      <view class="title tips-text">{{navbar.navTitle}}</view>
+      <view class="tips-text">BB</view>
+      </view>
+
       <view class="tips">
         <view class="tips-text" style="margin-top:30rpx;">说明：</view>
         <view class="tips-text" style="margin-top:10rpx;">1.请在平躺状态，按平躺键。</view>

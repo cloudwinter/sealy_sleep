@@ -115,7 +115,8 @@ Page({
     connected: {},
     sleepClickTime: 0,
     kuaijieClickTime: 0,
-    smartBedClickTime: 0
+    smartBedClickTime: 0,
+    smartSleepClickTime: 0,
   },
 
   /**
@@ -147,7 +148,7 @@ Page({
       skin: skin
     })
 
-    this.showStressBeltTab();
+    //this.showStressBeltTab();
   },
 
 
@@ -202,7 +203,7 @@ Page({
     this.setData({
       nowPage: "smartbed",
       nowIndex: 1,
-      smartBedClickTime:currentTime
+      smartBedClickTime: currentTime
     })
   },
 
@@ -227,9 +228,15 @@ Page({
   },
 
   toSmartSleep() {
+    let smartSleepClickTime = this.data.smartSleepClickTime;
+    let currentTime = new Date().getTime();
+    if (currentTime - smartSleepClickTime > 1000) {
+      WxNotificationCenter.postNotificationName('TAB_SMARTSLEEP');
+    }
     this.setData({
       nowPage: "smartsleep",
-      nowIndex: 5
+      nowIndex: 5,
+      smartSleepClickTime: currentTime
     })
   },
 

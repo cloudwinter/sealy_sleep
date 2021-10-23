@@ -5,41 +5,41 @@ const WxNotificationCenter = require('../../../utils/WxNotificationCenter')
 const crcUtil = require('../../../utils/crcUtil');
 const sendPrefix = 'FFFFFFFF050000'; // 发送码前缀
 const timerList = [{
-  id: '00',
-  name: '无定时',
-},
-{
-  id: '01',
-  name: '20:00',
-},
-{
-  id: '02',
-  name: '20:30',
-},
-{
-  id: '03',
-  name: '21:00',
-},
-{
-  id: '04',
-  name: '21:30',
-},
-{
-  id: '05',
-  name: '22:00',
-},
-{
-  id: '06',
-  name: '22:30',
-},
-{
-  id: '07',
-  name: '23:00',
-},
-{
-  id: '08',
-  name: '23:30',
-},
+    id: '00',
+    name: '无定时',
+  },
+  {
+    id: '01',
+    name: '20:00',
+  },
+  {
+    id: '02',
+    name: '20:30',
+  },
+  {
+    id: '03',
+    name: '21:00',
+  },
+  {
+    id: '04',
+    name: '21:30',
+  },
+  {
+    id: '05',
+    name: '22:00',
+  },
+  {
+    id: '06',
+    name: '22:30',
+  },
+  {
+    id: '07',
+    name: '23:00',
+  },
+  {
+    id: '08',
+    name: '23:30',
+  },
 ];
 Component({
   /**
@@ -73,6 +73,7 @@ Component({
       var that = this;
       WxNotificationCenter.addNotification("INIT", that.initConnected, that);
       WxNotificationCenter.addNotification("BLUEREPLY", that.blueReply, that);
+      WxNotificationCenter.addNotification("TAB_SMARTSLEEP", that.viewShow, that);
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
@@ -132,6 +133,17 @@ Component({
       //WxNotificationCenter.removeNotification("INIT",that);
     },
 
+    viewShow() {
+      var that = this.observer;
+      console.info('smartsleep->viewShow:', this.observer);
+      let hasSleepInduction = app.globalData.hasSleepInduction;
+      that.setData({
+        hasSleepInduction: hasSleepInduction,
+      })
+      var connected = that.data.connected;
+      util.sendBlueCmd(connected, 'FFFFFFFF02000A0A1204');
+    },
+
 
     /**
      * 发送蓝牙命令
@@ -142,11 +154,25 @@ Component({
     },
 
     /**
+     * 发送完整蓝牙命令
+     */
+    sendFullBlueCmd(cmd, options) {
+      var connected = this.data.connected;
+      util.sendBlueCmd(connected, cmd, options);
+    },
+
+    /**
      * 蓝牙回复回调
      * @param {*} cmd 
      */
     blueReply(cmd) {
-
+      var sleepPrefix = cmd.substr(0, 16).toUpperCase();
+      if (sleepPrefix == 'FFFFFFFF02000A14') {
+        let zhinengYedeng = cmd.substr(34, 2);
+        that.setData({
+          zhinengShuimian: zhinengYedeng == '01' ? true : false
+        })
+      }
     },
 
 
@@ -188,48 +214,48 @@ Component({
     /**
      * 智能夜灯
      */
-    nightLight(){
+    nightLight() {
 
     },
 
 
     /**
-   * 定时开启item选中
-   * @param {*} e 
-   */
-  timerItemSelect: function (e) {
-    let selectedId = e.currentTarget.dataset.cid;
-    let selectedName = e.currentTarget.dataset.cname;
-    this.setData({
-      currentSelectedTimerId: selectedId,
-      currentSelectedTimerName: selectedName
-    })
-  },
-
-  /**
-   * 定时对话框按钮点击事件
-   * @param {*} e 
-   */
-  onTimerModalClick: function (e) {
-    var ctype = e.target.dataset.ctype;
-    this.setData({
-      timerDialogShow: false
-    })
-    if (ctype == 'confirm') {
-      // 发送设置定时指令
-      var connected = this.data.connected;
-      let currentSelectedTimerId = this.data.currentSelectedTimerId;
-      let cmd = 'FFFFFFFF02000D0B' + currentSelectedTimerId;
-      cmd = cmd + crcUtil.HexToCSU16(cmd);
-      util.sendBlueCmd(connected, cmd);
-      let currentSelectedTimerName = this.data.currentSelectedTimerName;
-      app.globalData.sleepTimer = currentSelectedTimerId;
+     * 定时开启item选中
+     * @param {*} e 
+     */
+    timerItemSelect: function (e) {
+      let selectedId = e.currentTarget.dataset.cid;
+      let selectedName = e.currentTarget.dataset.cname;
       this.setData({
-        sleepTimer: currentSelectedTimerId,
-        sleepTimerDesc: currentSelectedTimerName
+        currentSelectedTimerId: selectedId,
+        currentSelectedTimerName: selectedName
       })
-    }
-  },
+    },
+
+    /**
+     * 定时对话框按钮点击事件
+     * @param {*} e 
+     */
+    onTimerModalClick: function (e) {
+      var ctype = e.target.dataset.ctype;
+      this.setData({
+        timerDialogShow: false
+      })
+      if (ctype == 'confirm') {
+        // 发送设置定时指令
+        var connected = this.data.connected;
+        let currentSelectedTimerId = this.data.currentSelectedTimerId;
+        let cmd = 'FFFFFFFF02000D0B' + currentSelectedTimerId;
+        cmd = cmd + crcUtil.HexToCSU16(cmd);
+        util.sendBlueCmd(connected, cmd);
+        let currentSelectedTimerName = this.data.currentSelectedTimerName;
+        app.globalData.sleepTimer = currentSelectedTimerId;
+        this.setData({
+          sleepTimer: currentSelectedTimerId,
+          sleepTimerDesc: currentSelectedTimerName
+        })
+      }
+    },
 
   }
 })

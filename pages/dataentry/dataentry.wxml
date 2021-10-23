@@ -9,9 +9,10 @@
     <view class="content">
 
       <view class="title-content">
-      <view class="tips-text">AA</view>
-      <view class="title tips-text">{{navbar.navTitle}}</view>
-      <view class="tips-text">BB</view>
+        <view class="tips-text">{{AA}}</view>
+        <view class="title tips-text" bindtouchstart="touchStart" bindtouchend="touchEnd" catchtap="dataentryTap">
+          {{navbar.navTitle}}</view>
+        <view class="tips-text">{{KK}}</view>
       </view>
 
       <view class="tips">
@@ -23,19 +24,27 @@
 
       <view class="anjianqu">
         <view class="param">
-          <view class="anjianqu-left tips-text">平躺参数：20</view>
-          <view class="anjianqu-right tips-text">侧躺参数：20</view>
+          <view class="anjianqu-left">
+            <view class="tips-text">平躺参数：</view>
+            <input type="number" class="input {{canPingtangParamEdit?'inputtext':'text'}}" value="{{pingtangParam}}"
+              disabled="{{!canPingtangParamEdit}}" maxlength="3" data-type="pingtangParam" bindinput="inputChange" />
+          </view>
+          <view class="anjianqu-right tips-text">
+            <view class="tips-text">侧躺参数：</view>
+            <input type="number" class="input {{canCetangParamEdit?'inputtext':'text'}}" value="{{cetangParam}}"
+              disabled="{{!canPingtangParamEdit}}" maxlength="3" data-type="cetangParam" bindinput="inputChange" />
+          </view>
         </view>
         <view class="anjian">
           <view class="anjianqu-left">
-            <view class="oval-button">平躺</view>
+            <view class="oval-button" bindtouchstart="touchStart" bindtouchend="touchEnd" catchtap="pingtangTap">平躺</view>
           </view>
           <view class="anjianqu-left">
-            <view class="oval-button">侧躺</view>
+            <view class="oval-button" bindtouchstart="touchStart" bindtouchend="touchEnd" catchtap="cetangTap">侧躺</view>
           </view>
         </view>
         <view class="save">
-          <view class="oval-button">保存</view>
+          <view class="oval-button" bindtap="saveTap">保存</view>
         </view>
       </view>
 

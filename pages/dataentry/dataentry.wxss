@@ -125,3 +125,17 @@
   justify-content: center;
   padding: 4rpx;
 }
+
+.input {
+  width: 60rpx;
+}
+
+.anjianqu .text {
+  color: #5EA2D7 ;
+  font-size: 28rpx;
+}
+
+.anjianqu .inputtext {
+  color: #FFFFFF ;
+  font-size: 28rpx;
+}

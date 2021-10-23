@@ -37,7 +37,7 @@
 				<image style="width:20rpx;height:20rpx;margin-bottom:10rpx;"
 					src="../../../images/{{skin}}/dian_{{smartLight?'selected':'normal'}}@2x.png">
 				</image>
-				<view class="color-5EA2D7">智能夜灯</view>
+				<view class="color-5EA2D7">智能夜灯{{smartLight?'开':'关'}}</view>
 			</view>
 		</view>
 

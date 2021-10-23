@@ -167,7 +167,7 @@ Component({
      */
     blueReply(cmd) {
       var sleepPrefix = cmd.substr(0, 16).toUpperCase();
-      if (sleepPrefix == 'FFFFFFFF02000A14') {
+      if (sleepPrefix == 'FFFFFFFF02000B14') {
         let zhinengYedeng = cmd.substr(34, 2);
         that.setData({
           zhinengShuimian: zhinengYedeng == '01' ? true : false
@@ -223,7 +223,7 @@ Component({
         this.sendFullBlueCmd('FFFFFFFF0200110B001A04')
       } else {
         // 开启
-        this.sendFullBlueCmd('FFFFFFFF0200110B001B04')
+        this.sendFullBlueCmd('FFFFFFFF0200110B011B04')
       }
       this.setData({
         smartLight:!smartLight

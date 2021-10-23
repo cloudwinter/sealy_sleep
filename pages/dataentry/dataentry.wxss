@@ -1,0 +1,115 @@
+/* pages/dataentry/dataentry.wxss */
+.content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+}
+
+.tips {
+  width: 90%;
+  height: 238rpx;
+  background: #1E1F24;
+  border-radius: 16rpx;
+  opacity: 0.88;
+  margin-top: 20rpx;
+  padding-left: 30rpx;
+}
+
+.tips-text {
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #5EA2D7;
+  line-height: 40rpx;
+}
+
+.anjianqu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 71rpx;
+}
+
+.param {
+  display: flex;
+  width: 100%;
+}
+
+.anjianqu-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.anjianqu-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.anjian {
+  display: flex;
+  width: 100%;
+  margin-top: 45rpx;
+}
+
+.save {
+  margin-top: 10rpx;
+}
+
+.oval-button {
+  width: 140rpx;
+  height: 140rpx;
+  background: #23313F;
+  border-radius: 70rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #5EA2D7;
+}
+
+.hint {
+  width: 70%;
+  height: 243rpx;
+  background: rgba(216, 216, 216, 0);
+  border-radius: 24rpx;
+  border: 3rpx solid #5EA2D7;
+  margin-top: 124rpx;
+  display: flex;
+  align-items: center;
+}
+
+.zhengtou {
+  width: 60rpx;
+  height: 120rpx;
+  margin-left: 14rpx;
+}
+
+.rectangle {
+  width: 66rpx;
+  height: 100%;
+  background-color: #5EA2D7;
+  margin-left: 260rpx;
+  align-items: center;
+}
+
+.rectangle-text {
+  font-size: 36rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 50rpx;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.line-jiantou {
+  height: 23rpx;
+  width: 144rpx;
+  display: flex;
+  justify-content: center;
+  padding: 4rpx;
+}

@@ -183,7 +183,9 @@ Component({
      * 睡眠特征数据录入
      */
     dataEntry() {
-
+      wx.navigateTo({
+        url: '/pages/dataentry/dataentry'
+      })
     },
 
     /**

@@ -148,7 +148,7 @@ Page({
       skin: skin
     })
 
-    this.showStressBeltTab();
+    // this.showStressBeltTab();
   },
 
 

@@ -1,8 +1,7 @@
 {
   "pages": [
-    "pages/dataentry/dataentry",
-    "pages/main/main",
     "pages/index/index",
+    "pages/main/main",
     "pages/search/search",
     "pages/set/set",
     "pages/introduce/introduce",
@@ -12,7 +11,8 @@
     "pages/wmreport/wmreport",
     "pages/smart/smart",
     "pages/gexingset/gexingset-1",
-    "pages/gexingset/gexingset-2"
+    "pages/gexingset/gexingset-2",
+    "pages/dataentry/dataentry"
   ],
   "window": {
     "backgroundTextStyle": "light",

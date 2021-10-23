@@ -30,6 +30,10 @@ Page({
     startTime: '',
     endTime: '',
     startDataEntry: false,
+    fuweiDialogShow: true,
+    nextDialogShow: false,
+    failedDialogShow: false, // 通信失败的对话框
+    currentTimeOutName: '', // 当前定时器的name
   },
 
   /**
@@ -93,6 +97,30 @@ Page({
       })
       return;
     }
+    if (cmd.indexOf('FFFFFFFF0500000208D7A6') >= 0) {
+      let timeOutName = this.startCurrentTimeOut('复位中...', 100);
+      this.setData({
+        currentTimeOutName: timeOutName
+      })
+      return;
+    }
+    if (cmd.indexOf('FFFFFFFF0500008208B666') >= 0) {
+      this.clearCurrentTimeOut();
+      this.setData({
+        nextDialogShow: true,
+        currentTimeOutName: ''
+      })
+      return;
+    }
+    if(cmd.indexOf('FFFFFFFF02000A14') >= 0) {
+      let pingtangParam = util.str16To10(cmd.substr(20,2));
+      let cetangParam = util.str16To10(cmd.substr(22,2));
+      this.setData({
+        pingtangParam:pingtangParam,
+        cetangParam:cetangParam
+      })
+      return;
+    }
   },
 
 
@@ -101,9 +129,9 @@ Page({
    */
   pingtangTap() {
     var longClick = this.longClick();
-    if(longClick) {
+    if (longClick) {
       this.setData({
-        canPingtangParamEdit:true
+        canPingtangParamEdit: true
       })
       return;
     }
@@ -115,9 +143,9 @@ Page({
    */
   cetangTap() {
     var longClick = this.longClick();
-    if(longClick) {
+    if (longClick) {
       this.setData({
-        canCetangParamEdit:true
+        canCetangParamEdit: true
       })
       return;
     }
@@ -189,6 +217,45 @@ Page({
     }, 2000);
   },
 
+  /**
+   * 复位对话框按钮点击事件
+   * @param {*} e 
+   */
+  onFwModalClick: function (e) {
+    var that = this;
+    var ctype = e.target.dataset.ctype;
+    console.info('onFwModalClick:', ctype, e.target.dataset);
+    var connected = this.data.connected;
+    this.setData({
+      fuweiDialogShow: false
+    })
+    if (ctype == 'confirm') {
+      // 一键复位
+      util.sendBlueCmd(connected, "FFFFFFFF0500000208D7A6");
+
+    }
+  },
+
+
+    /**
+   * 下一步跳转到睡眠设置页面
+   */
+  onNextModalClick: function () {
+    this.setData({
+      nextDialogShow: false
+    })
+    let cmd = 'FFFFFFFF02000A0A1204';
+    let connected = this.data.connected;
+    util.sendBlueCmd(connected, cmd, ({
+      success: (res) => {
+        console.info('onNextModalClick->发送成功');
+      },
+      fail: (res) => {
+        console.error('onNextModalClick->发送失败', res);
+      }
+    }));
+  },
+
 
   /*************-------------点击事件--------------------*********** */
   touchStart(e) {
@@ -209,5 +276,47 @@ Page({
     }
     return false;
   },
+
+
+
+  /**
+   * 检查通讯正常
+   */
+  startCurrentTimeOut(loadingStr, timeOutSeconds) {
+    let that = this;
+    util.showLoading(loadingStr);
+    let timeOutName = setTimeout(() => {
+      console.info('startCurrentTimeOut', loadingStr, timeOutSeconds);
+      util.hideLoading();
+      that.setData({
+        failedDialogShow: true,
+        currentTimeOutName: '',
+      })
+    }, timeOutSeconds * 1000);
+    return timeOutName;
+  },
+
+  /**
+   * 清除当前的定时器
+   */
+  clearCurrentTimeOut() {
+    let timeOutName = this.data.currentTimeOutName;
+    if (timeOutName) {
+      clearTimeout(timeOutName);
+      util.hideLoading();
+      this.setData({
+        currentTimeOutName: '',
+      })
+    }
+  },
+
+  /**
+   * 关闭对话框
+   */
+  onFailedModalClick: function () {
+    this.setData({
+      failedDialogShow: false
+    })
+  }
 
 })

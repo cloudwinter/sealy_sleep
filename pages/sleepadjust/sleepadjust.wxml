@@ -8,39 +8,40 @@
   <view class="{{skin}}">
     <view class="content">
 
-      <view class="title-content">
-        <view class="tips-text">{{AA}}</view>
-        <view class="title tips-text" bindtouchstart="touchStart" bindtouchend="touchEnd" catchtap="dataentryTap">
-          {{navbar.navTitle}}</view>
-        <view class="tips-text">{{KK}}</view>
-      </view>
-
       <view class="tips">
         <view class="tips-text" style="margin-top:30rpx;">说明：</view>
-        <view class="tips-text" style="margin-top:10rpx;">1.请在平躺状态，按平躺键。</view>
-        <view class="tips-text" style="margin-top:10rpx;">2.请在侧躺状态，按侧躺键。</view>
+        <view class="tips-text" style="margin-top:10rpx;">1.请在平躺状态，调整背部角度，完成后按平躺键。</view>
+        <view class="tips-text" style="margin-top:10rpx;">2.请在侧躺状态，调整背部角度，完成后按侧躺键。</view>
         <view class="tips-text" style="margin-top:10rpx;">3.完成上述操作后，请按保存键。</view>
       </view>
 
       <view class="anjianqu">
-        <view class="param">
+
+        <view class="tips-text">{{topParam}}</view>
+        <view class="oval-button" style="margin-top:30rpx;" bindtouchstart="touchStart" bindtouchend="touchEnd"
+          data-type="top">
+          <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_top@2x.png"></image>
+        </view>
+        <image class="xiaoren-icon" src="../../animation/{{skin}}/beibutiaozheng-1@3x.png"></image>
+        <view class="oval-button" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="bottom">
+          <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_bottom@2x.png"></image>
+        </view>
+
+        <view class="param" style="margin-top:30rpx;">
           <view class="anjianqu-left">
-            <view class="tips-text">平躺参数：</view>
-            <input type="number" class="input {{canPingtangParamEdit?'inputtext':'text'}}" value="{{pingtangParam}}"
-              disabled="{{!canPingtangParamEdit}}" maxlength="3" data-type="pingtangParam" bindinput="inputChange" />
+            <view class="tips-text">{{pingtangParam}}</view>
           </view>
           <view class="anjianqu-right tips-text">
-            <view class="tips-text">侧躺参数：</view>
-            <input type="number" class="input {{canCetangParamEdit?'inputtext':'text'}}" value="{{cetangParam}}"
-              disabled="{{!canPingtangParamEdit}}" maxlength="3" data-type="cetangParam" bindinput="inputChange" />
+            <view class="tips-text">{{cetangParam}}</view>
           </view>
         </view>
         <view class="anjian">
           <view class="anjianqu-left">
-            <view class="oval-button" bindtouchstart="touchStart" bindtouchend="touchEnd" catchtap="pingtangTap">平躺</view>
+            <view class="oval-button {{selectedPingtang?'selected':''}}" bindtap="pingtangTap">平躺</view>
           </view>
           <view class="anjianqu-left">
-            <view class="oval-button" bindtouchstart="touchStart" bindtouchend="touchEnd" catchtap="cetangTap">侧躺</view>
+            <view class="oval-button {{selectedCetang?'selected':''}}" 
+            bindtap="cetangTap">侧躺</view>
           </view>
         </view>
         <view class="save">
@@ -48,20 +49,21 @@
         </view>
       </view>
 
-      <view class="hint">
-        <image class="zhengtou" src="../../images/{{skin}}/ic_zhengtou@2x.png"></image>
-        <view class="rectangle">
-          <view class="rectangle-text" style="margin-top:50rpx">智</view>
-          <view class="rectangle-text">能</view>
-          <view class="rectangle-text">带</view>
-        </view>
-        <view class="hint-right">
-          <view class="tips-text" style="width:100%;display:flex;justify-content:center">70厘米</view>
-          <image class="line-jiantou" src="../../images/{{skin}}/ic_line_row@2x.png"></image>
-        </view>
-      </view>
+    </view>
+  </view>
+</view>
 
-      <view class="tips-text" style="margin-top:40rpx">智能带与床垫固定示意</view>
+
+<!-- 通信失败 -->
+<view class="modal-dialog" hidden="{{!failedDialogShow}}">
+  <view class="modal-box">
+    <view class="model-content">
+      您设置的位置过高，建议您将床板降低到20以下再设置。
+    </view>
+    <view style="width:100%;height:1px;background:#000000;margin-top:10rpx"></view>
+    <view class="modal-box-bottom" style="height:100rpx;">
+      <view bindtap="onFailedModalClick" class="modal-box-button" hover-class="modal-box-button-hover"
+        style="flex-grow:1;color:#5EA2D7;">确定</view>
     </view>
   </view>
 </view>

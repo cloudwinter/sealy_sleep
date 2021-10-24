@@ -1,7 +1,6 @@
 {
   "pages": [
-
-
+    "pages/sleepadjust/sleepadjust",
     "pages/index/index",
     "pages/main/main",
     "pages/search/search",
@@ -14,8 +13,8 @@
     "pages/smart/smart",
     "pages/gexingset/gexingset-1",
     "pages/gexingset/gexingset-2",
-    "pages/dataentry/dataentry",
-    "pages/sleepadjust/sleepadjust"
+    "pages/dataentry/dataentry"
+
   ],
   "window": {
     "backgroundTextStyle": "light",

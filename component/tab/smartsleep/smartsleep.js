@@ -227,7 +227,9 @@ Component({
      * 睡姿调整
      */
     sleepAdjust() {
-
+      wx.navigateTo({
+        url: '/pages/sleepadjust/sleepadjust'
+      })
     },
 
     /**

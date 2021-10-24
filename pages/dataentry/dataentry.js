@@ -72,7 +72,7 @@ Page({
    */
   blueReply(cmd) {
     cmd = cmd.toUpperCase();
-    if (cmd.indexOf('FFFFFFFF0200090E01') >= 0) {
+    if (cmd.indexOf('FFFFFFFF0200090D01') >= 0) {
       let pingtangCmd = cmd.substr(18, 4);
       let pingtangParam = util.str16To10(pingtangCmd);
       this.setData({
@@ -80,7 +80,7 @@ Page({
       })
       return;
     }
-    if (cmd.indexOf('FFFFFFFF0200090E02') >= 0) {
+    if (cmd.indexOf('FFFFFFFF0200090D02') >= 0) {
       let cetangCmd = cmd.substr(18, 4);
       let cetangParam = util.str16To10(cetangCmd);
       this.setData({

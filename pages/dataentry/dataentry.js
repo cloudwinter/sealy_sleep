@@ -89,8 +89,8 @@ Page({
       return;
     }
     if (cmd.indexOf('FFFFFFFF0200090F03') >= 0) {
-      let AAAA = cmd.substr(18, 4);
-      let KKKK = cmd.substr(22, 4);
+      let AAAA = cmd.substr(20, 2) + cmd.substr(18, 2);
+      let KKKK = cmd.substr(24, 2) + cmd.substr(22, 2);
       this.setData({
         AA: util.str16To10(AAAA),
         KK: util.str16To10(KKKK),
@@ -112,12 +112,12 @@ Page({
       })
       return;
     }
-    if(cmd.indexOf('FFFFFFFF02000A14') >= 0) {
-      let pingtangParam = util.str16To10(cmd.substr(20,2));
-      let cetangParam = util.str16To10(cmd.substr(22,2));
+    if (cmd.indexOf('FFFFFFFF02000A14') >= 0) {
+      let pingtangParam = util.str16To10(cmd.substr(20, 2));
+      let cetangParam = util.str16To10(cmd.substr(22, 2)) * 2;
       this.setData({
-        pingtangParam:pingtangParam,
-        cetangParam:cetangParam
+        pingtangParam: pingtangParam,
+        cetangParam: cetangParam
       })
       return;
     }
@@ -135,8 +135,17 @@ Page({
       })
       return;
     }
+  },
+
+
+  /**
+   * 平躺点击事件
+   */
+  pingtangClick() {
     this.sendFullBlueCmd('FFFFFFFF0200090D0100001504');
   },
+
+
 
   /**
    * 侧躺
@@ -149,6 +158,12 @@ Page({
       })
       return;
     }
+  },
+
+  /**
+   * 侧躺点击事件
+   */
+  cetangClick() {
     this.sendFullBlueCmd('FFFFFFFF0200090D0200001604');
   },
 
@@ -157,7 +172,7 @@ Page({
    */
   saveTap() {
     let cmd = 'FFFFFFFF0200120C';
-    let pingtangCmd = util.str10To16(this.data.pingtangParam / 2);
+    let pingtangCmd = util.str10To16(this.data.pingtangParam);
     let cetangCmd = util.str10To16(this.data.cetangParam / 2);
     cmd = cmd + pingtangCmd + cetangCmd;
     cmd = cmd + crcUtil.HexToCSU16(cmd);
@@ -237,7 +252,7 @@ Page({
   },
 
 
-    /**
+  /**
    * 下一步跳转到睡眠设置页面
    */
   onNextModalClick: function () {

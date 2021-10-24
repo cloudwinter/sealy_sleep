@@ -148,7 +148,7 @@ Page({
       skin: skin
     })
 
-    // this.showStressBeltTab();
+    //this.showStressBeltTab();
   },
 
 
@@ -469,10 +469,13 @@ Page({
       } else if (received.indexOf('FFFFFFFF02000E0B') >= 0) {
         // 有智能睡眠感应
         this.showStressBeltTab();
-        this.setData({
-          nowPage: "smartbed",
-          nowIndex: 1,
-        })
+        let nowIndex = this.data.nowIndex
+        if(nowIndex == 0) {
+          this.setData({
+            nowPage: "smartbed",
+            nowIndex: 1,
+          })
+        }
         this.setTimer(received, deviceId);
       }
 

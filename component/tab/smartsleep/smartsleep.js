@@ -226,7 +226,7 @@ Component({
     /**
      * 睡姿调整
      */
-    sleepAdjuct() {
+    sleepAdjust() {
 
     },
 

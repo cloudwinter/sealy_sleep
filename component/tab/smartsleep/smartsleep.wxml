@@ -8,7 +8,7 @@
 			</view>
 		</view>
 
-		<view class="shezhi-content shezhi-button-bg" bindtap="sleepAdjuct">
+		<view class="shezhi-content shezhi-button-bg" bindtap="sleepAdjust">
 			<view class="shezhi-button-left">睡姿调整</view>
 			<view class="shezhi-button-right">
 				<image class="shezhi-button-icon" src="../../../images/{{skin}}/row_blue@2x.png"></image>

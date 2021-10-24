@@ -142,6 +142,10 @@ Component({
       })
       var connected = that.data.connected;
       util.sendBlueCmd(connected, 'FFFFFFFF02000A0A1204');
+      setTimeout(() => {
+        util.sendBlueCmd(connected, 'FFFFFFFF02000E0B001704');
+      }, 400);
+
     },
 
 
@@ -166,12 +170,43 @@ Component({
      * @param {*} cmd 
      */
     blueReply(cmd) {
-      var sleepPrefix = cmd.substr(0, 16).toUpperCase();
+      var that = this.observer;
+      cmd = cmd.toUpperCase();
+      var sleepPrefix = cmd.substr(0, 16);
       if (sleepPrefix == 'FFFFFFFF02000B14') {
         let zhinengYedeng = cmd.substr(34, 2);
         that.setData({
           zhinengShuimian: zhinengYedeng == '01' ? true : false
         })
+        return;
+      }
+      if (cmd.indexOf('FFFFFFFF02000E0B011804') >= 0) {
+        let sleepTimerDesc = that.data.sleepTimerDesc;
+        let sleepTimer = cmd.substr(16, 2);;
+        if (sleepTimer == '00') {
+          sleepTimerDesc = '无定时';
+        } else if (sleepTimer == '01') {
+          sleepTimerDesc = '20:00';
+        } else if (sleepTimer == '02') {
+          sleepTimerDesc = '20:30';
+        } else if (sleepTimer == '03') {
+          sleepTimerDesc = '21:00';
+        } else if (sleepTimer == '04') {
+          sleepTimerDesc = '21:30';
+        } else if (sleepTimer == '05') {
+          sleepTimerDesc = '22:00';
+        } else if (sleepTimer == '06') {
+          sleepTimerDesc = '22:30';
+        } else if (sleepTimer == '07') {
+          sleepTimerDesc = '23:00';
+        } else if (sleepTimer == '08') {
+          sleepTimerDesc = '23:30';
+        }
+        that.setData({
+          sleepTimerDesc:sleepTimerDesc,
+          sleepTimer:sleepTimer
+        })
+        app.globalData.sleepTimer = sleepTimer
       }
     },
 
@@ -218,7 +253,7 @@ Component({
      */
     nightLight() {
       let smartLight = this.data.smartLight;
-      if(smartLight) {
+      if (smartLight) {
         // 关闭
         this.sendFullBlueCmd('FFFFFFFF0200110B001A04')
       } else {
@@ -226,9 +261,9 @@ Component({
         this.sendFullBlueCmd('FFFFFFFF0200110B011B04')
       }
       this.setData({
-        smartLight:!smartLight
+        smartLight: !smartLight
       })
-      
+
     },
 
 

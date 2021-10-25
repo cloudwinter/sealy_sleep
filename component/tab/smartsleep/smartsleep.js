@@ -180,7 +180,7 @@ Component({
         })
         return;
       }
-      if (cmd.indexOf('FFFFFFFF02000E0B011804') >= 0) {
+      if (cmd.indexOf('FFFFFFFF02000E0B') >= 0) {
         let sleepTimerDesc = that.data.sleepTimerDesc;
         let sleepTimer = cmd.substr(16, 2);;
         if (sleepTimer == '00') {

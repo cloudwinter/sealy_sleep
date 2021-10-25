@@ -21,9 +21,9 @@ Page({
       animated: false,
       navTitle: '睡姿特征数据录入',
     },
-    pingtangParam: 20,
+    pingtangParam: 153,
     canPingtangParamEdit: false,
-    cetangParam: 20,
+    cetangParam: 153,
     canCetangParamEdit: false,
     AA: '',
     KK: '',
@@ -73,7 +73,7 @@ Page({
   blueReply(cmd) {
     cmd = cmd.toUpperCase();
     if (cmd.indexOf('FFFFFFFF0200090D01') >= 0) {
-      let pingtangCmd = cmd.substr(18, 4);
+      let pingtangCmd = cmd.substr(20, 2) + cmd.substr(18, 2);
       let pingtangParam = util.str16To10(pingtangCmd);
       this.setData({
         pingtangParam: pingtangParam
@@ -81,7 +81,7 @@ Page({
       return;
     }
     if (cmd.indexOf('FFFFFFFF0200090D02') >= 0) {
-      let cetangCmd = cmd.substr(18, 4);
+      let cetangCmd = cmd.substr(24, 2) + cmd.substr(22, 2);
       let cetangParam = util.str16To10(cetangCmd);
       this.setData({
         cetangParam: cetangParam

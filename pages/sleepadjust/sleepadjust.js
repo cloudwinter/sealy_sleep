@@ -19,7 +19,7 @@ Page({
       background: '#0A0A0C',
       show: true,
       animated: false,
-      navTitle: '睡姿调整',
+      navTitle: '睡姿角度调整',
     },
     topParam: 10,
     pingtangParam: '',

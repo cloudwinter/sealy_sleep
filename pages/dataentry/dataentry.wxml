@@ -1,7 +1,7 @@
 <!--pages/dataentry/dataentry.wxml-->
 <view class="page-{{skin}}">
   <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
-    background="{{navbar.background}}" title="{{navbar.navTitle}}"></navbar>
+    background="{{navbar.background}}" title=""></navbar>
 
 
 
@@ -10,7 +10,7 @@
 
       <view class="title-content">
         <view class="tips-text">{{AA}}</view>
-        <view class="title tips-text" bindtouchstart="touchStart" bindtouchend="touchEnd" catchtap="dataentryTap">
+        <view class="title" bindtouchstart="touchStart" bindtouchend="touchEnd" catchtap="dataentryTap">
           {{navbar.navTitle}}</view>
         <view class="tips-text">{{KK}}</view>
       </view>

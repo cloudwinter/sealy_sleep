@@ -22,9 +22,9 @@ Page({
       navTitle: '睡姿调整',
     },
     topParam: 10,
-    pingtangParam:'',
+    pingtangParam: '',
     selectedPingtang: false,
-    cetangParam:'',
+    cetangParam: '',
     selectedCetang: false,
     startTime: '',
     endTime: '',
@@ -69,11 +69,10 @@ Page({
    * @param {*} cmd 
    */
   blueReply(cmd) {
-    var that = this.observer;
     cmd = cmd.toUpperCase();
-    if (cmd.indexOf('FFFFFFFF02000F0E010203042504') >= 0) {
+    if (cmd.indexOf('FFFFFFFF02000F0E') >= 0) {
       let topParamCmd = cmd.substr(20, 2);
-      that.setData({
+      this.setData({
         topParam: util.str16To10(topParamCmd)
       })
       return;
@@ -129,7 +128,7 @@ Page({
     let cmd = 'FFFFFFFF020010120102';
     let pingtangParam = this.data.pingtangParam;
     let cetangParam = this.data.cetangParam;
-    if(pingtangParam > 0 && cetangParam > 0) {
+    if (pingtangParam >= 0 && cetangParam >= 0) {
       let pingtangCmd = util.str10To16(this.data.pingtangParam);
       let cetangCmd = util.str10To16(this.data.cetangParam);
       cmd = cmd + pingtangCmd + '040506' + cetangCmd + '08';
@@ -141,7 +140,7 @@ Page({
     } else {
       util.showToast('请先设置平躺和侧躺参数！')
     }
-    
+
   },
 
   /**
@@ -156,6 +155,7 @@ Page({
       }, 500);
       console.info("timerSendTopCmd 定时发送指令")
     } else {
+      that.sendFullBlueCmd('FFFFFFFF0500000000D700');
       console.info("timerSendTopCmd 停止Top定时发送指令")
     }
   },
@@ -172,6 +172,7 @@ Page({
       }, 500);
       console.info("timerSendBottomCmd 定时发送指令")
     } else {
+      that.sendFullBlueCmd('FFFFFFFF0500000000D700');
       console.info("timerSendBottomCmd 停止Bottom定时发送指令")
     }
   },

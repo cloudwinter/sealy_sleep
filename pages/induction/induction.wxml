@@ -1,7 +1,7 @@
 <!--pages/inductionset/inductionset.wxml-->
 <view class="page-{{skin}}">
   <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
-    background="{{navbar.background}}" title="智能睡眠感应"></navbar>
+    background="{{navbar.background}}" title="睡眠报告"></navbar>
 
   <view class="{{skin}}">
     <view class="content">

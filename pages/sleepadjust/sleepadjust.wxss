@@ -6,7 +6,7 @@
   align-items: center;
 }
 
-.title-content {
+.title-content{
   display: flex;
   width: 90%;
   margin-top: 40rpx;
@@ -16,6 +16,11 @@
   flex: 1;
   display: flex;
   justify-content: center;
+  font-size: 34rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #5EA2D7;
+  line-height: 40rpx;
 }
 
 .xiaoren-icon {

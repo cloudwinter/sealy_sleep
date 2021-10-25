@@ -1,12 +1,16 @@
 <!--pages/sleepadjust/sleepadjust.wxml-->
 <view class="page-{{skin}}">
   <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
-    background="{{navbar.background}}" title="{{navbar.navTitle}}"></navbar>
+    background="{{navbar.background}}" title=""></navbar>
 
 
 
   <view class="{{skin}}">
     <view class="content">
+
+      <view class="title-content">
+        <view class="title">{{navbar.navTitle}}</view>
+      </view>
 
       <view class="tips">
         <view class="tips-text" style="margin-top:30rpx;">说明：</view>

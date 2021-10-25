@@ -31,7 +31,7 @@
           <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_bottom@2x.png"></image>
         </view>
 
-        <view class="param" style="margin-top:30rpx;">
+        <view class="param" style="margin-top:30rpx;" hidden="true">
           <view class="anjianqu-left">
             <view class="tips-text">{{pingtangParam}}</view>
           </view>

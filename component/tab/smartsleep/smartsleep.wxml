@@ -2,14 +2,14 @@
 <view class="{{skin}}">
 	<view class="content">
 		<view class="shezhi-content shezhi-button-bg" bindtap="dataEntry">
-			<view class="shezhi-button-left">睡眠特征数据录入</view>
+			<view class="shezhi-button-left">睡姿特征数据录入</view>
 			<view class="shezhi-button-right">
 				<image class="shezhi-button-icon" src="../../../images/{{skin}}/row_blue@2x.png"></image>
 			</view>
 		</view>
 
 		<view class="shezhi-content shezhi-button-bg" bindtap="sleepAdjust">
-			<view class="shezhi-button-left">睡姿调整</view>
+			<view class="shezhi-button-left">睡姿角度调整</view>
 			<view class="shezhi-button-right">
 				<image class="shezhi-button-icon" src="../../../images/{{skin}}/row_blue@2x.png"></image>
 			</view>

@@ -30,7 +30,7 @@ Page({
     startTime: '',
     endTime: '',
     startDataEntry: false,
-    fuweiDialogShow: true,
+    fuweiDialogShow: false,
     nextDialogShow: false,
     failedDialogShow: false, // 通信失败的对话框
     currentTimeOutName: '', // 当前定时器的name
@@ -46,6 +46,7 @@ Page({
       connected: connected,
     })
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
+    this.sendFullBlueCmd('FFFFFFFF02000A0A1204')
   },
 
 

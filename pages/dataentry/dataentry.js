@@ -81,7 +81,7 @@ Page({
       return;
     }
     if (cmd.indexOf('FFFFFFFF0200090D02') >= 0) {
-      let cetangCmd = cmd.substr(24, 2) + cmd.substr(22, 2);
+      let cetangCmd = cmd.substr(20, 2) + cmd.substr(18, 2);
       let cetangParam = util.str16To10(cetangCmd);
       this.setData({
         cetangParam: cetangParam

@@ -32,7 +32,7 @@
           <view class="anjianqu-right tips-text">
             <view class="tips-text" bindtouchstart="touchStart" bindtouchend="touchEnd" catchtap="cetangTap">侧躺参数：</view>
             <input type="number" class="input {{canCetangParamEdit?'inputtext':'text'}}" value="{{cetangParam}}"
-              disabled="{{!canPingtangParamEdit}}" maxlength="3" data-type="cetangParam" bindinput="inputChange" />
+              disabled="{{!canCetangParamEdit}}" maxlength="3" data-type="cetangParam" bindinput="inputChange" />
           </view>
         </view>
         <view class="anjian">

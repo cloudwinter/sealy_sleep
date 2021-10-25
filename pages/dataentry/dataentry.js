@@ -21,9 +21,9 @@ Page({
       animated: false,
       navTitle: '睡姿特征数据录入',
     },
-    pingtangParam: 153,
+    pingtangParam: 0,
     canPingtangParamEdit: false,
-    cetangParam: 153,
+    cetangParam: 0,
     canCetangParamEdit: false,
     AA: '',
     KK: '',
@@ -273,6 +273,27 @@ Page({
 
 
   /*************-------------点击事件--------------------*********** */
+
+  /**
+   * 输入框监听事件
+   * @param {*} e 
+   */
+  inputChange(e) {
+    let val = e.detail.value;
+    let dataType = e.currentTarget.dataset.type;
+    console.info("inputChange", dataType, val);
+    if(dataType == 'pingtangParam') {
+      this.setData({
+        pingtangParam:val
+      })
+    } else if(dataType == 'cetangParam') {
+      this.setData({
+        cetangParam:val
+      })
+    }
+  },
+
+
   touchStart(e) {
     this.startTime = e.timeStamp;
   },

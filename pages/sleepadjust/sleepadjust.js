@@ -165,6 +165,7 @@ Page({
     } else {
       that.sendFullBlueCmd('FFFFFFFF0500000000D700');
       console.info("timerSendTopCmd 停止Top定时发送指令")
+      that.sendFullBlueCmd('FFFFFFFF02000F0B001804');
     }
   },
 
@@ -182,6 +183,7 @@ Page({
     } else {
       that.sendFullBlueCmd('FFFFFFFF0500000000D700');
       console.info("timerSendBottomCmd 停止Bottom定时发送指令")
+      that.sendFullBlueCmd('FFFFFFFF02000F0B001804');
     }
   },
 

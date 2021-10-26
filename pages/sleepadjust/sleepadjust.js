@@ -22,9 +22,9 @@ Page({
       navTitle: '睡姿角度调整',
     },
     topParam: 10,
-    pingtangParam: '',
+    pingtangParam: 0,
     selectedPingtang: false,
-    cetangParam: '',
+    cetangParam: 0,
     selectedCetang: false,
     startTime: '',
     endTime: '',
@@ -76,6 +76,14 @@ Page({
         topParam: util.str16To10(topParamCmd)
       })
       return;
+    }
+    if (cmd.indexOf('FFFFFFFF020010120102') >= 0) {
+      let AA = cmd.substr(20, 2);
+      let BB = cmd.substr(28, 2);
+      this.setData({
+        pingtangParam: util.str16To10(AA),
+        cetangParam: util.str16To10(BB),
+      })
     }
 
   },

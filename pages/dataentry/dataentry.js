@@ -25,6 +25,8 @@ Page({
     canPingtangParamEdit: false,
     cetangParam: 0,
     canCetangParamEdit: false,
+    selectedPingtang: false,
+    selectedCetang: false,
     AA: '',
     KK: '',
     startTime: '',
@@ -144,6 +146,9 @@ Page({
    */
   pingtangClick() {
     this.sendFullBlueCmd('FFFFFFFF0200090D0100001504');
+    this.setData({
+      selectedPingtang: true,
+    })
   },
 
 
@@ -166,6 +171,9 @@ Page({
    */
   cetangClick() {
     this.sendFullBlueCmd('FFFFFFFF0200090D0200001604');
+    this.setData({
+      selectedCetang: true,
+    })
   },
 
   /**

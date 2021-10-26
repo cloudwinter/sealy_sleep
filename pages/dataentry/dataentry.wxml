@@ -17,9 +17,10 @@
 
       <view class="tips">
         <view class="tips-text" style="margin-top:30rpx;">说明：</view>
-        <view class="tips-text" style="margin-top:10rpx;">1.请在平躺状态，按平躺键。</view>
-        <view class="tips-text" style="margin-top:10rpx;">2.请在侧躺状态，按侧躺键。</view>
-        <view class="tips-text" style="margin-top:10rpx;">3.完成上述操作后，请按保存键。</view>
+        <view class="tips-text" style="margin-top:10rpx;">1.请先将电动床放平，再进行数据录入操作。</view>
+        <view class="tips-text" style="margin-top:10rpx;">2.请平躺，完全放松身体后，按平躺键。</view>
+        <view class="tips-text" style="margin-top:10rpx;">3.请侧躺，完全放松身体后，按侧躺键。</view>
+        <view class="tips-text" style="margin-top:10rpx;">4.完成上述操作后，请按保存键。</view>
       </view>
 
       <view class="anjianqu">
@@ -37,10 +38,10 @@
         </view>
         <view class="anjian">
           <view class="anjianqu-left">
-            <view class="oval-button" bindtap="pingtangClick">平躺</view>
+            <view class="oval-button {{selectedPingtang?'selected':''}}" bindtap="pingtangClick">平躺</view>
           </view>
           <view class="anjianqu-left">
-            <view class="oval-button" bindtap="cetangClick">侧躺</view>
+            <view class="oval-button {{selectedCetang?'selected':''}}" bindtap="cetangClick">侧躺</view>
           </view>
         </view>
         <view class="save">

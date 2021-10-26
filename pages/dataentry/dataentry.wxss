@@ -72,6 +72,11 @@
   margin-top: 45rpx;
 }
 
+.anjian .selected {
+  border-radius: 140rpx;
+  border: 1px solid #5EA2D7;
+}
+
 .save {
   margin-top: 10rpx;
 }

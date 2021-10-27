@@ -165,7 +165,10 @@ Page({
     } else {
       that.sendFullBlueCmd('FFFFFFFF0500000000D700');
       console.info("timerSendTopCmd 停止Top定时发送指令")
-      that.sendFullBlueCmd('FFFFFFFF02000F0B001804');
+      setTimeout(() => {
+        that.sendFullBlueCmd('FFFFFFFF02000F0B001804');
+      }, 100);
+
     }
   },
 
@@ -182,8 +185,10 @@ Page({
       console.info("timerSendBottomCmd 定时发送指令")
     } else {
       that.sendFullBlueCmd('FFFFFFFF0500000000D700');
-      console.info("timerSendBottomCmd 停止Bottom定时发送指令")
-      that.sendFullBlueCmd('FFFFFFFF02000F0B001804');
+      console.info("timerSendBottomCmd 停止Bottom定时发送指令");
+      setTimeout(() => {
+        that.sendFullBlueCmd('FFFFFFFF02000F0B001804');
+      }, 100);
     }
   },
 

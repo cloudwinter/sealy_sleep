@@ -25,7 +25,7 @@
 
 .tips {
   width: 90%;
-  height: 238rpx;
+  height: 288rpx;
   background: #1E1F24;
   border-radius: 16rpx;
   opacity: 0.88;

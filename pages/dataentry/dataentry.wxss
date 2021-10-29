@@ -6,6 +6,23 @@
   align-items: center;
 }
 
+
+.dark .shezhi-button-bg {
+  width: 40% !important;
+  height: 120rpx;
+  border-radius: 120rpx;
+  background: #1E1F24;
+}
+
+.shezhi-content {
+  width: 90%;
+  height: 120rpx;
+  margin-top: 36rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .title-content{
   display: flex;
   width: 90%;
@@ -98,7 +115,7 @@
   background: rgba(216, 216, 216, 0);
   border-radius: 24rpx;
   border: 3rpx solid #5EA2D7;
-  margin-top: 124rpx;
+  margin-top: 40rpx;
   display: flex;
   align-items: center;
 }

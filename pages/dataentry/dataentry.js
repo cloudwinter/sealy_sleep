@@ -282,6 +282,13 @@ Page({
 
 
   /*************-------------点击事件--------------------*********** */
+  reset() {
+    this.sendFullBlueCmd('FFFFFFFF0200120C0A8CB204');
+    wx.navigateBack({
+      delta: 1,
+    })
+  },
+
 
   /**
    * 输入框监听事件

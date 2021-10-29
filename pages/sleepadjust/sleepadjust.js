@@ -84,6 +84,10 @@ Page({
         pingtangParam: util.str16To10(AA),
         cetangParam: util.str16To10(BB),
       })
+      let that = this;
+      setTimeout(() => {
+        that.sendFullBlueCmd('FFFFFFFF02000F0B001804');
+      }, 100);
     }
 
   },

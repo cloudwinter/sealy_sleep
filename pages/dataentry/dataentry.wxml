@@ -47,6 +47,11 @@
         <view class="save">
           <view class="oval-button" bindtap="saveTap">保存</view>
         </view>
+
+        <view class="shezhi-content shezhi-button-bg" bindtap="reset">
+          <view class="tips-text">恢复出厂设置</view>
+        </view>
+
       </view>
 
       <view class="hint">

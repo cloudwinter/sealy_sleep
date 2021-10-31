@@ -283,7 +283,7 @@ Page({
 
   /*************-------------点击事件--------------------*********** */
   reset() {
-    this.sendFullBlueCmd('FFFFFFFF0200120C0A8CB204');
+    this.sendFullBlueCmd('FFFFFFFF0200120C0A466C04');
     wx.navigateBack({
       delta: 1,
     })

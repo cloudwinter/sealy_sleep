@@ -62,7 +62,7 @@ Page({
     let preDay = date.day;
     let pageData = {};
     let unit;
-    if (pageType != 1) {
+    if (pageType == 1) {
       pageData.navTitle = '日睡眠报告';
       pageData.dataTitle = '20' + date.year + '年' + date.month + '月' + preDay + '日睡眠报告';
       pageData.graphTitle = '';

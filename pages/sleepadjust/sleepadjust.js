@@ -77,7 +77,7 @@ Page({
       })
       return;
     }
-    if (cmd.indexOf('FFFFFFFF020010120102') >= 0) {
+    if (cmd.indexOf('FFFFFFFF02001012') >= 0) {
       let AA = cmd.substr(20, 2);
       let BB = cmd.substr(28, 2);
       this.setData({

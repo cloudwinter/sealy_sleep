@@ -36,7 +36,7 @@ Page({
       dataTitle: '实时在床数据', // 数据标题
       graphTitle: '', // 曲线标题
     },
-    unit:'分钟',
+    unit: '分钟',
     timeShuimian: '489',
     timePingtang: '489',
     timeCetang: '489',
@@ -58,8 +58,8 @@ Page({
     let pageType = options.pageType;
     console.log('pageType:' + pageType);
     let connected = configManager.getCurrentConnected();
-    let date = time.getDateInfo(new Date());
-    let preDay = date.day - 1; // TODO 待确认问题如果日期是个位数的问题
+    let date = time.getDateInfo(new Date(new Date().getTime() - 24 * 60 * 60 * 1000));
+    let preDay = date.day;
     let pageData = {};
     let unit;
     if (pageType == 1) {
@@ -78,7 +78,7 @@ Page({
       connected: connected,
       pageData: pageData,
       pageType: pageType,
-      unit:unit
+      unit: unit
     })
     this.onLoadlineChart();
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
@@ -373,7 +373,7 @@ Page({
     lineChart.showToolTip(e, {
       // background: '#7cb5ec',
       format: function (item, category) {
-        console.log('touchHandler',category,item.name,item.data);
+        console.log('touchHandler', category, item.name, item.data);
         return item.name + '：' + item.data
       }
     });

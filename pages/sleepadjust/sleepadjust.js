@@ -77,7 +77,7 @@ Page({
       })
       return;
     }
-    if (cmd.indexOf('FFFFFFFF020010120102') >= 0) {
+    if (cmd.indexOf('FFFFFFFF02001012') >= 0) {
       let AA = cmd.substr(20, 2);
       let BB = cmd.substr(28, 2);
       this.setData({
@@ -137,13 +137,13 @@ Page({
    * 保存
    */
   saveTap() {
-    let cmd = 'FFFFFFFF020010120102';
+    let cmd = 'FFFFFFFF020010120000';
     let pingtangParam = this.data.pingtangParam;
     let cetangParam = this.data.cetangParam;
     if (pingtangParam >= 0 && cetangParam >= 0) {
       let pingtangCmd = util.str10To16(this.data.pingtangParam);
       let cetangCmd = util.str10To16(this.data.cetangParam);
-      cmd = cmd + pingtangCmd + '040506' + cetangCmd + '08';
+      cmd = cmd + pingtangCmd + '000000' + cetangCmd + '00';
       cmd = cmd + crcUtil.HexToCSU16(cmd);
       this.sendFullBlueCmd(cmd);
       wx.navigateBack({

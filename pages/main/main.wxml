@@ -17,6 +17,9 @@
 
 	<!-- 页面容器 -->
 	<view class="container">
+		<view class="tab-container" hidden="{{nowPage!='smartbed'}}">
+			<smartbed></smartbed>
+		</view>
 		<view class="tab-container" hidden="{{nowPage!='kuaijie'}}">
 			<kuaijie-K2 wx:if="{{kuaijieType=='K2'}}"></kuaijie-K2>
 		</view>
@@ -31,6 +34,9 @@
 		</view>
 		<view class="tab-container" hidden="{{nowPage!='dengguang'}}">
 			<dengguang></dengguang>
+		</view>
+		<view class="tab-container" hidden="{{nowPage!='smartsleep'}}">
+			<smartsleep></smartsleep>
 		</view>
 	</view>
 

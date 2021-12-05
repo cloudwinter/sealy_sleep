@@ -11,7 +11,9 @@
     "pages/wmreport/wmreport",
     "pages/smart/smart",
     "pages/gexingset/gexingset-1",
-    "pages/gexingset/gexingset-2"
+    "pages/gexingset/gexingset-2",
+    "pages/dataentry/dataentry",
+    "pages/sleepadjust/sleepadjust"
   ],
   "window": {
     "backgroundTextStyle": "light",

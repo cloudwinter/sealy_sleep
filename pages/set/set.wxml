@@ -42,7 +42,7 @@
 			</view>
 
 
-			<view class="shezhi-content shezhi-button-bg" bindtap="smart" hidden="{{!hasSleepInduction}}">
+			<view class="shezhi-content shezhi-button-bg" bindtap="smart" hidden="true">
 				<view class="shezhi-button-left">智能睡眠定时</view>
 				<view class="shezhi-button-right">
 					<view class="shezhi-button-name">{{sleepTimerDesc}}</view>

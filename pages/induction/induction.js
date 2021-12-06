@@ -22,6 +22,10 @@ Page({
     openSmart: false
   },
 
+  onReady:function(options) {
+    
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -31,6 +35,8 @@ Page({
       skin: app.globalData.skin,
       connected: connected
     })
+    this.calendar = this.selectComponent('#calendar');
+    this.calendar.backtoday();
   },
 
 

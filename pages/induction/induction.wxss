@@ -1,16 +1,16 @@
 /* pages/inductionset/inductionset.wxss */
 /* pages/smart/smart.wxss */
 .dark .shezhi-button-bg {
-  width: 90% !important;
-  height: 120rpx;
-  border-radius: 120rpx;
+  width: 80% !important;
+  height: 90rpx;
+  border-radius: 90rpx;
   background: #1E1F24;
 }
 
 .orange .shezhi-button-bg {
 
-  width: 90% !important;
-  height: 120rpx;
+  width: 80% !important;
+  height: 90rpx;
   border-radius: 120rpx;
   background: #6E269A;
 }
@@ -56,8 +56,8 @@
 }
 
 .shezhi-content {
-  width: 90%;
-  height: 120rpx;
+  width: 80%;
+  height: 90rpx;
   margin-top: 36rpx;
   display: flex;
   align-items: center;
@@ -163,7 +163,7 @@
 }
 
 .dialog-item {
-  height: 80rpx;
+  height: 90rpx;
   width: 100%;
   background: #FFFFFF;
   display: flex;
@@ -188,4 +188,38 @@
   display: block;
   padding: 5px;
   width: 100%;
+}
+
+
+.shezhi-content {
+  width: 80%;
+  height: 90rpx;
+  margin-top: 36rpx;
+  display: flex;
+  align-items: center;
+}
+
+
+.shezhi-button-left {
+  flex: 1;
+  color: #5EA2D7;
+  font-size: 28rpx;
+  margin-left: 62rpx;
+}
+
+.shezhi-button-right {
+  display: flex;
+  align-items: center;
+  margin-right: 50rpx;
+}
+
+.shezhi-button-name {
+  color: #5EA2D7;
+  font-size: 28rpx;
+}
+
+.shezhi-button-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 20rpx;
 }

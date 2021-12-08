@@ -2,6 +2,7 @@
 const util = require('../../utils/util');
 const crcUtil = require('../../utils/crcUtil');
 const configManager = require('../../utils/configManager')
+const time = require('../../utils/time')
 const app = getApp();
 const preCMD = 'FFFFFFFF050000';
 Page({
@@ -22,8 +23,8 @@ Page({
     openSmart: false
   },
 
-  onReady:function(options) {
-    
+  onReady: function (options) {
+
   },
 
   /**
@@ -59,6 +60,15 @@ Page({
 
 
   /**
+   * 发送蓝牙命令
+   * @param {*} cmd 
+   */
+  sendBlueCmd(cmd) {
+    var connected = this.data.connected;
+    util.sendBlueCmd(connected, cmd);
+  },
+
+  /**
    * 智能睡眠感应开关
    */
   smartSwitch: function () {
@@ -76,6 +86,8 @@ Page({
     })
   },
 
+
+
   /**
    * 跳转到睡眠报告页面
    */
@@ -87,7 +99,7 @@ Page({
     })
   },
 
-  smartSet:function(e) {
+  smartSet: function (e) {
     wx.navigateTo({
       url: '/pages/smart/smart'
     })
@@ -102,6 +114,29 @@ Page({
     wx.navigateTo({
       url: '/pages/wmreport/wmreport?pageType=' + pageType
     })
+  },
+
+
+  /**
+   * 点击日期时候触发的事件
+   * bind:getdate
+   */
+  getdate(e) {
+    let currentDate = time.getDateInfo(new Date());
+    let selectedDate = e.detail.datestr;
+    let UVval = Number(currentDate.day) - 1 - Number(selectedDate.substr(8, 2));
+    let UV = '00';
+    if (UVval < 0 || UVval > 30) {
+      UV = 'FF';
+    } else if(UVval < 10) {
+      UV = '0'+UVval;
+    } else {
+      UV = ''+UVval;
+    }
+    let cmd = 'FFFFFFFF0200130B'+UV;
+    cmd = cmd + crcUtil.HexToCSU16(cmd);
+    console.log(currentDate, e.detail, UV,cmd);
+    this.sendBlueCmd(cmd);
   },
 
 })

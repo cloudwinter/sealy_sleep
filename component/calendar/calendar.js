@@ -170,28 +170,28 @@ Component({
       let month = canlender.weeks[week][index].month < 10 ? "0" + canlender.weeks[week][index].month : canlender.weeks[week][index].month
       let date = canlender.weeks[week][index].date < 10 ? "0" + canlender.weeks[week][index].date : canlender.weeks[week][index].date
       let datestr = canlender.year + "-" + month + "-" + date;
-      let selectDays = this.data.selectDays;
-      if (selectDays.indexOf(datestr)==-1) {
-        if(this.data.multiple){
-          //多选
-          selectDays.push(datestr);
-        }else{
-          selectDays = []; //只保留最后选的
-          selectDays.push(datestr);
-        }
-      }else{
-        let index = selectDays.indexOf(datestr);
-        selectDays.splice(index, 1);
-      }
-      selectDays.sort(function(a, b){
-        let ds1 = a.split("-");
-        let ds2 = b.split("-");
-        let d1 = new Date(ds1[0], ds1[1], ds1[2]);
-        let d2 = new Date(ds2[0], ds2[1], ds2[2]);
-        return d1-d2;
-      });
-      this.data.selectDays = selectDays;
-      this.getWeek(datestr);
+      // let selectDays = this.data.selectDays;
+      // if (selectDays.indexOf(datestr)==-1) {
+      //   if(this.data.multiple){
+      //     //多选
+      //     selectDays.push(datestr);
+      //   }else{
+      //     selectDays = []; //只保留最后选的
+      //     selectDays.push(datestr);
+      //   }
+      // }else{
+      //   let index = selectDays.indexOf(datestr);
+      //   selectDays.splice(index, 1);
+      // }
+      // selectDays.sort(function(a, b){
+      //   let ds1 = a.split("-");
+      //   let ds2 = b.split("-");
+      //   let d1 = new Date(ds1[0], ds1[1], ds1[2]);
+      //   let d2 = new Date(ds2[0], ds2[1], ds2[2]);
+      //   return d1-d2;
+      // });
+      // this.data.selectDays = selectDays;
+      //this.getWeek(datestr);
       this.triggerEvent('getdate', {
         datestr
       })

@@ -45,7 +45,7 @@ Page({
       key: '00',
       value: '20:00'
     },
-    rushuiSelectRadio:'',
+    rushuiSelectRadio: '',
     rushuiDialogShow: false,
     openSmart: false,
   },
@@ -63,8 +63,6 @@ Page({
       skin: app.globalData.skin,
       connected: connected
     })
-    this.calendar = this.selectComponent('#calendar');
-    this.calendar.backtoday();
   },
 
 
@@ -196,21 +194,38 @@ Page({
    * bind:getdate
    */
   getdate(e) {
-    let currentDate = time.getDateInfo(new Date());
+    let currentDate = time.getCurrentDate();
     let selectedDate = e.detail.datestr;
-    let UVval = Number(currentDate.day) - 1 - Number(selectedDate.substr(8, 2));
-    let UV = '00';
-    if (UVval < 0 || UVval > 30) {
-      UV = 'FF';
-    } else if (UVval < 10) {
-      UV = '0' + UVval;
-    } else {
-      UV = '' + UVval;
+    let differDays = time.getDifferDate(selectedDate, currentDate) - 1;
+    if (differDays > 30) {
+      util.showToast('您选择的日期暂无数据');
+      return;
     }
-    let cmd = 'FFFFFFFF0200130B' + UV;
-    cmd = cmd + crcUtil.HexToCSU16(cmd);
-    console.log(currentDate, e.detail, UV, cmd);
-    this.sendBlueCmd(cmd);
+    let UV = '00';
+    if (differDays < 10) {
+      UV = '0' + differDays;
+    } else {
+      UV = '' + differDays;
+    }
+    console.log(currentDate, e.detail, differDays);
+    let OZkey = this.data.OZ.key;
+    wx.navigateTo({
+      url: '/pages/report/report?pageType=1&UV=' + UV + '&OZ=' + OZkey+'&selectedDate='+selectedDate
+    })
+
+    // let UVval = Number(currentDate.day) - 1 - Number(selectedDate.substr(8, 2));
+    // let UV = '00';
+    // if (UVval < 0 || UVval > 30) {
+    //   UV = 'FF';
+    // } else if (UVval < 10) {
+    //   UV = '0' + UVval;
+    // } else {
+    //   UV = '' + UVval;
+    // }
+    // let cmd = 'FFFFFFFF0200130B' + UV;
+    // cmd = cmd + crcUtil.HexToCSU16(cmd);
+
+    // this.sendBlueCmd(cmd);
   },
 
 })

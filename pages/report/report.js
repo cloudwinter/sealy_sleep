@@ -31,6 +31,9 @@ Page({
       animated: false,
     },
     pageType: '0', // 0 表示实时在床数据，1表示睡眠日报告
+    UV: '00',
+    OZ: '00',
+    selectedDate: '',
     pageData: {
       navTitle: '实时在床数据', // 顶部标题
       dataTitle: '实时在床数据', // 数据标题
@@ -60,11 +63,17 @@ Page({
     let connected = configManager.getCurrentConnected();
     let date = time.getDateInfo(new Date(new Date().getTime() - 24 * 60 * 60 * 1000));
     let preDay = date.day;
+    let UV = this.data.UV;
+    let OZ = this.data.OZ;
+    let selectedDate = this.data.selectedDate;
     let pageData = {};
     let unit;
     if (pageType == 1) {
+      UV = options.UV;
+      OZ = options.OZ;
+      selectedDate = options.selectedDate;
       pageData.navTitle = '日睡眠报告';
-      pageData.dataTitle = '20' + date.year + '年' + date.month + '月' + preDay + '日睡眠报告';
+      pageData.dataTitle = selectedDate.substr(0, 4) + '年' + selectedDate.substr(5, 2) + '月' + selectedDate.substr(8, 2) + '日睡眠报告';
       pageData.graphTitle = '';
       unit = '小时';
     } else {
@@ -78,7 +87,10 @@ Page({
       connected: connected,
       pageData: pageData,
       pageType: pageType,
-      unit: unit
+      unit: unit,
+      UV: UV,
+      OZ: OZ,
+      selectedDate: selectedDate
     })
     this.onLoadlineChart();
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
@@ -114,9 +126,9 @@ Page({
     let end = '';
     if (pageType == 1) {
       // 日报告
-      cmd = 'FFFFFFFF0200030BF1'
+      let UV = this.data.UV;
+      cmd = 'FFFFFFFF0200130B' + UV
       end = crcUtil.HexToCSU16(cmd);
-
     } else {
       // 实时在床数据
       cmd = 'FFFFFFFF0200030B01'
@@ -156,7 +168,7 @@ Page({
       return;
     }
     var askType = cmd.substr(12, 2);
-    if (askType != '04' && askType != '05') {
+    if (!(askType == '04' || askType == '05' || askType == '14')) {
       console.error('report->askBack 返回码非当日或实时返回码', cmd);
       return;
     }
@@ -256,8 +268,6 @@ Page({
 
       // 分割数据
       this.splitDataByTime(data);
-      console.info('blueReply 曲线对象：', data);
-      this.updateData(this.data.middleData, middleCategories);
     }
   },
 
@@ -272,26 +282,74 @@ Page({
     let preData = [];
     let middleData = [];
     let nextData = [];
-    for (let i = 0; i < data.length; i++) {
-      if (i < 12) {
-        preData.push(data[i]);
+    let middleCate = middleCategories;
+    let pageType = this.data.pageType;
+    if (pageType == 1) {
+      // 日报告
+      let OZ = this.data.middleCate;
+      let prei = 7;
+      let endi = 20;
+      if (OZ == '00') {
+        middleCate = ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'];
+        prei = 7;
+        endi = 20;
+      } else if (OZ == '01') {
+        middleCate = ['21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00'];
+        prei = 8;
+        endi = 21;
+      } else if (OZ == '02') {
+        middleCate = ['22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00'];
+        prei = 9;
+        endi = 22;
+      } else if (OZ == '03') {
+        middleCate = ['23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00'];
+        prei = 10;
+        endi = 23;
+      } else if (OZ == '04') {
+        middleCate = ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00'];
+        prei = 10;
+        endi = 24;
       }
-      if (i > 7 && i < 20) {
-        middleData.push(data[i]);
+      for (let i = 0; i < data.length; i++) {
+        if (i > prei && i < endi) {
+          middleData.push(data[i]);
+        }
       }
-      if (i > 11) {
-        nextData.push(data[i]);
+      this.setData({
+        graphData: data,
+        preData: preData,
+        middleData: middleData,
+        nextData: nextData,
+        preDisable: true,
+        nextDisable: true,
+        currentGraphType: 'middle'
+      })
+
+
+    } else {
+      for (let i = 0; i < data.length; i++) {
+        if (i < 12) {
+          preData.push(data[i]);
+        }
+        if (i > 7 && i < 20) {
+          middleData.push(data[i]);
+        }
+        if (i > 11) {
+          nextData.push(data[i]);
+        }
       }
+      this.setData({
+        graphData: data,
+        preData: preData,
+        middleData: middleData,
+        nextData: nextData,
+        preDisable: false,
+        nextDisable: false,
+        currentGraphType: 'middle'
+      })
     }
-    this.setData({
-      graphData: data,
-      preData: preData,
-      middleData: middleData,
-      nextData: nextData,
-      preDisable: false,
-      nextDisable: false,
-      currentGraphType: 'middle'
-    })
+    console.info('blueReply 曲线对象：', data);
+    this.updateData(this.data.middleData, middleCategories);
   },
 
 

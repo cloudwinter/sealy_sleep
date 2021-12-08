@@ -51,7 +51,7 @@
           <view class='right-color'></view>
         </view>
       </view>
-      <view class='backtoday' bindtap='backtoday'>
+      <view class='backtoday' bindtap='backtoday' hidden="true">
         回到今天
       </view>
     </view>
@@ -76,9 +76,9 @@
             </view>
 
             <view wx:else
-              class="date {{mini?'mini':''}} {{canlender.month==day.month && ((nowMonth === day.month && day.date-nowDate >= 0) || (day.month - nowMonth > 0))? '' : 'placeholder'}} {{day.checked && canlender.month == day.month?'date-current': ''}}"
+              class="date {{mini?'mini':''}} {{canlender.month>=day.month && ((nowMonth === day.month && day.date-nowDate < 0) || (day.month - nowMonth < 0))? '' : 'placeholder'}} {{day.checked && canlender.month == day.month?'date-current': ''}}"
               data-week="{{week}}" data-index="{{index}}"
-              data-ischeck="{{canlender.month==day.month && ((nowMonth === day.month )|| (day.month - nowMonth > 0))}}"
+              data-ischeck="{{canlender.month>=day.month && ((nowMonth === day.month && day.date-nowDate < 0)|| (day.month - nowMonth < 0))}}"
               bindtap='selectDay'>
               {{day.date}}
               <!-- <view wx:if="{{(readonly && day.checked) || (day.checked && canlender.month != day.month)}}" class="data-circle {{mini?'mini':''}}"></view> -->

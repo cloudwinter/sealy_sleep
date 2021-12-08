@@ -2,6 +2,7 @@
 const util = require('../../utils/util');
 const crcUtil = require('../../utils/crcUtil');
 const configManager = require('../../utils/configManager')
+const WxNotificationCenter = require('../../utils/WxNotificationCenter');
 const time = require('../../utils/time')
 const app = getApp();
 const preCMD = 'FFFFFFFF050000';
@@ -63,6 +64,8 @@ Page({
       skin: app.globalData.skin,
       connected: connected
     })
+    WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
+    this.sendInitCmd();
   },
 
 
@@ -80,7 +83,42 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    WxNotificationCenter.removeNotification("BLUEREPLY", this);
+  },
 
+
+  /**
+   * 发送初始化命令
+   */
+  sendInitCmd() {
+    let cmd = '';
+    let end = '';
+    cmd = 'FFFFFFFF0200160B00';
+    end = crcUtil.HexToCSU16(cmd);
+    this.sendBlueCmd(cmd+end);
+  },
+
+  /**
+   * 蓝牙回复回调
+   * @param {*} cmd 
+   */
+  blueReply(cmd) {
+    cmd = cmd.toUpperCase();
+    if (cmd.indexOf('FFFFFFFF0200160B') >= 0) {
+      let OZkey = cmd.substr(16,2);
+      let rushuiSelectRadio = OZkey;
+      let rushuiSelectValue;
+      this.data.OZItems.forEach(obj => {
+        if (rushuiSelectRadio == obj.key) {
+          rushuiSelectValue = obj.value;
+        }
+      });
+      this.setData({
+        rushuiDialogShow: false,
+        ['OZ.value']: rushuiSelectValue,
+        ['OZ.key']: rushuiSelectRadio,
+      })
+    }
   },
 
 
@@ -210,7 +248,7 @@ Page({
     console.log(currentDate, e.detail, differDays);
     let OZkey = this.data.OZ.key;
     wx.navigateTo({
-      url: '/pages/report/report?pageType=1&UV=' + UV + '&OZ=' + OZkey+'&selectedDate='+selectedDate
+      url: '/pages/report/report?pageType=1&UV=' + UV + '&OZ=' + OZkey + '&selectedDate=' + selectedDate
     })
 
     // let UVval = Number(currentDate.day) - 1 - Number(selectedDate.substr(8, 2));

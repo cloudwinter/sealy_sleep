@@ -244,6 +244,7 @@ Component({
     backtoday() {
       if(!this.data.readonly){
         let datestr = this.dateStr(new Date());
+        this.data.selectDays = [];
         this.data.selectDays.push(datestr);
         this.setData({
           selectDays: this.data.selectDays

@@ -29,10 +29,10 @@
 			</view>
 
 
-      <view class="shezhi-content shezhi-button-bg" bindtap="report" data-type="1">
+      <view class="shezhi-content shezhi-button-bg" bindtap="rushui" data-type="1">
 				<view class="shezhi-button-left">入睡时间</view>
 				<view class="shezhi-button-right">
-					<view class="shezhi-button-name">21:00</view>
+					<view class="shezhi-button-name">{{OZ.value}}</view>
 					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
 				</view>
 			</view>
@@ -59,4 +59,36 @@
     </view>
   </view>
 
+</view>
+
+
+<!-- 入睡时间对话框 -->
+<view class="modal-dialog" hidden="{{!rushuiDialogShow}}">
+	<view class="modal-box">
+		<text class="modal-box-title" style="margin-bottom:30rpx;margin-top:30rpx;">入睡选择</text>
+		<view style="width:100%;height:1px;background:#000000"></view>
+
+		<view class="model-content" style="width:100%;display:flex;justify-content:center">
+			<radio-group bindchange="rushuiRadioChange" class="radio-group" style="width:100%">
+				<block wx:for="{{OZItems}}" wx:key="key">
+					<label class="model-label">
+						<view>
+							<radio class="radio" value="{{item.key}}" checked="{{item.key==OZ.key}}" />
+						</view>
+						<view class="dialog-item-name">{{item.value}}</view>
+					</label>
+					<view style="width:100%;height:1px;background:#OOO"></view>
+				</block>
+			</radio-group>
+		</view>
+
+		<view style="width:100%;height:1px;background:#000000"></view>
+		<view class="modal-box-bottom" style="height:100rpx;">
+			<view bindtap="onModalModeClick" data-ctype="cancel" class="modal-box-button" hover-class="modal-box-button-hover"
+				style="flex-grow:1;color:#FFFFFF">取消</view>
+			<view style="width:1rpx;height:100%;background:#000000"></view>
+			<view bindtap="onModalRushuiClick" data-ctype="confirm" class="modal-box-button sure"
+				hover-class="modal-box-button-hover" style="flex-grow:1;color:#5EA2D7">确定</view>
+		</view>
+	</view>
 </view>

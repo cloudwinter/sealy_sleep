@@ -48,7 +48,7 @@ Page({
     preData: [],
     middleData: [],
     nextData: [],
-    graphHidden: false,
+    graphHidden: true,
     preDisable: true,
     nextDisable: true,
     currentGraphType: 'middle' // 当前曲线类型
@@ -80,9 +80,10 @@ Page({
       pageData.graphTitle = '';
       unit = '小时';
     } else {
+      graphHidden = false;
       pageData.navTitle = '实时在床数据';
       pageData.dataTitle = '实时在床数据';
-      pageData.graphTitle = '20' + date.year + '年' + date.month + '月' + preDay + '日睡眠报告';
+      pageData.graphTitle = '20' + date.year + '年' + date.month + '月' + preDay + '日翻身统计';
       unit = '分钟';
     }
     this.setData({

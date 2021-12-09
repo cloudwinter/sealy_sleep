@@ -95,7 +95,7 @@ Page({
     let end = '';
     cmd = 'FFFFFFFF0200160B00';
     end = crcUtil.HexToCSU16(cmd);
-    this.sendBlueCmd(cmd+end);
+    this.sendBlueCmd(cmd + end);
   },
 
   /**
@@ -223,6 +223,9 @@ Page({
       ['OZ.value']: rushuiSelectValue,
       ['OZ.key']: rushuiSelectRadio,
     })
+    let cmd = 'FFFFFFFF0200150B' + this.data.OZ.key;
+    let end = crcUtil.HexToCSU16(cmd);
+    this.sendBlueCmd(cmd + end);
   },
 
 

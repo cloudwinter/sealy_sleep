@@ -48,6 +48,7 @@ Page({
     preData: [],
     middleData: [],
     nextData: [],
+    graphHidden: false,
     preDisable: true,
     nextDisable: true,
     currentGraphType: 'middle' // 当前曲线类型
@@ -65,12 +66,14 @@ Page({
     let preDay = date.day;
     let UV = this.data.UV;
     let OZ = this.data.OZ;
+    let graphHidden = this.data.graphData;
     let selectedDate = this.data.selectedDate;
     let pageData = {};
     let unit;
     if (pageType == 1) {
       UV = options.UV;
       OZ = options.OZ;
+      graphHidden = true;
       selectedDate = options.selectedDate;
       pageData.navTitle = '日睡眠报告';
       pageData.dataTitle = selectedDate.substr(0, 4) + '年' + selectedDate.substr(5, 2) + '月' + selectedDate.substr(8, 2) + '日睡眠报告';
@@ -90,11 +93,34 @@ Page({
       unit: unit,
       UV: UV,
       OZ: OZ,
+      graphHidden: graphHidden,
       selectedDate: selectedDate
     })
+    this.setCategories();
     this.onLoadlineChart();
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
     this.sendInitCmd();
+  },
+
+
+  /**
+   * 设置曲线底部
+   */
+  setCategories() {
+    let OZ = this.data.OZ;
+    let middleCate = [];
+    if (OZ == '00') {
+      middleCate = ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'];
+    } else if (OZ == '01') {
+      middleCate = ['21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00'];
+    } else if (OZ == '02') {
+      middleCate = ['22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00'];
+    } else if (OZ == '03') {
+      middleCate = ['23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00'];
+    } else if (OZ == '04') {
+      middleCate = ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00'];
+    }
+    middleCategories = middleCate;
   },
 
 
@@ -282,31 +308,25 @@ Page({
     let preData = [];
     let middleData = [];
     let nextData = [];
-    let middleCate = middleCategories;
     let pageType = this.data.pageType;
     if (pageType == 1) {
       // 日报告
-      let OZ = this.data.middleCate;
+      let OZ = this.data.OZ;
       let prei = 7;
       let endi = 20;
       if (OZ == '00') {
-        middleCate = ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'];
         prei = 7;
         endi = 20;
       } else if (OZ == '01') {
-        middleCate = ['21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00'];
         prei = 8;
         endi = 21;
       } else if (OZ == '02') {
-        middleCate = ['22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00'];
         prei = 9;
         endi = 22;
       } else if (OZ == '03') {
-        middleCate = ['23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00'];
         prei = 10;
         endi = 23;
       } else if (OZ == '04') {
-        middleCate = ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00'];
         prei = 10;
         endi = 24;
       }
@@ -320,12 +340,9 @@ Page({
         preData: preData,
         middleData: middleData,
         nextData: nextData,
-        preDisable: true,
-        nextDisable: true,
+        graphHidden: true,
         currentGraphType: 'middle'
       })
-
-
     } else {
       for (let i = 0; i < data.length; i++) {
         if (i < 12) {
@@ -347,8 +364,8 @@ Page({
         nextDisable: false,
         currentGraphType: 'middle'
       })
+      console.info('blueReply 曲线对象：', data);
     }
-    console.info('blueReply 曲线对象：', data);
     this.updateData(this.data.middleData, middleCategories);
   },
 

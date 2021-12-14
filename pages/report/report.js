@@ -200,29 +200,37 @@ Page({
       return;
     }
     var frameNo = cmd.substr(16, 2);
-    if (frameNo == '01') {
+    if (frameNo == '01' || frameNo == '06' || frameNo == '3C') {
       // TODO 时间和测试超过限制处理
-
       let pingtangTime;
+      let cetangTime;
+      let unit = this.data.unit;
       let pageType = this.data.pageType;
       if (pageType == 1) {
         // 单位6分钟计1个单位
         pingtangTime = (util.str16To10(cmd.substr(18, 2)) * 0.1).toFixed(1);
-      } else {
-        pingtangTime = util.str16To10(cmd.substr(18, 2));
-      }
-
-      // 单位6分钟计1个单位
-      let cetangTime;
-      if (pageType == 1) {
         cetangTime = (util.str16To10(cmd.substr(20, 2)) * 0.1).toFixed(1);
       } else {
-        cetangTime = util.str16To10(cmd.substr(20, 2));
+        if (frameNo == '01') {
+          pingtangTime = util.str16To10(cmd.substr(18, 2));
+          cetangTime = util.str16To10(cmd.substr(20, 2));
+          unit = '分钟';
+        } else if (frameNo == '06') {
+          pingtangTime = (util.str16To10(cmd.substr(18, 2)) * 0.1).toFixed(1);
+          cetangTime = (util.str16To10(cmd.substr(20, 2)) * 0.1).toFixed(1);
+          unit = '小时';
+        } else if (frameNo == '3C') {
+          pingtangTime = util.str16To10(cmd.substr(18, 2));
+          cetangTime = util.str16To10(cmd.substr(20, 2));
+          unit = '小时';
+        }
       }
+
       let shuimianTime = (parseFloat(pingtangTime) + parseFloat(cetangTime)).toFixed(1);
       // 获取翻身次数
       let fanshenNum = util.str16To10(cmd.substr(22, 2));
       this.setData({
+        unit: unit,
         timeShuimian: shuimianTime,
         timePingtang: pingtangTime,
         timeCetang: cetangTime,

@@ -26,8 +26,8 @@ Page({
     fuweiDialogShow: false,
     nextDialogShow: false,
     currentTimeOutName: '', // 当前定时器的name
-    tips1: '1.请在平躺状态，调整背部角度，完成后按平躺键。',
-    tips2: '2.请在侧躺状态，调整背部角度，完成后按侧躺键。',
+    tips1: '1.请在平躺状态，调整背部及腿部角度，完成后按平躺键。',
+    tips2: '2.请在侧躺状态，调整背部及腿部角度，完成后按侧躺键。',
     showTouB: false,
     showBeiB: false,
     showYaoB: false,

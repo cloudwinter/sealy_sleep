@@ -167,9 +167,14 @@ Component({
       let ischeck = e.currentTarget.dataset.ischeck;
       let canlender = this.data.canlender;
       if (!ischeck) return false;
+      let year = canlender.year;
       let month = canlender.weeks[week][index].month < 10 ? "0" + canlender.weeks[week][index].month : canlender.weeks[week][index].month
+      if (month == 0) {
+        month = 12;
+        year = year - 1;
+      }
       let date = canlender.weeks[week][index].date < 10 ? "0" + canlender.weeks[week][index].date : canlender.weeks[week][index].date
-      let datestr = canlender.year + "-" + month + "-" + date;
+      let datestr = year + "-" + month + "-" + date;
       // let selectDays = this.data.selectDays;
       // if (selectDays.indexOf(datestr)==-1) {
       //   if(this.data.multiple){

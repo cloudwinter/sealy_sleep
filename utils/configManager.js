@@ -5,6 +5,7 @@ const _CONNECTED_KEY = 'connected'
 const _ALARM_KEY = 'alarm:'
 const _ALARM_SHOW_KEY = 'show:alarm:'
 const _SLEEP_HAS_SAVED_KEY = 'sleep:has:saved:'
+const _SHISHI_KEY = 'shishi:flag:'
 const _PROPS = {
   _ID: 'id'
 }
@@ -289,7 +290,30 @@ function getSleepTabSaveStatus(deviceId) {
 }
 
 
+/**
+ * 设置实时睡眠是否显示状态
+ * @param {*} show 
+ */
+function putShishiSwitch(open) {
+  let key = _SHISHI_KEY;
+  wx.setStorage({
+    data: open,
+    key: key,
+  })
+}
 
+
+/**
+ * 获取实时睡眠是否显示状态
+ */
+function getShishiSwitch() {
+  let key = _SHISHI_KEY;
+  var show = wx.getStorageSync(key);
+  if(show) {
+    return true;
+  }
+  return false;
+}
 
 
 
@@ -312,5 +336,7 @@ module.exports = {
   putAlarmSwitch,
   showAlarmSwitch,
   putSleepTabSaveStatus,
-  getSleepTabSaveStatus
+  getSleepTabSaveStatus,
+  putShishiSwitch,
+  getShishiSwitch
 }

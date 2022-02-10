@@ -49,6 +49,7 @@ Page({
     rushuiSelectRadio: '',
     rushuiDialogShow: false,
     openSmart: false,
+    showShishishuju: false,
   },
 
   onReady: function (options) {
@@ -60,9 +61,11 @@ Page({
    */
   onLoad: function (options) {
     let connected = configManager.getCurrentConnected();
+    let showShishishuju = configManager.getShishiSwitch();
     this.setData({
       skin: app.globalData.skin,
-      connected: connected
+      connected: connected,
+      showShishishuju: showShishishuju
     })
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
     this.sendInitCmd();
@@ -242,12 +245,7 @@ Page({
       util.showToast('您选择的日期暂无数据');
       return;
     }
-    let UV = '00';
-    if (differDays < 10) {
-      UV = '0' + differDays;
-    } else {
-      UV = '' + differDays;
-    }
+    let UV = util.str10To16(differDays);
     console.log(currentDate, e.detail, differDays);
     let OZkey = this.data.OZ.key;
     wx.navigateTo({
@@ -267,6 +265,18 @@ Page({
     // cmd = cmd + crcUtil.HexToCSU16(cmd);
 
     // this.sendBlueCmd(cmd);
+  },
+
+
+  /**
+   * 点击标题顶部
+   */
+  longTap() {
+    let showShishishuju = this.data.showShishishuju;
+    configManager.putShishiSwitch(!showShishishuju);
+    this.setData({
+      showShishishuju: !showShishishuju
+    })
   },
 
 })

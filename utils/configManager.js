@@ -6,6 +6,7 @@ const _ALARM_KEY = 'alarm:'
 const _ALARM_SHOW_KEY = 'show:alarm:'
 const _SLEEP_HAS_SAVED_KEY = 'sleep:has:saved:'
 const _SHISHI_KEY = 'shishi:flag:'
+const _STARTDATAENTRY_KEY = 'startDataEntry:flag:'
 const _PROPS = {
   _ID: 'id'
 }
@@ -315,6 +316,31 @@ function getShishiSwitch() {
   return false;
 }
 
+/**
+ * 设置睡姿特征数据录入实时数值状态
+ * @param {*} open 
+ */
+function putStartDataEntrySwitch(open) {
+  let key = _STARTDATAENTRY_KEY;
+  wx.setStorage({
+    data: open,
+    key: key,
+  })
+}
+
+
+/**
+ * 获取睡姿特征数据录入实时数值状态
+ */
+function getStartDataEntrySwitch() {
+  let key = _STARTDATAENTRY_KEY;
+  var open = wx.getStorageSync(key);
+  if(open) {
+    return true;
+  }
+  return false;
+}
+
 
 
 module.exports = {
@@ -338,5 +364,7 @@ module.exports = {
   putSleepTabSaveStatus,
   getSleepTabSaveStatus,
   putShishiSwitch,
-  getShishiSwitch
+  getShishiSwitch,
+  putStartDataEntrySwitch,
+  getStartDataEntrySwitch
 }

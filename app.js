@@ -28,6 +28,17 @@ App({
         this.globalData.screenHeight = screenHeight;
         this.globalData.screenWidth = screenWidth;
         console.info("app onShow->屏幕高度宽度：" + screenHeight, this.globalData.display, screenWidth);
+
+
+        const patt = /ios/i
+        const isIos = patt.test(res.system) //判断设备是否为苹果手机
+        console.info('isIos',isIos,res.safeArea.top);
+        // 得到安全区域高度res.safeArea.top
+        if (res.safeArea.top > 20 && isIos ){ //IPhoneX 等刘海手机底部横条高度大约为68rpx 
+          this.globalData.hasBottonLine = true
+        }else{
+          this.globalData.hasBottonLine = false
+        }
       },
     })
   },
@@ -46,7 +57,8 @@ App({
       nightLight: '00', // 智能夜灯 00 关闭 01开启
       mode: '00', // 模式 00 预设位置 01 个性位置
       gexingModel: '00' // 个性模式 00 个性未设置 01 个性已设置
-    }
+    },
+    hasBottonLine: true, // ios是否有底部横线
 
   }
 })

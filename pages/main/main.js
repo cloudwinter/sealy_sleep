@@ -17,6 +17,7 @@ const weekArray = [
 Page({
   data: {
     skin: app.globalData.skin,
+    hasBottonLine: app.globalData.hasBottonLine,
     navbar: {
       loading: false,
       color: '#FFFFFF',
@@ -470,7 +471,7 @@ Page({
         // 有智能睡眠感应
         this.showStressBeltTab();
         let nowIndex = this.data.nowIndex
-        if(nowIndex == 0) {
+        if (nowIndex == 0) {
           this.setData({
             nowPage: "smartbed",
             nowIndex: 1,

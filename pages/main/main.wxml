@@ -5,7 +5,7 @@
 
 
 	<!-- 底部切换菜单 -->
-	<view class="tab-bar">
+	<view class="tab-bar" style="height: {{hasBottonLine?'75px':'60px'}};">
 		<block wx:for="{{tabBar}}" wx:for-item="item" wx:key="index">
 			<view class="tab-item {{index==nowIndex?'active':''}}" style="display:{{item.show?'flex':'none'}}"
 				bindtap="{{item.tapFunction}}">

@@ -7,7 +7,8 @@
     "sleep":"/component/tab/sleep/sleep",
     "anmo":"/component/tab/anmo/anmo",
     "dengguang":"/component/tab/dengguang/dengguang",
-    "smartsleep":"/component/tab/smartsleep/smartsleep"
+    "smartsleep":"/component/tab/smartsleep/smartsleep",
+    "shouhou":"/component/tab/shouhou/shouhou"
   },
   "disableScroll": true
   

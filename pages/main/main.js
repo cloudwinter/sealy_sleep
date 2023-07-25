@@ -71,10 +71,28 @@ Page({
         "iconPath": "../../images/" + app.globalData.skin + "/tab_sleep_normal@2x.png",
         "text": "智能睡眠",
         "tapFunction": "toSmartSleep",
+        "active":"",
+        "show":false,
+      },
+      {
+        "selectedIconPath": "../../images/" + app.globalData.skin + "/编组 17.png",
+        "iconPath": "../../images/" + app.globalData.skin + "/编组 17备份.png",
+        "text": "智能检测",
+        "tapFunction": "jumpToApp",
         "active": "",
         "show": false
+
+      },
+      {
+        "selectedIconPath": "../../images/" + app.globalData.skin + "/售后无忧.png",
+        "iconPath": "../../images/" + app.globalData.skin + "/售后无忧备份.png",
+        "text": "售后&OA",
+        "tapFunction": "shouhouOA",
+        "active": "",
+        "show": true
       }
     ],
+   
     periodList: [{
         id: 1,
         name: '周一',
@@ -118,12 +136,37 @@ Page({
     kuaijieClickTime: 0,
     smartBedClickTime: 0,
     smartSleepClickTime: 0,
+    mac:"",
+    appId:"",
   },
-
+  jumpToApp: function (e) {
+    
+    this.setData({
+      nowIndex: 6
+    })
+    var jumpPath = 'pages/index/index?mac=' + this.data.mac;
+    wx.navigateToMiniProgram({
+      appId: "wxbbdd4b1b88358610",
+      path: jumpPath,
+      envVersion: 'trial', //develop,trial,release
+      success(res) {
+        // 打开成功
+        console.info('跳转成功');
+      }
+    })
+  },
+  shouhouOA(){
+    
+    this.setData({
+     nowPage:"shouhou",
+     nowIndex: 7, 
+    })
+  },
   /**
    * 初始化加载
    */
   onLoad: function (option) {
+    
     console.info('main.Onshow');
     if (option && option.connected) {
       console.info("main.onLoad option", option);
@@ -134,15 +177,25 @@ Page({
         kuaijieType: option.kuaijieType,
         weitiaoType: option.weitiaoType
       })
+      
       this.notifyBLECharacteristicValueChange();
-    }
+      
+    } 
   },
-
+  sendInitCmda() {
+    var that = this
+    // 发码询问主板是否连接心率带
+    setTimeout(() => {
+      that.sendBlueCmd('FFFFFFFF01000C0B0F2304');
+    }, 5000);
+  },
   /**
    * 显示时触发
    */
   onShow: function () {
+   
     // 获取皮肤
+    this.sendInitCmda()
     console.info('main.Onshow');
     var skin = app.globalData.skin;
     this.setData({
@@ -418,6 +471,7 @@ Page({
 
     let that = this;
 
+    that.sendBlueCmd('FFFFFFFF01000C0B0F2304');
     // 发送压力板指令
     console.info('main->sendInitCmd 发送压力指令 time', new Date().getTime());
     that.sendBlueCmd('FFFFFFFF02000E0B001704');
@@ -459,6 +513,7 @@ Page({
    * @param {*} received 
    */
   blueReply: function (received, connected) {
+    
     console.info('main->blueReply-->received', received, connected);
     if (received) {
       received = received.toUpperCase();
@@ -479,7 +534,36 @@ Page({
         }
         this.setTimer(received, deviceId);
       }
-
+    }
+    var cmd  = received.toUpperCase()
+    console.info("main->blueReply-->123")
+    if (cmd.indexOf('FFFFFFFF01000C0B00') >= 0) {
+      var tabbar = this.data.tabBar
+      tabbar[6].show = false
+      this.setData({
+        tabBar : tabBar
+      })
+      return;
+    } else if (cmd.indexOf('FFFFFFFF01000C0B01') >= 0) {
+      var macCmd = cmd.substr(18, 12);
+      var tabbar = this.data.tabBar
+      tabbar[6].show = true
+      this.setData({
+        tabBar: tabBar,
+        mac: macCmd,
+        appId:'wxbbdd4b1b88358610'
+      });
+      return;
+    } else if (cmd.indexOf('FFFFFFFF01000C0B02') >= 0){
+      var macCmd = cmd.substr(18,12);
+      var tabbar = this.data.tabBar
+      tabbar[6].show = true
+      this.setData ({
+        tabBar: tabBar,
+        mac:macCmd,
+        appId:'wx89783978e44773d0'
+      })
+      return
     }
   },
 

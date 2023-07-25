@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/main/main",
+    "pages/index/index",
+    
     "pages/search/search",
     "pages/set/set",
     "pages/introduce/introduce",
@@ -13,7 +14,8 @@
     "pages/gexingset/gexingset-1",
     "pages/gexingset/gexingset-2",
     "pages/dataentry/dataentry",
-    "pages/sleepadjust/sleepadjust"
+    "pages/sleepadjust/sleepadjust",
+    "pages/"
   ],
   "window": {
     "backgroundTextStyle": "light",

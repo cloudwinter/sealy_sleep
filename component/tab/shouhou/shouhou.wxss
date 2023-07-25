@@ -22,10 +22,15 @@
   color: white;
   margin-bottom: 40rpx;
   border-radius: 30rpx;
+  position: relative;
 }
 .item_left_title{
   color: #4b505c;
   margin: 0 30rpx;
   font-size: 45rpx;
-  
+}
+.item_icon{
+  position:absolute;
+  left:10rpx;
+  bottom:10rpx;
 }

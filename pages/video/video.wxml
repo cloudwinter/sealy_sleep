@@ -1,0 +1,5 @@
+<!--pages/video/video.wxml-->
+<view>
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
+		background="{{navbar.background}}" back="{{true}}" set="{{true}}"></navbar>
+</view>

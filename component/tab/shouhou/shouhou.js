@@ -13,9 +13,9 @@ Component({
   data: {
     skin: app.globalData.skin,
     videoList:[
-      {"title":"灵彩安装视频",videoURl:"www.baidu.com" ,"inco":"../../images/" +app.globalData.skin + "/24gf-playCircle.png"},
-      {"title":"灵月/灵睿/雅致安装视频",videoURl:"www.baidu.com","inco":"../../images/" + app.globalData.skin + "/24gf-playCircle.png"},
-      {"title":"灵星安装视屏",videoURl:"www.baidu.com","inco":"../../images/" + app.globalData.skin + "/24gf-playCircle.png"},
+      {"title":"灵彩安装视频",videoURl:"www.baidu.com" ,"inco":"../../../images/" +app.globalData.skin + "/24gf-playCircle.png"},
+      {"title":"灵月/灵睿/雅致安装视频",videoURl:"www.baidu.com","inco":"../../../images/" + app.globalData.skin + "/24gf-playCircle.png"},
+      {"title":"灵星安装视屏",videoURl:"www.baidu.com","inco":"../../../images/" + app.globalData.skin + "/24gf-playCircle.png"},
     ]
   },
   show: function () {
@@ -31,7 +31,7 @@ Component({
   methods: {
     GoVideo(e){
       wx.navigateTo({
-        url: '/pages/destination/destination?param1=value1&param2=value2'
+        url: '/pages/video/video?videoURL=' + e.currentTarget.dataset.video
       });
       console.log(e,"EEEE");
     }

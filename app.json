@@ -15,7 +15,7 @@
     "pages/gexingset/gexingset-2",
     "pages/dataentry/dataentry",
     "pages/sleepadjust/sleepadjust",
-    "pages/"
+    "pages/video/video"
   ],
   "window": {
     "backgroundTextStyle": "light",

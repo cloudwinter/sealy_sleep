@@ -71,12 +71,12 @@ Page({
         "iconPath": "../../images/" + app.globalData.skin + "/tab_sleep_normal@2x.png",
         "text": "智能睡眠",
         "tapFunction": "toSmartSleep",
-        "active":"",
-        "show":false,
+        "active": "",
+        "show": false,
       },
       {
-        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_zhjc_selected@2x.png",
-        "iconPath": "../../images/" + app.globalData.skin + "/tab_zhjc_normal@2x.png",
+        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_znjc_selected@2x.png",
+        "iconPath": "../../images/" + app.globalData.skin + "/tab_znjc_normal@2x.png",
         "text": "智能检测",
         "tapFunction": "jumpToApp",
         "active": "",
@@ -92,7 +92,7 @@ Page({
         "show": true
       }
     ],
-   
+
     periodList: [{
         id: 1,
         name: '周一',
@@ -136,11 +136,11 @@ Page({
     kuaijieClickTime: 0,
     smartBedClickTime: 0,
     smartSleepClickTime: 0,
-    mac:"",
-    appId:"",
+    mac: "",
+    appId: "",
   },
   jumpToApp: function (e) {
-    
+
     this.setData({
       nowIndex: 6
     })
@@ -155,18 +155,18 @@ Page({
       }
     })
   },
-  shouhouOA(){
-    
+  shouhouOA() {
+
     this.setData({
-     nowPage:"shouhou",
-     nowIndex: 7, 
+      nowPage: "shouhou",
+      nowIndex: 7,
     })
   },
   /**
    * 初始化加载
    */
   onLoad: function (option) {
-    
+
     console.info('main.Onshow');
     if (option && option.connected) {
       console.info("main.onLoad option", option);
@@ -177,10 +177,10 @@ Page({
         kuaijieType: option.kuaijieType,
         weitiaoType: option.weitiaoType
       })
-      
+
       this.notifyBLECharacteristicValueChange();
-      
-    } 
+
+    }
   },
   sendInitCmda() {
     var that = this
@@ -193,7 +193,7 @@ Page({
    * 显示时触发
    */
   onShow: function () {
-   
+
     // 获取皮肤
     this.sendInitCmda()
     console.info('main.Onshow');
@@ -513,7 +513,7 @@ Page({
    * @param {*} received 
    */
   blueReply: function (received, connected) {
-    
+
     console.info('main->blueReply-->received', received, connected);
     if (received) {
       received = received.toUpperCase();
@@ -535,13 +535,13 @@ Page({
         this.setTimer(received, deviceId);
       }
     }
-    var cmd  = received.toUpperCase()
+    var cmd = received.toUpperCase()
     console.info("main->blueReply-->123")
     if (cmd.indexOf('FFFFFFFF01000C0B00') >= 0) {
       var tabbar = this.data.tabBar
       tabbar[6].show = false
       this.setData({
-        tabBar : tabBar
+        tabBar: tabBar
       })
       return;
     } else if (cmd.indexOf('FFFFFFFF01000C0B01') >= 0) {
@@ -551,17 +551,17 @@ Page({
       this.setData({
         tabBar: tabBar,
         mac: macCmd,
-        appId:'wxbbdd4b1b88358610'
+        appId: 'wxbbdd4b1b88358610'
       });
       return;
-    } else if (cmd.indexOf('FFFFFFFF01000C0B02') >= 0){
-      var macCmd = cmd.substr(18,12);
+    } else if (cmd.indexOf('FFFFFFFF01000C0B02') >= 0) {
+      var macCmd = cmd.substr(18, 12);
       var tabbar = this.data.tabBar
       tabbar[6].show = true
-      this.setData ({
+      this.setData({
         tabBar: tabBar,
-        mac:macCmd,
-        appId:'wx89783978e44773d0'
+        mac: macCmd,
+        appId: 'wx89783978e44773d0'
       })
       return
     }
@@ -587,23 +587,27 @@ Page({
   setAlarm: function (cmd, deviceId) {
     console.error('main->setAlarm-->开启闹钟设置', cmd, deviceId);
     let alarm = {};
-    if (cmd.indexOf('FFFFFFFF0100030B00') >= 0) {
+    if (cmd.indexOf('FFFFFFFF0100030B') >= 0) {
       // 有闹钟未设置
       configManager.putAlarmSwitch(true, deviceId);
       alarm.isOpenAlarm = false;
       configManager.putAlarm(alarm, deviceId);
-    } else if (cmd.indexOf('FFFFFFFF01000413') >= 0) {
-
+      let cmdStatus = cmd.substr(16, 2);
+      configManager.putKJAndAlarmType(cmdStatus == '01' ? 2 : 1, deviceId);
+      return;
+    }
+    if (cmd.indexOf('FFFFFFFF01000413') >= 0) {
       // 有闹钟已设置
       configManager.putAlarmSwitch(true, deviceId)
       let cmdStatus = cmd.substr(16, 2);
-      if ('0F' == cmdStatus) {
+      if ('0F' == cmdStatus || '1F' == cmdStatus) {
         // 开启
         alarm.isOpenAlarm = true;
-      } else {
+      } else if ('AF' == cmdStatus || 'A1' == cmdStatus) {
         // 关闭
         alarm.isOpenAlarm = false;
       }
+      configManager.putKJAndAlarmType(cmdStatus == '1F' || cmdStatus == 'A1' ? 2 : 1, deviceId)
       // 时间
       let timeHour = cmd.substr(18, 2);
       let timeMin = cmd.substr(20, 2);

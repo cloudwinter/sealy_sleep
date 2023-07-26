@@ -4,6 +4,7 @@ const _LAST_CONNECT_KEY = 'last_connected'
 const _CONNECTED_KEY = 'connected'
 const _ALARM_KEY = 'alarm:'
 const _ALARM_SHOW_KEY = 'show:alarm:'
+const _TYPE_KJ_ALARM_KEY = 'type:kj_alarm:'
 const _SLEEP_HAS_SAVED_KEY = 'sleep:has:saved:'
 const _SHISHI_KEY = 'shishi:flag:'
 const _STARTDATAENTRY_KEY = 'startDataEntry:flag:'
@@ -238,6 +239,29 @@ function getAlarm(deviceId) {
 }
 
 /**
+ * 设置快捷和闹钟的样式
+ * @param {*} type 1表示标准样式，2表示有音频功能的样式
+ * @param {*} deviceId 
+ */
+function putKJAndAlarmType(type,deviceId) {
+  let key = _TYPE_KJ_ALARM_KEY+deviceId;
+  wx.setStorage({
+    data: type,
+    key: key,
+  })
+}
+
+/**
+ * 获取快捷和闹钟的样式
+ * @param {*} deviceId 
+ */
+function getKJAndAlarmType(deviceId) {
+  let key = _TYPE_KJ_ALARM_KEY+deviceId;
+  var type = wx.getStorageSync(key);
+  return type;
+}
+
+/**
  * 设置闹钟是否显示状态
  * @param {*} show 
  * @param {*} deviceId 
@@ -366,5 +390,7 @@ module.exports = {
   putShishiSwitch,
   getShishiSwitch,
   putStartDataEntrySwitch,
-  getStartDataEntrySwitch
+  getStartDataEntrySwitch,
+  putKJAndAlarmType,
+  getKJAndAlarmType
 }

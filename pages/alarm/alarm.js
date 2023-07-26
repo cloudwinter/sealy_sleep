@@ -44,7 +44,33 @@ Page({
         name: '不动作',
       },
     ],
+    musicItems: [{
+        value: '00',
+        name: '无铃声',
+      },
+      {
+        value: '11',
+        name: '小河流水',
+      },
+      {
+        value: '12',
+        name: '欢快小鸟',
+      },
+      {
+        value: '13',
+        name: '马林巴琴',
+      },
+      {
+        value: '14',
+        name: '蛙叫呱呱',
+      },
+      {
+        value: '15',
+        name: '清脆风铃',
+      },
+    ],
     dialogShow: false,
+    alarmType: 2, // 闹钟展示类型 1标准，2音乐闹钟
     alarm: { // 闹钟设置
       isOpenAlarm: false, // 闹钟开关
       time: '',
@@ -55,7 +81,9 @@ Page({
       modeVal: 'close',
       modeName: '不动作',
       anmo: false,
-      ring: false
+      ring: false,
+      musicRing: '00',
+      musicRingName: ''
     },
     periodDialogShow: false, // 周期选择对话框
 
@@ -99,7 +127,8 @@ Page({
     remarkInputValue: '',
     modeDialogShow: false,
     modeSelectRadio: '',
-
+    musicDialogShow: false,
+    musicSelectRadio: '00'
   },
 
   /**
@@ -118,7 +147,7 @@ Page({
 
     //let connected = this.data.connected;
     if (util.isNotEmptyObject(connected)) {
-
+      let alarmType = configManager.getKJAndAlarmType(connected.deviceId);
       // 如果缓存中有设置缓存回显
       let alarm = configManager.getAlarm(connected.deviceId);
       if (util.isNotEmptyObject(alarm)) {
@@ -131,6 +160,7 @@ Page({
           })
         }
         this.setData({
+          alarmType: alarmType,
           alarm: alarm,
           periodList: periodList
         });
@@ -159,7 +189,6 @@ Page({
     let cmdCrc = crcUtil.HexToCSU16(cmdPrefix + cmdTime);
     let cmd = cmdPrefix + cmdTime + cmdCrc;
     console.log('sendRequestAlarmCmd:', cmd);
-
     util.sendBlueCmd(this.data.connected, cmd);
   },
 
@@ -297,6 +326,7 @@ Page({
   },
 
 
+
   /**
    * 模式
    * @param {*} e 
@@ -360,6 +390,53 @@ Page({
   ringSwitch: function (e) {
     this.setData({
       ['alarm.ring']: !this.data.alarm.ring
+    })
+  },
+
+
+  /**
+   * 模式
+   * @param {*} e 
+   */
+  musicTap: function (e) {
+    this.setData({
+      musicDialogShow: true
+    });
+  },
+
+  /**
+   * 模式选择
+   * @param {*} e 
+   */
+  modeRadioChange: function (e) {
+    this.setData({
+      musicSelectRadio: e.detail.value
+    })
+  },
+
+   /**
+   * 模式选择点击
+   * @param {*} e 
+   */
+  onModalMusicClick: function (e) {
+    let cType = e.currentTarget.dataset.ctype;
+    if (cType == 'cancel') {
+      this.setData({
+        musicDialogShow: false
+      })
+      return;
+    }
+    let musicSelectRadio = this.data.musicSelectRadio;
+    let musicSelectName;
+    this.data.musicItems.forEach(obj => {
+      if (musicSelectRadio == obj.value) {
+        musicSelectName = obj.name;
+      }
+    });
+    this.setData({
+      musicDialogShow: false,
+      ['alarm.musicRing']: musicSelectRadio,
+      ['alarm.musicRingName']: musicSelectName,
     })
   },
 
@@ -449,13 +526,20 @@ Page({
       sendAlarmCmdPre += '00';
     }
 
-    // 响铃
-    let ring = alarm.ring;
-    if (ring) {
-      sendAlarmCmdPre += '01';
+    let alarmType = this.data.alarmType;
+    if(alarmType == 2) {
+      let musicRing = alarm.musicRing;
+      sendAlarmCmdPre += musicRing;
     } else {
-      sendAlarmCmdPre += '00';
+      // 响铃
+      let ring = alarm.ring;
+      if (ring) {
+        sendAlarmCmdPre += '01';
+      } else {
+        sendAlarmCmdPre += '00';
+      }
     }
+ 
 
     let cmdCrc = crcUtil.HexToCSU16(sendAlarmCmdPre);
     let cmd = sendAlarmCmdPre + cmdCrc;

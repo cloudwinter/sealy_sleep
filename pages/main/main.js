@@ -660,6 +660,10 @@ Page({
       // 响铃
       let cmdRing = cmd.substr(32, 2);
       alarm.ring = '01' == cmdRing ? true : false;
+
+      // 铃声  00表示关，01表示开启响铃，11音乐1 ~ 15音乐5
+      let cmdMusicRing = cmd.substr(32, 2);
+      alarm.musicRing = cmdMusicRing;
       configManager.putAlarm(alarm, deviceId);
     }
   },

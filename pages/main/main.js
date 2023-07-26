@@ -75,8 +75,8 @@ Page({
         "show":false,
       },
       {
-        "selectedIconPath": "../../images/" + app.globalData.skin + "/编组 17.png",
-        "iconPath": "../../images/" + app.globalData.skin + "/编组 17备份.png",
+        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_zhjc_selected@2x.png",
+        "iconPath": "../../images/" + app.globalData.skin + "/tab_zhjc_normal@2x.png",
         "text": "智能检测",
         "tapFunction": "jumpToApp",
         "active": "",
@@ -84,8 +84,8 @@ Page({
 
       },
       {
-        "selectedIconPath": "../../images/" + app.globalData.skin + "/售后无忧.png",
-        "iconPath": "../../images/" + app.globalData.skin + "/售后无忧备份.png",
+        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_shwy_selected@2x.png",
+        "iconPath": "../../images/" + app.globalData.skin + "/tab_shwy_normal@2x.png",
         "text": "售后&OA",
         "tapFunction": "shouhouOA",
         "active": "",

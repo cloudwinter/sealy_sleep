@@ -146,7 +146,7 @@ Page({
     })
     var jumpPath = 'pages/index/index?mac=' + this.data.mac;
     wx.navigateToMiniProgram({
-      appId: "wxbbdd4b1b88358610",
+      appId: this.data.appId,
       path: jumpPath,
       envVersion: 'trial', //develop,trial,release
       success(res) {
@@ -168,7 +168,7 @@ Page({
    * 初始化加载
    */
   onLoad: function (option) {
-
+    this.sendInitCmda()
     console.info('main.Onshow');
     if (option && option.connected) {
       console.info("main.onLoad option", option);
@@ -189,7 +189,7 @@ Page({
     // 发码询问主板是否连接心率带
     setTimeout(() => {
       that.sendBlueCmd('FFFFFFFF01000C0B0F2304');
-    }, 5000);
+    }, 200);
   },
   /**
    * 显示时触发
@@ -197,7 +197,6 @@ Page({
   onShow: function () {
 
     // 获取皮肤
-    this.sendInitCmda()
     console.info('main.Onshow');
     var skin = app.globalData.skin;
     this.setData({
@@ -543,7 +542,7 @@ Page({
       var tabbar = this.data.tabBar
       tabbar[6].show = false
       this.setData({
-        tabBar: tabBar
+        tabBar: tabbar
       })
       return;
     } else if (cmd.indexOf('FFFFFFFF01000C0B01') >= 0) {
@@ -551,7 +550,7 @@ Page({
       var tabbar = this.data.tabBar
       tabbar[6].show = true
       this.setData({
-        tabBar: tabBar,
+        tabBar: tabbar,
         mac: macCmd,
         appId: 'wxbbdd4b1b88358610'
       });
@@ -561,7 +560,7 @@ Page({
       var tabbar = this.data.tabBar
       tabbar[6].show = true
       this.setData({
-        tabBar: tabBar,
+        tabBar: tabbar,
         mac: macCmd,
         appId: 'wx89783978e44773d0'
       })

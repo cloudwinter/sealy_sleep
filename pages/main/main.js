@@ -593,7 +593,7 @@ Page({
       alarm.isOpenAlarm = false;
       configManager.putAlarm(alarm, deviceId);
       let cmdStatus = cmd.substr(16, 2);
-      configManager.putKJAndAlarmType(cmdStatus == '01' ? 2 : 1, deviceId);
+      configManager.putKJAndAlarmType(cmdStatus == '10' ? 2 : 1, deviceId);
       return;
     }
     if (cmd.indexOf('FFFFFFFF01000413') >= 0) {

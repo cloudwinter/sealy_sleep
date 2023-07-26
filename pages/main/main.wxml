@@ -38,7 +38,7 @@
 		<view class="tab-container" hidden="{{nowPage!='smartsleep'}}">
 			<smartsleep></smartsleep>
 		</view>
-		<view class="tab-container" hidden="{{nowPage!='shouhou'}}">
+		<view class="tab-container tab-shouhou" hidden="{{nowPage!='shouhou'}}">
 			<shouhou></shouhou>
 		</view>
 	</view>

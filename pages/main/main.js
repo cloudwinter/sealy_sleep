@@ -86,8 +86,8 @@ Page({
       {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_shwy_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_shwy_normal@2x.png",
-        "text": "售后&OA",
-        "tapFunction": "shouhouOA",
+        "text": "售后&QA",
+        "tapFunction": "shouhouQA",
         "active": "",
         "show": true
       }
@@ -155,7 +155,9 @@ Page({
       }
     })
   },
-  shouhouOA() {
+
+  shouhouQA(){
+    
 
     this.setData({
       nowPage: "shouhou",

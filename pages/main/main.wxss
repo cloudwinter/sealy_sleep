@@ -77,4 +77,8 @@ i.tabbar_icon,
 .tab-container {
   width: 100%;
   height: 100%;
+  
+}
+.tab-shouhou{
+  overflow: auto;
 }

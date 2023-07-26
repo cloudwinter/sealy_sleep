@@ -3,3 +3,7 @@
   <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
 		background="{{navbar.background}}" back="{{true}}" set="{{true}}"></navbar>
 </view>
+<view>
+  <video class="video_item" src="{{videoUrl}}" autoplay="true" page-gesture="true"
+    bindplay="playVideo" bindpause="pauseVideo" bindfullscreenchange="fullscreenChange"></video>
+</view>

@@ -10,4 +10,6 @@
       <image class="item_icon" src="{{item.icon}}" />
     </view>
   </view>
+  <view class="shouhou_bottom">QA</view>
 </view>
+<view class="page_bottom"></view>

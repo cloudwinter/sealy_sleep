@@ -78,16 +78,15 @@ Page({
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_znjc_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_znjc_normal@2x.png",
         "text": "智能检测",
-        "tapFunction": "jumpToApp",
+        "tapFunction": "toZhinengjiance",
         "active": "",
         "show": false
-
       },
       {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_shwy_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_shwy_normal@2x.png",
         "text": "售后&QA",
-        "tapFunction": "shouhouQA",
+        "tapFunction": "toShouhouQA",
         "active": "",
         "show": true
       }
@@ -139,36 +138,11 @@ Page({
     mac: "",
     appId: "",
   },
-  jumpToApp: function (e) {
 
-    this.setData({
-      nowIndex: 6
-    })
-    var jumpPath = 'pages/index/index?mac=' + this.data.mac;
-    wx.navigateToMiniProgram({
-      appId: this.data.appId,
-      path: jumpPath,
-      envVersion: 'trial', //develop,trial,release
-      success(res) {
-        // 打开成功
-        console.info('跳转成功');
-      }
-    })
-  },
-
-  shouhouQA(){
-    
-
-    this.setData({
-      nowPage: "shouhou",
-      nowIndex: 7,
-    })
-  },
   /**
    * 初始化加载
    */
   onLoad: function (option) {
-    this.sendInitCmda()
     console.info('main.Onshow');
     if (option && option.connected) {
       console.info("main.onLoad option", option);
@@ -179,18 +153,10 @@ Page({
         kuaijieType: option.kuaijieType,
         weitiaoType: option.weitiaoType
       })
-
       this.notifyBLECharacteristicValueChange();
-
     }
   },
-  sendInitCmda() {
-    var that = this
-    // 发码询问主板是否连接心率带
-    setTimeout(() => {
-      that.sendBlueCmd('FFFFFFFF01000C0B0F2304');
-    }, 200);
-  },
+
   /**
    * 显示时触发
    */
@@ -294,6 +260,37 @@ Page({
       smartSleepClickTime: currentTime
     })
   },
+
+  /**
+   * 智能检测tab
+   * @param {*} e 
+   */
+  toZhinengjiance: function (e) {
+    this.setData({
+      nowIndex: 6
+    })
+    var jumpPath = 'pages/index/index?mac=' + this.data.mac;
+    wx.navigateToMiniProgram({
+      appId: this.data.appId,
+      path: jumpPath,
+      envVersion: 'trial', //develop,trial,release
+      success(res) {
+        // 打开成功
+        console.info('跳转成功');
+      }
+    })
+  },
+
+  /**
+   * 售后Tab
+   */
+  toShouhouQA() {
+    this.setData({
+      nowPage: "shouhou",
+      nowIndex: 7,
+    })
+  },
+
 
   /**
    * 设置压力带显示的tab
@@ -471,11 +468,14 @@ Page({
   sendInitCmd: function (connected) {
 
     let that = this;
-
-    that.sendBlueCmd('FFFFFFFF01000C0B0F2304');
     // 发送压力板指令
     console.info('main->sendInitCmd 发送压力指令 time', new Date().getTime());
     that.sendBlueCmd('FFFFFFFF02000E0B001704');
+
+    // 发码询问主板是否连接心率带
+    setTimeout(() => {
+      that.sendBlueCmd('FFFFFFFF01000C0B0F2304');
+    }, 50);
 
     // 延迟150ms发送时间指令
     setTimeout(function () {
@@ -668,15 +668,5 @@ Page({
       configManager.putAlarm(alarm, deviceId);
     }
   },
-
-
-
-
-
-
-
-
-
-
 
 })

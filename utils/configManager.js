@@ -205,13 +205,13 @@ function getCurrentConnected() {
  * 存储当前连接的设备
  * @param {*} connected 
  */
-function putAlarm(alarm,deviceId) {
+function putAlarm(alarm, deviceId) {
   var dataVal = JSON.stringify(alarm);
   wx.setStorage({
     data: deviceId,
     key: _ALARM_KEY,
   })
-  let key = _ALARM_KEY+deviceId;
+  let key = _ALARM_KEY + deviceId;
   wx.setStorage({
     data: dataVal,
     key: key,
@@ -226,7 +226,7 @@ function getAlarm(deviceId) {
   var cacheDeviceId = wx.getStorageSync(_ALARM_KEY);
   var alarm;
   if (deviceId == cacheDeviceId) {
-    let key = _ALARM_KEY+deviceId;
+    let key = _ALARM_KEY + deviceId;
     var dataVal = wx.getStorageSync(key);
     if (dataVal) {
       alarm = JSON.parse(dataVal);
@@ -243,8 +243,8 @@ function getAlarm(deviceId) {
  * @param {*} type 1表示标准样式，2表示有音频功能的样式
  * @param {*} deviceId 
  */
-function putKJAndAlarmType(type,deviceId) {
-  let key = _TYPE_KJ_ALARM_KEY+deviceId;
+function putKJAndAlarmType(type, deviceId) {
+  let key = _TYPE_KJ_ALARM_KEY + deviceId;
   wx.setStorage({
     data: type,
     key: key,
@@ -256,9 +256,12 @@ function putKJAndAlarmType(type,deviceId) {
  * @param {*} deviceId 
  */
 function getKJAndAlarmType(deviceId) {
-  let key = _TYPE_KJ_ALARM_KEY+deviceId;
+  let key = _TYPE_KJ_ALARM_KEY + deviceId;
   var type = wx.getStorageSync(key);
-  return type;
+  if (type) {
+    return type;
+  }
+  return 1;
 }
 
 /**
@@ -266,8 +269,8 @@ function getKJAndAlarmType(deviceId) {
  * @param {*} show 
  * @param {*} deviceId 
  */
-function putAlarmSwitch(show,deviceId) {
-  let key = _ALARM_SHOW_KEY+deviceId;
+function putAlarmSwitch(show, deviceId) {
+  let key = _ALARM_SHOW_KEY + deviceId;
   wx.setStorage({
     data: show,
     key: key,
@@ -279,9 +282,9 @@ function putAlarmSwitch(show,deviceId) {
  * @param {*} deviceId 
  */
 function showAlarmSwitch(deviceId) {
-  let key = _ALARM_SHOW_KEY+deviceId;
+  let key = _ALARM_SHOW_KEY + deviceId;
   var show = wx.getStorageSync(key);
-  if(show) {
+  if (show) {
     return true;
   }
   return false;
@@ -293,8 +296,8 @@ function showAlarmSwitch(deviceId) {
  * @param {*} show 
  * @param {*} deviceId 
  */
-function putSleepTabSaveStatus(hasSaved,deviceId) {
-  let key = _SLEEP_HAS_SAVED_KEY+deviceId;
+function putSleepTabSaveStatus(hasSaved, deviceId) {
+  let key = _SLEEP_HAS_SAVED_KEY + deviceId;
   wx.setStorage({
     data: hasSaved,
     key: key,
@@ -306,9 +309,9 @@ function putSleepTabSaveStatus(hasSaved,deviceId) {
  * @param {*} deviceId 
  */
 function getSleepTabSaveStatus(deviceId) {
-  let key = _SLEEP_HAS_SAVED_KEY+deviceId;
+  let key = _SLEEP_HAS_SAVED_KEY + deviceId;
   var hasSaved = wx.getStorageSync(key);
-  if(hasSaved) {
+  if (hasSaved) {
     return true;
   }
   return false;
@@ -334,7 +337,7 @@ function putShishiSwitch(open) {
 function getShishiSwitch() {
   let key = _SHISHI_KEY;
   var show = wx.getStorageSync(key);
-  if(show) {
+  if (show) {
     return true;
   }
   return false;
@@ -359,7 +362,7 @@ function putStartDataEntrySwitch(open) {
 function getStartDataEntrySwitch() {
   let key = _STARTDATAENTRY_KEY;
   var open = wx.getStorageSync(key);
-  if(open) {
+  if (open) {
     return true;
   }
   return false;

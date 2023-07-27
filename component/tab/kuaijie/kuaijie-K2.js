@@ -1,6 +1,8 @@
 // component/kuaijie/kuaijie-K2.js
 const util = require('../../../utils/util')
-const WxNotificationCenter = require('../../../utils/WxNotificationCenter')
+const crcUtil = require('../../../utils/crcUtil')
+const WxNotificationCenter = require('../../../utils/WxNotificationCenter');
+const configManager = require('../../../utils/configManager');
 const app = getApp();
 const askPrefix = 'FFFFFFFF0300'; // 询问码前缀
 const askReply1Prefix = 'FFFFFFFF031200'; // 询问码1回复前缀
@@ -20,6 +22,27 @@ Component({
    * 组件的初始数据
    */
   data: {
+    musicItems: [{
+        value: '01',
+        name: '悬崖海岸',
+      },
+      {
+        value: '02',
+        name: '清新自然',
+      },
+      {
+        value: '03',
+        name: '水洞蟋蟀',
+      },
+      {
+        value: '04',
+        name: '雨声绵绵',
+      },
+      {
+        value: '05',
+        name: '夏季蝉鸣',
+      },
+    ],
     skin: app.globalData.skin,
     display: app.globalData.display,
     connected: {},
@@ -36,7 +59,11 @@ Component({
     startTime: '',
     endTime: '',
     hasSleepInduction: true,
-    zhinengShuimian:'00',
+    zhinengShuimian: '00',
+    kjMusicType: 1, // 1标准，2带音乐
+    musicDialogShow: false,
+    musicSelectRadio: 'FF',
+    musicSelected: 'FF',
   },
 
 
@@ -47,10 +74,16 @@ Component({
     show: function () {
       // 设置当前的皮肤样式
       console.info("kuaijie-K2->show", app.globalData);
+      let connected = configManager.getCurrentConnected();
       let hasSleepInduction = app.globalData.hasSleepInduction;
+      let kjMusicType = 1;
+      if (util.isNotEmptyObject(connected)) {
+        kjMusicType = configManager.getKJAndAlarmType();
+      }
       this.setData({
         hasSleepInduction: hasSleepInduction,
-        skin: app.globalData.skin
+        skin: app.globalData.skin,
+        kjMusicType: kjMusicType
       })
     }
 
@@ -182,7 +215,7 @@ Component({
 
     },
 
-    
+
 
 
 
@@ -259,7 +292,7 @@ Component({
       if (sleepPrefix == 'FFFFFFFF02000A14') {
         let zhinengShuimian = cmd.substr(32, 2);
         that.setData({
-          zhinengShuimian:zhinengShuimian
+          zhinengShuimian: zhinengShuimian
         })
       }
 
@@ -293,6 +326,14 @@ Component({
       this.setData({
         zhinengShuimian: '00'
       })
+    },
+
+    /**
+     * 发送蓝牙命令
+     */
+    sendFullBlueCmd(cmd, options) {
+      var connected = this.data.connected;
+      util.sendBlueCmd(connected, cmd, options);
     },
 
 
@@ -611,6 +652,82 @@ Component({
       this.sendBlueCmd('0008D6C6');
     },
 
+    /**
+     * 睡前放松
+     */
+    tapShuiqianfangsong() {
+      console.info("tapShuiqianfangsong");
+      this.setData({
+        currentAnjian: {
+          anjian: 'shuiqianfangsong',
+          name: '睡前放松'
+        }
+      })
+      // 单击
+      this.sendFullBlueCmd('FFFFFFFF050000006A572F');
+    },
+
+    /**
+     * 助眠音乐
+     */
+    tapZhumianyinyue() {
+      console.info("tapZhumianyinyue");
+      this.setData({
+        currentAnjian: {
+          anjian: 'zhumianyinyue',
+          name: '助眠音乐'
+        }
+      })
+      // 单击
+      let cmd = 'FFFFFFFF0100130BFF';
+      cmd = cmd + crcUtil.HexToCSU16(cmd);
+      this.sendFullBlueCmd(cmd);
+    },
+
+
+    /**
+     * 助眠音乐
+     */
+    tabSelectYinyue() {
+      console.info("tabSelectYinyue");
+      this.setData({
+        musicDialogShow: true
+      })
+    },
+
+    /**
+     * 模式选择
+     * @param {*} e 
+     */
+    musicRadioChange: function (e) {
+      this.setData({
+        musicSelectRadio: e.detail.value
+      })
+    },
+
+
+    /**
+     * 模式选择点击
+     * @param {*} e 
+     */
+    onModalMusicClick: function (e) {
+      let cType = e.currentTarget.dataset.ctype;
+      if (cType == 'cancel') {
+        this.setData({
+          musicDialogShow: false
+        })
+        return;
+      }
+      let musicSelectRadio = this.data.musicSelectRadio;
+      this.setData({
+        musicDialogShow: false,
+        musicSelected: musicSelectRadio,
+      })
+      let cmd = 'FFFFFFFF0100130B' + musicSelectRadio;
+      cmd = cmd + crcUtil.HexToCSU16(cmd);
+      this.sendFullBlueCmd(cmd);
+    },
+
 
     /**
      * 智能睡眠设置
@@ -620,7 +737,7 @@ Component({
       var connected = this.data.connected;
       let zhinengShuimian = this.data.zhinengShuimian;
       let cmd = '';
-      if(zhinengShuimian == '01') {
+      if (zhinengShuimian == '01') {
         cmd = 'FFFFFFFF050000F03FD310'
         zhinengShuimian = '00';
       } else {
@@ -629,7 +746,7 @@ Component({
       }
       util.sendBlueCmd(connected, cmd);
       this.setData({
-        zhinengShuimian:zhinengShuimian
+        zhinengShuimian: zhinengShuimian
       })
       app.globalData.zhinengShuimian = zhinengShuimian;
 

@@ -195,7 +195,7 @@
 		<view style="width:100%;height:1px;background:#000000"></view>
 
 		<view class="model-content" style="width:100%;display:flex;justify-content:center">
-			<radio-group bindchange="modeRadioChange" class="radio-group" style="width:100%">
+			<radio-group bindchange="musicRadioChange" class="radio-group" style="width:100%">
 				<block wx:for="{{musicItems}}" wx:key="key">
 					<label class="model-label">
 						<view>

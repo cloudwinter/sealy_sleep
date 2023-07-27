@@ -408,7 +408,7 @@ Page({
    * 模式选择
    * @param {*} e 
    */
-  modeRadioChange: function (e) {
+  musicRadioChange: function (e) {
     this.setData({
       musicSelectRadio: e.detail.value
     })

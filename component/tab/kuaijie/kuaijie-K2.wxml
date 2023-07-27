@@ -93,7 +93,7 @@
 
 	</view>
 
-  <view class="anjianqu" style="margin-top:33rpx">
+  <view class="anjianqu" style="margin-top:33rpx" wx:if="{{kjMusicType == 2}}">
 		<view class="anjian-left">
 			<view class="anjiian-content" catchtap="tapShuiqianfangsong">
 				<image class="anjian-icon" src="../../../images/{{skin}}/shuiqianfangsong@3x.png"></image>
@@ -106,11 +106,43 @@
 				<image class="anjian-icon" src="../../../images/{{skin}}/zhumianyinyue@3x.png"></image>
 				<view class="name">助眠音乐</view>
 			</view>
-      <view class="shezhi-button-right">
+      <view class="shezhi-button-right" catchtap="tabSelectYinyue">
 					<image class="shezhi-button-icon" src="../../../images/{{skin}}/row@3x.png"></image>
 				</view>
 		</view>
 
 	</view>
 
+</view>
+
+
+<!-- 响铃对话框 -->
+<view class="modal-dialog" hidden="{{!musicDialogShow}}">
+	<view class="modal-box">
+		<text class="modal-box-title" style="margin-bottom:30rpx;margin-top:30rpx;">助眠音乐选择</text>
+		<view style="width:100%;height:1px;background:#000000"></view>
+
+		<view class="model-content" style="width:100%;display:flex;justify-content:center">
+			<radio-group bindchange="musicRadioChange" class="radio-group" style="width:100%">
+				<block wx:for="{{musicItems}}" wx:key="key">
+					<label class="model-label">
+						<view>
+							<radio class="radio" value="{{item.value}}" checked="{{item.value==musicSelected}}" />
+						</view>
+						<view class="dialog-item-name">{{item.name}}</view>
+					</label>
+					<view style="width:100%;height:1px;background:#000000"></view>
+				</block>
+			</radio-group>
+		</view>
+
+		<view style="width:100%;height:1px;background:#000000"></view>
+		<view class="modal-box-bottom" style="height:100rpx;">
+			<view bindtap="onModalMusicClick" data-ctype="cancel" class="modal-box-button" hover-class="modal-box-button-hover"
+				style="flex-grow:1;color:#FFFFFF">取消</view>
+			<view style="width:1rpx;height:100%;background:#000000"></view>
+			<view bindtap="onModalMusicClick" data-ctype="confirm" class="modal-box-button sure"
+				hover-class="modal-box-button-hover" style="flex-grow:1;color:#5EA2D7">确定</view>
+		</view>
+	</view>
 </view>

@@ -78,7 +78,7 @@ Component({
       let hasSleepInduction = app.globalData.hasSleepInduction;
       let kjMusicType = 1;
       if (util.isNotEmptyObject(connected)) {
-        kjMusicType = configManager.getKJAndAlarmType();
+        kjMusicType = configManager.getKJAndAlarmType(connected.deviceId);
       }
       this.setData({
         hasSleepInduction: hasSleepInduction,
@@ -225,7 +225,14 @@ Component({
      */
     blueReply(cmd) {
       var that = this.observer;
-      var prefix = cmd.substr(0, 14).toUpperCase();
+      cmd = cmd.toUpperCase();
+      if (cmd.indexOf('FFFFFFFF0100030B') >= 0 || cmd.indexOf('FFFFFFFF01000413') >= 0) {
+        let kjMusicType = configManager.getKJAndAlarmType(that.data.connected.deviceId);
+        that.setData({
+          kjMusicType: kjMusicType
+        })
+      }
+      var prefix = cmd.substr(0, 14);
       console.info('kuaijie-k2->askBack', cmd, prefix);
       var askType = that.data.askType;
       if (askType == '1') {

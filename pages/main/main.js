@@ -170,6 +170,13 @@ Page({
     })
 
     //this.showStressBeltTab();
+    // setTimeout(() => {
+    //   let connected = {
+    //     deviceId: '111'
+    //   }
+    //   this.blueReply('FFFFFFFF0100030B10', connected);
+    //   WxNotificationCenter.postNotificationName('BLUEREPLY', 'FFFFFFFF0100030B10');
+    // }, 1000);
   },
 
 
@@ -514,7 +521,6 @@ Page({
    * @param {*} received 
    */
   blueReply: function (received, connected) {
-
     console.info('main->blueReply-->received', received, connected);
     if (received) {
       received = received.toUpperCase();
@@ -535,29 +541,28 @@ Page({
         }
         this.setTimer(received, deviceId);
       }
-    }
-    var cmd = received.toUpperCase()
-    console.info("main->blueReply-->123")
-     if (cmd.indexOf('FFFFFFFF01000C1101') >= 0) {
-      var macCmd = cmd.substr(18, 12);
-      var tabbar = this.data.tabBar
-      tabbar[6].show = true
-      this.setData({
-        tabBar: tabbar,
-        mac: macCmd,
-        appId: 'wxbbdd4b1b88358610'
-      });
-      return;
-    } else if (cmd.indexOf('FFFFFFFF01000C1102') >= 0) {
-      var macCmd = cmd.substr(18, 12);
-      var tabbar = this.data.tabBar
-      tabbar[6].show = true
-      this.setData({
-        tabBar: tabbar,
-        mac: macCmd,
-        appId: 'wx89783978e44773d0'
-      })
-      return
+
+      if (received.indexOf('FFFFFFFF01000C1101') >= 0) {
+        var macCmd = received.substr(18, 12);
+        var tabbar = this.data.tabBar
+        tabbar[6].show = true
+        this.setData({
+          tabBar: tabbar,
+          mac: macCmd,
+          appId: 'wxbbdd4b1b88358610'
+        });
+        return;
+      } else if (received.indexOf('FFFFFFFF01000C1102') >= 0) {
+        var macCmd = received.substr(18, 12);
+        var tabbar = this.data.tabBar
+        tabbar[6].show = true
+        this.setData({
+          tabBar: tabbar,
+          mac: macCmd,
+          appId: 'wx89783978e44773d0'
+        })
+        return
+      }
     }
   },
 
@@ -579,7 +584,7 @@ Page({
    * @param {*} deviceId 
    */
   setAlarm: function (cmd, deviceId) {
-    console.error('main->setAlarm-->开启闹钟设置', cmd, deviceId);
+    console.info('main->setAlarm-->开启闹钟设置', cmd, deviceId);
     let alarm = {};
     if (cmd.indexOf('FFFFFFFF0100030B') >= 0) {
       // 有闹钟未设置

@@ -96,14 +96,14 @@
   <view class="anjianqu" style="margin-top:33rpx" wx:if="{{kjMusicType == 2}}">
 		<view class="anjian-left">
 			<view class="anjiian-content" catchtap="tapShuiqianfangsong">
-				<image class="anjian-icon" src="../../../images/{{skin}}/shuiqianfangsong@3x.png"></image>
+				<image class="anjian-icon" src="../../../images/{{skin}}/shuiqianfangsong-xiao@3x.png"></image>
 				<view class="name">睡前放松</view>
 			</view>
 		</view>
 		<view style="width:30rpx" />
 		<view class="anjian-right">
 			<view class="anjiian-content" catchtap="tapZhumianyinyue">
-				<image class="anjian-icon" src="../../../images/{{skin}}/zhumianyinyue@3x.png"></image>
+				<image class="anjian-icon" src="../../../images/{{skin}}/zhumianyinyue-xiao@3x.png"></image>
 				<view class="name">助眠音乐</view>
 			</view>
       <view class="shezhi-button-right" catchtap="tabSelectYinyue">

@@ -538,14 +538,7 @@ Page({
     }
     var cmd = received.toUpperCase()
     console.info("main->blueReply-->123")
-    if (cmd.indexOf('FFFFFFFF01000C0B00') >= 0) {
-      var tabbar = this.data.tabBar
-      tabbar[6].show = false
-      this.setData({
-        tabBar: tabbar
-      })
-      return;
-    } else if (cmd.indexOf('FFFFFFFF01000C0B01') >= 0) {
+     if (cmd.indexOf('FFFFFFFF01000C1101') >= 0) {
       var macCmd = cmd.substr(18, 12);
       var tabbar = this.data.tabBar
       tabbar[6].show = true
@@ -555,7 +548,7 @@ Page({
         appId: 'wxbbdd4b1b88358610'
       });
       return;
-    } else if (cmd.indexOf('FFFFFFFF01000C0B02') >= 0) {
+    } else if (cmd.indexOf('FFFFFFFF01000C1102') >= 0) {
       var macCmd = cmd.substr(18, 12);
       var tabbar = this.data.tabBar
       tabbar[6].show = true

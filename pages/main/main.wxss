@@ -82,3 +82,6 @@ i.tabbar_icon,
 .tab-shouhou{
   overflow: auto;
 }
+.tab-kuaijie{
+  overflow: auto;
+}

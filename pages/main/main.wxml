@@ -20,7 +20,7 @@
 		<view class="tab-container" hidden="{{nowPage!='smartbed'}}">
 			<smartbed></smartbed>
 		</view>
-		<view class="tab-container" hidden="{{nowPage!='kuaijie'}}">
+		<view class="tab-container tab-kuaijie" hidden="{{nowPage!='kuaijie'}}">
 			<kuaijie-K2 wx:if="{{kuaijieType=='K2'}}"></kuaijie-K2>
 		</view>
 		<view class="tab-container" hidden="{{nowPage!='weitiao'}}">

@@ -118,7 +118,7 @@
   height: 184rpx;
   background: #1E1F24;
   border-radius: 44rpx;
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 .anjianqu .selected {
@@ -179,7 +179,9 @@
 .shezhi-button-right {
   display: flex;
   align-items: center;
-  margin-right: 50rpx;
+  padding-right: 30rpx;
+  position: absolute;
+  height: 100%;
 }
 
 .shezhi-button-name {

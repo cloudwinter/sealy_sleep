@@ -519,7 +519,7 @@ Page({
     if (received) {
       received = received.toUpperCase();
       let deviceId = connected.deviceId;
-      if (received.indexOf('FFFFFFFF0100030B00') >= 0 ||
+      if (received.indexOf('FFFFFFFF0100030B') >= 0 ||
         received.indexOf('FFFFFFFF01000413') >= 0) {
         // 有闹钟功能
         this.setAlarm(received, deviceId);

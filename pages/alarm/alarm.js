@@ -416,29 +416,29 @@ Page({
       musicSelectRadio: e.detail.value
     })
     if(e.detail.value == "11"){
-      var cmd = musicPrefix + "81AABB"
+      var cmd = musicPrefix + "81"
+      cmd = cmd + crcUtil.HexToCSU16(cmd);
       this.sendFullBlueCmd(cmd)
-      console.log(cmd);
       return
     }else if (e.detail.value == "12") {
-      var cmd = musicPrefix + "82AABB"
+      var cmd = musicPrefix + "82"
+      cmd = cmd + crcUtil.HexToCSU16(cmd);
       this.sendFullBlueCmd(cmd)
-      console.log(cmd);
       return
     }else if (e.detail.value == "13") {
-      var cmd = musicPrefix + "83AABB"
+      var cmd = musicPrefix + "83"
+      cmd = cmd + crcUtil.HexToCSU16(cmd);
       this.sendFullBlueCmd(cmd)
-      console.log(cmd);
       return
     }else if (e.detail.value == "14") {
-      var cmd = musicPrefix + "84AABB"
+      var cmd = musicPrefix + "84"
+      cmd = cmd + crcUtil.HexToCSU16(cmd);
       this.sendFullBlueCmd(cmd)
-      console.log(cmd);
       return
     }else if (e.detail.value == "15") {
-      var cmd = musicPrefix + "85AABB"
+      var cmd = musicPrefix + "85"
+      cmd = cmd + crcUtil.HexToCSU16(cmd);
       this.sendFullBlueCmd(cmd)
-      console.log(cmd);
       return
     }
   },

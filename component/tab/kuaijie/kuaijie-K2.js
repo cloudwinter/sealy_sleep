@@ -690,7 +690,7 @@ Component({
       console.log(longClick);
       if(longClick){
         // 长按
-        this.sendFullBlueCmd('FFFFFFFF0100130B00AABB')
+        this.sendFullBlueCmd('FFFFFFFF0100130B00' + crcUtil.HexToCSU16('FFFFFFFF0100130B00'))
         return
       }else{
          // 单击
@@ -719,7 +719,8 @@ Component({
      */
     musicRadioChange: function (e) {
       
-      var cmd = musicPrefix + e.detail.value + "AABB"
+      var cmd = musicPrefix + e.detail.value 
+      cmd = cmd + crcUtil.HexToCSU16(cmd);
       setTimeout(() => {
        console.log(cmd)
         this.sendFullBlueCmd(cmd)
@@ -743,7 +744,7 @@ Component({
       //   })
       //   return;
       // }
-      this.sendFullBlueCmd('FFFFFFFF0100130B00AABB')
+      this.sendFullBlueCmd('FFFFFFFF0100130B00'+crcUtil.HexToCSU16('FFFFFFFF0100130B00'))
       let musicSelectRadio = this.data.musicSelectRadio;
       this.setData({
         musicDialogShow: false,

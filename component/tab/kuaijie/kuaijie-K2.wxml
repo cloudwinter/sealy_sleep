@@ -102,7 +102,7 @@
 		</view>
 		<view style="width:30rpx" />
 		<view class="anjian-right">
-			<view class="anjiian-content" catchtap="tapZhumianyinyue">
+			<view class="anjiian-content" catchtap="tapZhumianyinyue" bindtouchstart="touchStart" bindtouchend="touchEnd">
 				<image class="anjian-icon" src="../../../images/{{skin}}/zhumianyinyue-xiao@3x.png"></image>
 				<view class="name">助眠音乐</view>
 			</view>
@@ -138,8 +138,8 @@
 
 		<view style="width:100%;height:1px;background:#000000"></view>
 		<view class="modal-box-bottom" style="height:100rpx;">
-			<view bindtap="onModalMusicClick" data-ctype="cancel" class="modal-box-button" hover-class="modal-box-button-hover"
-				style="flex-grow:1;color:#FFFFFF">取消</view>
+			<!-- <view bindtap="onModalMusicClick" data-ctype="cancel" class="modal-box-button" hover-class="modal-box-button-hover"
+				style="flex-grow:1;color:#FFFFFF">取消</view> -->
 			<view style="width:1rpx;height:100%;background:#000000"></view>
 			<view bindtap="onModalMusicClick" data-ctype="confirm" class="modal-box-button sure"
 				hover-class="modal-box-button-hover" style="flex-grow:1;color:#5EA2D7">确定</view>

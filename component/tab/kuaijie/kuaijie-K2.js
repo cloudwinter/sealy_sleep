@@ -8,6 +8,7 @@ const askPrefix = 'FFFFFFFF0300'; // 询问码前缀
 const askReply1Prefix = 'FFFFFFFF031200'; // 询问码1回复前缀
 const askReply2Prefix = 'FFFFFFFF030600'; // 询问码2回复前缀
 const sendPrefix = 'FFFFFFFF050000'; // 发送码前缀
+const musicPrefix = 'FFFFFFFF0100130B'  //音乐发码前缀
 Component({
   /**
    * 组件的属性列表
@@ -685,10 +686,20 @@ Component({
           name: '助眠音乐'
         }
       })
-      // 单击
-      let cmd = 'FFFFFFFF0100130BFF';
-      cmd = cmd + crcUtil.HexToCSU16(cmd);
-      this.sendFullBlueCmd(cmd);
+      var longClick = this.longClick();
+      console.log(longClick);
+      if(longClick){
+        // 长按
+        this.sendFullBlueCmd('FFFFFFFF0100130B00AABB')
+        return
+      }else{
+         // 单击
+        let cmd = 'FFFFFFFF0100130BFF';
+        cmd = cmd + crcUtil.HexToCSU16(cmd);
+        this.sendFullBlueCmd(cmd);
+        return
+      }
+     
     },
 
 
@@ -707,6 +718,13 @@ Component({
      * @param {*} e 
      */
     musicRadioChange: function (e) {
+      
+      var cmd = musicPrefix + e.detail.value + "AABB"
+      setTimeout(() => {
+       console.log(cmd)
+        this.sendFullBlueCmd(cmd)
+      }, 500);
+      
       this.setData({
         musicSelectRadio: e.detail.value
       })
@@ -718,13 +736,14 @@ Component({
      * @param {*} e 
      */
     onModalMusicClick: function (e) {
-      let cType = e.currentTarget.dataset.ctype;
-      if (cType == 'cancel') {
-        this.setData({
-          musicDialogShow: false
-        })
-        return;
-      }
+      // let cType = e.currentTarget.dataset.ctype;
+      // if (cType == 'cancel') {
+      //   this.setData({
+      //     musicDialogShow: false
+      //   })
+      //   return;
+      // }
+      this.sendFullBlueCmd('FFFFFFFF0100130B00AABB')
       let musicSelectRadio = this.data.musicSelectRadio;
       this.setData({
         musicDialogShow: false,

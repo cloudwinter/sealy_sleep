@@ -4,6 +4,7 @@ const util = require('../../utils/util');
 const crcUtil = require('../../utils/crcUtil');
 const configManager = require('../../utils/configManager')
 const WxNotificationCenter = require('../../utils/WxNotificationCenter')
+const musicPrefix = 'FFFFFFFF0100130B'  //音乐发码前缀
 const app = getApp();
 const weekArray = [
   '一',
@@ -342,6 +343,7 @@ Page({
    * @param {*} e 
    */
   modeRadioChange: function (e) {
+    
     this.setData({
       modeSelectRadio: e.detail.value
     })
@@ -409,9 +411,36 @@ Page({
    * @param {*} e 
    */
   musicRadioChange: function (e) {
+    console.log(e.detail.value);
     this.setData({
       musicSelectRadio: e.detail.value
     })
+    if(e.detail.value == "11"){
+      var cmd = musicPrefix + "81AABB"
+      this.sendFullBlueCmd(cmd)
+      console.log(cmd);
+      return
+    }else if (e.detail.value == "12") {
+      var cmd = musicPrefix + "82AABB"
+      this.sendFullBlueCmd(cmd)
+      console.log(cmd);
+      return
+    }else if (e.detail.value == "13") {
+      var cmd = musicPrefix + "83AABB"
+      this.sendFullBlueCmd(cmd)
+      console.log(cmd);
+      return
+    }else if (e.detail.value == "14") {
+      var cmd = musicPrefix + "84AABB"
+      this.sendFullBlueCmd(cmd)
+      console.log(cmd);
+      return
+    }else if (e.detail.value == "15") {
+      var cmd = musicPrefix + "85AABB"
+      this.sendFullBlueCmd(cmd)
+      console.log(cmd);
+      return
+    }
   },
 
    /**
@@ -419,13 +448,13 @@ Page({
    * @param {*} e 
    */
   onModalMusicClick: function (e) {
-    let cType = e.currentTarget.dataset.ctype;
-    if (cType == 'cancel') {
-      this.setData({
-        musicDialogShow: false
-      })
-      return;
-    }
+    // let cType = e.currentTarget.dataset.ctype;
+    // if (cType == 'cancel') {
+    //   this.setData({
+    //     musicDialogShow: false
+    //   })
+    //   return;
+    // }
     let musicSelectRadio = this.data.musicSelectRadio;
     let musicSelectName;
     this.data.musicItems.forEach(obj => {
@@ -554,5 +583,12 @@ Page({
     wx.navigateBack({
       delta: 1,
     })
-  }
+  },
+  /**
+     * 发送蓝牙命令
+     */
+      sendFullBlueCmd(cmd, options) {
+      var connected = this.data.connected;
+      util.sendBlueCmd(connected, cmd, options);
+    }
 })

@@ -745,14 +745,14 @@ Component({
       //   return;
       // }
       this.sendFullBlueCmd('FFFFFFFF0100130B00'+crcUtil.HexToCSU16('FFFFFFFF0100130B00'))
-      let musicSelectRadio = this.data.musicSelectRadio;
+      // let musicSelectRadio = this.data.musicSelectRadio;
       this.setData({
         musicDialogShow: false,
-        musicSelected: musicSelectRadio,
+        // musicSelected: musicSelectRadio,
       })
-      let cmd = 'FFFFFFFF0100130B' + musicSelectRadio;
-      cmd = cmd + crcUtil.HexToCSU16(cmd);
-      this.sendFullBlueCmd(cmd);
+      // let cmd = 'FFFFFFFF0100130B' + musicSelectRadio;
+      // cmd = cmd + crcUtil.HexToCSU16(cmd);
+      // this.sendFullBlueCmd(cmd);
     },
 
 

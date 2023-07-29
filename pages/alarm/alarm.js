@@ -455,6 +455,7 @@ Page({
     //   })
     //   return;
     // }
+	this.sendFullBlueCmd('FFFFFFFF0100130B00'+crcUtil.HexToCSU16('FFFFFFFF0100130B00'))
     let musicSelectRadio = this.data.musicSelectRadio;
     let musicSelectName;
     this.data.musicItems.forEach(obj => {

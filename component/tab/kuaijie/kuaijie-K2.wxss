@@ -7,6 +7,10 @@
   background: #1E1F24;
 }
 
+.kuaijie_bottom{
+  height: 100rpx;
+}
+
 .dark .button-bg-selected {
   background-color: #131418;
   border:3rpx solid #5EA2D7;

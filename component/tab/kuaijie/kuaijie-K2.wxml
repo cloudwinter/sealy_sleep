@@ -115,6 +115,8 @@
 
 </view>
 
+<!-- 底部站位 -->
+<view class="kuaijie_bottom"></view>
 
 <!-- 响铃对话框 -->
 <view class="modal-dialog" hidden="{{!musicDialogShow}}">

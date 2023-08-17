@@ -13,14 +13,14 @@ Component({
   data: {
     skin: app.globalData.skin,
     videoList:[
-      {"title":"灵彩齐边款安装视频",videoURl:"http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400" ,"icon":"../../../images/" +app.globalData.skin + "/24gf-playCircle.png"},
-      {"title":"灵彩嵌入款款安装视频",videoURl:"","icon":"../../../images/" + app.globalData.skin + "/24gf-playCircle.png"},
-      {"title":"灵星齐边款安装视屏",videoURl:"","icon":"../../../images/" + app.globalData.skin + "/24gf-playCircle.png"},
-      {"title":"灵星嵌入款安装视屏",videoURl:"","icon":"../../../images/" + app.globalData.skin + "/24gf-playCircle.png"},
-      {"title":"灵睿齐边款安装视屏",videoURl:"","icon":"../../../images/" + app.globalData.skin + "/24gf-playCircle.png"},
-      {"title":"灵睿嵌入款安装视屏",videoURl:"","icon":"../../../images/" + app.globalData.skin + "/24gf-playCircle.png"},
-      {"title":"灵月齐边款安装视屏",videoURl:"","icon":"../../../images/" + app.globalData.skin + "/24gf-playCircle.png"},
-      {"title":"灵月嵌入款安装视屏",videoURl:"","icon":"../../../images/" + app.globalData.skin + "/24gf-playCircle.png"},
+      {"title":"灵彩齐边款安装视频",videoURl:"https://yhjx.oss-cn-beijing.aliyuncs.com/ddc/sealy_sleep/AF3401Q.mp4" ,"icon":"../../../images/" +app.globalData.skin + "/24gf-playCircle.png"},
+      {"title":"灵彩嵌入款款安装视频",videoURl:"https://yhjx.oss-cn-beijing.aliyuncs.com/ddc/sealy_sleep/AF3401W.mp4","icon":"../../../images/" + app.globalData.skin + "/24gf-playCircle.png"},
+      {"title":"灵星齐边款安装视屏",videoURl:"https://yhjx.oss-cn-beijing.aliyuncs.com/ddc/sealy_sleep/AF3402Q.mp4","icon":"../../../images/" + app.globalData.skin + "/24gf-playCircle.png"},
+      {"title":"灵星嵌入款安装视屏",videoURl:"https://yhjx.oss-cn-beijing.aliyuncs.com/ddc/sealy_sleep/AF3402W.mp4","icon":"../../../images/" + app.globalData.skin + "/24gf-playCircle.png"},
+      {"title":"灵睿齐边款安装视屏",videoURl:"https://yhjx.oss-cn-beijing.aliyuncs.com/ddc/sealy_sleep/AF3405Q.mp4","icon":"../../../images/" + app.globalData.skin + "/24gf-playCircle.png"},
+      {"title":"灵睿嵌入款安装视屏",videoURl:"https://yhjx.oss-cn-beijing.aliyuncs.com/ddc/sealy_sleep/AF3405W.mp4","icon":"../../../images/" + app.globalData.skin + "/24gf-playCircle.png"},
+      {"title":"灵月齐边款安装视屏",videoURl:"https://yhjx.oss-cn-beijing.aliyuncs.com/ddc/sealy_sleep/AF3403Q.mp4","icon":"../../../images/" + app.globalData.skin + "/24gf-playCircle.png"},
+      {"title":"灵月嵌入款安装视屏",videoURl:"https://yhjx.oss-cn-beijing.aliyuncs.com/ddc/sealy_sleep/AF3403W.mp4","icon":"../../../images/" + app.globalData.skin + "/24gf-playCircle.png"},
       
     ]
   },

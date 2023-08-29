@@ -14,7 +14,9 @@
     "pages/gexingset/gexingset-2",
     "pages/dataentry/dataentry",
     "pages/sleepadjust/sleepadjust",
-    "pages/video/video"
+    "pages/video/video",
+    "pages/shouhouvideo/shouhouvideo",
+    "pages/tamllvideo/tamllvideo"
   ],
   "window": {
     "backgroundTextStyle": "light",

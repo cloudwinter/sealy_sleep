@@ -1,0 +1,18 @@
+<!--pages/shouhouvideo/shouhouvideo.wxml-->
+<view class="page-{{skin}}">
+
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" background="{{navbar.background}}" title="安装视频"></navbar>
+
+  <!-- <view class="shouhou_top">
+      <text class="top_title"></text>
+    </view> -->
+  <view class="{{skin}}">
+    <view class="shouhou_list">
+      <view class="list_item" wx:for="{{videoList}}" wx:for-item="item" wx:key="index" bindtap="GoVideo" data-video="{{item.videoURl}}">
+        <text class="item_left_title">0{{1+index}}</text>
+        <text class="item_right_title">{{item.title}}</text>
+        <image class="item_icon" src="{{item.icon}}" />
+      </view>
+    </view>
+  </view>
+</view>

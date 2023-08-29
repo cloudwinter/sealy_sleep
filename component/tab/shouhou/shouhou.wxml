@@ -1,15 +1,19 @@
 <!--component/tab/shouhou/shouhou.wxml-->
 <view class="{{skin}}">
-  <view class="shouhou_top">
-    <text class="top_title">安装视频</text>
-  </view>
-  <view class="shouhou_list">
-    <view class="list_item" wx:for="{{videoList}}" wx:for-item="item" wx:key="index" bindtap="GoVideo" data-video="{{item.videoURl}}">
-    <text class="item_left_title">0{{1+index}}</text>
-      <text class="item_right_title">{{item.title}}</text>
-      <image class="item_icon" src="{{item.icon}}" />
+  <view class="shouhoulist">
+    <view class="shouhou_top" bindtap="GoVideoList">
+      <text class="top_title" >1.  安装视频</text>
+      <image class="shouhou-button-icon" src="../../../images/{{skin}}/row@3x.png"></image>
+    </view>
+    <view class="shouhou_top" bindtap="GoTmall">
+      <text>2.  天猫精灵使用方法</text>
+      <image class="shouhou-button-icon" src="../../../images/{{skin}}/row@3x.png"></image>
+    </view>
+    <view class="shouhou_top">
+      <text>3.  QA</text>
+      <image class="shouhou-button-icon" src="../../../images/{{skin}}/row@3x.png"></image>
     </view>
   </view>
-  <view class="shouhou_bottom">QA</view>
 </view>
+
 <view class="page_bottom"></view>

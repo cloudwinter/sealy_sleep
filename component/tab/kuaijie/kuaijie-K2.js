@@ -25,7 +25,7 @@ Component({
   data: {
     musicItems: [{
         value: '01',
-        name: '悬崖海岸',
+        name: '波浪拍岸',
       },
       {
         value: '02',

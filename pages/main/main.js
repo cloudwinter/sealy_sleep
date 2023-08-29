@@ -77,7 +77,7 @@ Page({
       {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_znjc_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_znjc_normal@2x.png",
-        "text": "智能检测",
+        "text": "智能监测",
         "tapFunction": "toZhinengjiance",
         "active": "",
         "show": false

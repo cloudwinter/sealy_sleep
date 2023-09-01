@@ -4,7 +4,7 @@ const util = require('../../utils/util');
 const crcUtil = require('../../utils/crcUtil');
 const configManager = require('../../utils/configManager')
 const WxNotificationCenter = require('../../utils/WxNotificationCenter')
-const musicPrefix = 'FFFFFFFF0100130B'  //音乐发码前缀
+const musicPrefix = 'FFFFFFFF0100130B' //音乐发码前缀
 const app = getApp();
 const weekArray = [
   '一',
@@ -160,7 +160,16 @@ Page({
             }
           })
         }
+        let musicVal = alarm.musicRing;
+        let musicSelectRadio = '00';
+        this.data.musicItems.forEach(item => {
+          if (item.value == musicVal) {
+            musicSelectRadio = musicVal;
+            alarm.musicRingName = item.name
+          }
+        })
         this.setData({
+          musicSelectRadio: musicSelectRadio,
           alarmType: alarmType,
           alarm: alarm,
           periodList: periodList
@@ -343,7 +352,7 @@ Page({
    * @param {*} e 
    */
   modeRadioChange: function (e) {
-    
+
     this.setData({
       modeSelectRadio: e.detail.value
     })
@@ -415,27 +424,27 @@ Page({
     this.setData({
       musicSelectRadio: e.detail.value
     })
-    if(e.detail.value == "11"){
+    if (e.detail.value == "11") {
       var cmd = musicPrefix + "81"
       cmd = cmd + crcUtil.HexToCSU16(cmd);
       this.sendFullBlueCmd(cmd)
       return
-    }else if (e.detail.value == "12") {
+    } else if (e.detail.value == "12") {
       var cmd = musicPrefix + "82"
       cmd = cmd + crcUtil.HexToCSU16(cmd);
       this.sendFullBlueCmd(cmd)
       return
-    }else if (e.detail.value == "13") {
+    } else if (e.detail.value == "13") {
       var cmd = musicPrefix + "83"
       cmd = cmd + crcUtil.HexToCSU16(cmd);
       this.sendFullBlueCmd(cmd)
       return
-    }else if (e.detail.value == "14") {
+    } else if (e.detail.value == "14") {
       var cmd = musicPrefix + "84"
       cmd = cmd + crcUtil.HexToCSU16(cmd);
       this.sendFullBlueCmd(cmd)
       return
-    }else if (e.detail.value == "15") {
+    } else if (e.detail.value == "15") {
       var cmd = musicPrefix + "85"
       cmd = cmd + crcUtil.HexToCSU16(cmd);
       this.sendFullBlueCmd(cmd)
@@ -443,7 +452,7 @@ Page({
     }
   },
 
-   /**
+  /**
    * 模式选择点击
    * @param {*} e 
    */
@@ -455,7 +464,7 @@ Page({
     //   })
     //   return;
     // }
-	this.sendFullBlueCmd('FFFFFFFF0100130B00'+crcUtil.HexToCSU16('FFFFFFFF0100130B00'))
+    this.sendFullBlueCmd('FFFFFFFF0100130B00' + crcUtil.HexToCSU16('FFFFFFFF0100130B00'))
     let musicSelectRadio = this.data.musicSelectRadio;
     let musicSelectName;
     this.data.musicItems.forEach(obj => {
@@ -557,7 +566,7 @@ Page({
     }
 
     let alarmType = this.data.alarmType;
-    if(alarmType == 2) {
+    if (alarmType == 2) {
       let musicRing = alarm.musicRing;
       sendAlarmCmdPre += musicRing;
     } else {
@@ -569,7 +578,7 @@ Page({
         sendAlarmCmdPre += '00';
       }
     }
- 
+
 
     let cmdCrc = crcUtil.HexToCSU16(sendAlarmCmdPre);
     let cmd = sendAlarmCmdPre + cmdCrc;
@@ -586,10 +595,10 @@ Page({
     })
   },
   /**
-     * 发送蓝牙命令
-     */
-      sendFullBlueCmd(cmd, options) {
-      var connected = this.data.connected;
-      util.sendBlueCmd(connected, cmd, options);
-    }
+   * 发送蓝牙命令
+   */
+  sendFullBlueCmd(cmd, options) {
+    var connected = this.data.connected;
+    util.sendBlueCmd(connected, cmd, options);
+  }
 })

@@ -8,7 +8,7 @@ const askPrefix = 'FFFFFFFF0300'; // 询问码前缀
 const askReply1Prefix = 'FFFFFFFF031200'; // 询问码1回复前缀
 const askReply2Prefix = 'FFFFFFFF030600'; // 询问码2回复前缀
 const sendPrefix = 'FFFFFFFF050000'; // 发送码前缀
-const musicPrefix = 'FFFFFFFF0100130B'  //音乐发码前缀
+const musicPrefix = 'FFFFFFFF0100130B' //音乐发码前缀
 Component({
   /**
    * 组件的属性列表
@@ -65,6 +65,7 @@ Component({
     musicDialogShow: false,
     musicSelectRadio: 'FF',
     musicSelected: 'FF',
+    slideDialogShow: false,  //音量对话框
   },
 
 
@@ -77,7 +78,7 @@ Component({
       console.info("kuaijie-K2->show", app.globalData);
       let connected = configManager.getCurrentConnected();
       let hasSleepInduction = app.globalData.hasSleepInduction;
-      let kjMusicType = 1;
+      let kjMusicType = 2;
       if (util.isNotEmptyObject(connected)) {
         kjMusicType = configManager.getKJAndAlarmType(connected.deviceId);
       }
@@ -688,18 +689,18 @@ Component({
       })
       var longClick = this.longClick();
       console.log(longClick);
-      if(longClick){
+      if (longClick) {
         // 长按
         this.sendFullBlueCmd('FFFFFFFF0100130B00' + crcUtil.HexToCSU16('FFFFFFFF0100130B00'))
         return
-      }else{
-         // 单击
+      } else {
+        // 单击
         let cmd = 'FFFFFFFF0100130BFF';
         cmd = cmd + crcUtil.HexToCSU16(cmd);
         this.sendFullBlueCmd(cmd);
         return
       }
-     
+
     },
 
 
@@ -718,14 +719,14 @@ Component({
      * @param {*} e 
      */
     musicRadioChange: function (e) {
-      
-      var cmd = musicPrefix + e.detail.value 
+
+      var cmd = musicPrefix + e.detail.value
       cmd = cmd + crcUtil.HexToCSU16(cmd);
       setTimeout(() => {
-       console.log(cmd)
+        console.log(cmd)
         this.sendFullBlueCmd(cmd)
       }, 500);
-      
+
       this.setData({
         musicSelectRadio: e.detail.value
       })
@@ -744,7 +745,7 @@ Component({
       //   })
       //   return;
       // }
-      this.sendFullBlueCmd('FFFFFFFF0100130B00'+crcUtil.HexToCSU16('FFFFFFFF0100130B00'))
+      this.sendFullBlueCmd('FFFFFFFF0100130B00' + crcUtil.HexToCSU16('FFFFFFFF0100130B00'))
       // let musicSelectRadio = this.data.musicSelectRadio;
       this.setData({
         musicDialogShow: false,

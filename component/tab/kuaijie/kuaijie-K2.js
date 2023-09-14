@@ -65,7 +65,8 @@ Component({
     musicDialogShow: false,
     musicSelectRadio: 'FF',
     musicSelected: 'FF',
-    slideDialogShow: false,  //音量对话框
+    slideDialogShow: true, //音量对话框
+    slideValue: 0,
   },
 
 
@@ -85,7 +86,8 @@ Component({
       this.setData({
         hasSleepInduction: hasSleepInduction,
         skin: app.globalData.skin,
-        kjMusicType: kjMusicType
+        kjMusicType: kjMusicType,
+        slideDialogShow:false
       })
     }
 
@@ -780,7 +782,44 @@ Component({
 
     },
 
+    tapAudio: function (e) {
+      let slideDialogShow = this.data.slideDialogShow;
+      this.setData({
+        slideDialogShow: !slideDialogShow
+      })
+    },
 
+    tapPlus: function (e) {
+      let slideValue = this.data.slideValue;
+      slideValue++;
+      if (slideValue > 5) {
+        util.showToast('当前音量已经调整到最大');
+        return;
+      }
+      this.setData({
+        slideValue: slideValue
+      })
+    },
+
+    tapMinus: function (e) {
+      let slideValue = this.data.slideValue;
+      slideValue--;
+      if (slideValue < 0) {
+        util.showToast('当前音量已经调整到最小');
+        return;
+      }
+      this.setData({
+        slideValue: slideValue
+      })
+    },
+
+    sliderchange: function (e) {
+      console.log("change：", e)
+      this.setData({
+        slideValue: e.detail.value
+      })
+      console.log("date", this.data.slideValue);
+    },
   },
 
 })

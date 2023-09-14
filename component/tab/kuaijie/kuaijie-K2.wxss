@@ -186,6 +186,7 @@
   padding-right: 30rpx;
   position: absolute;
   height: 100%;
+  flex-direction: column;
 }
 
 .shezhi-button-name {
@@ -196,6 +197,14 @@
   width: 32rpx;
   height: 32rpx;
   margin-left: 20rpx;
+}
+
+.yinyue-right-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 100%;
 }
 
 /************ 对话框 ***************/
@@ -310,12 +319,8 @@
   position: fixed;
   width: 100%;
   height: 100%;
-  top: 0rpx;
-  left: 0rpx;
   display: flex;
   flex-direction: column;
-  right: 0rpx;
-  bottom: 0rpx;
   background: rgba(0, 0, 0, 0.3);
   overflow: hidden;
   justify-content: center;

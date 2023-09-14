@@ -66,7 +66,7 @@ Component({
     musicSelectRadio: 'FF',
     musicSelected: 'FF',
     slideDialogShow: true, //音量对话框
-    slideValue: 0,
+    slideValue: 3,
   },
 
 
@@ -87,7 +87,7 @@ Component({
         hasSleepInduction: hasSleepInduction,
         skin: app.globalData.skin,
         kjMusicType: kjMusicType,
-        slideDialogShow:false
+        slideDialogShow: false
       })
     }
 
@@ -217,6 +217,10 @@ Component({
         this.sendSleepAskBlueCmd()
       }, 800);
 
+      setTimeout(() => {
+        this.sendSleepAskBlueCmd()
+      }, 1200);
+
     },
 
 
@@ -234,6 +238,10 @@ Component({
         let kjMusicType = configManager.getKJAndAlarmType(that.data.connected.deviceId);
         that.setData({
           kjMusicType: kjMusicType
+        })
+      } else if (cmd.indexOf('FFFFFFFF0100150B') >= 0) {
+        that.setData({
+          slideValue: cmd.substr(17, 1)
         })
       }
       var prefix = cmd.substr(0, 14);
@@ -309,6 +317,16 @@ Component({
 
     },
 
+
+    /**
+     * 发送智能睡眠记忆状态命令
+     */
+    sendAudioAskBlueCmd() {
+      var connected = this.data.connected;
+      let cmd = 'FFFFFFFF0100150B00';
+      let sendCmd = cmd + crcUtil.HexToCSU16(cmd)
+      util.sendBlueCmd(connected, sendCmd);
+    },
 
     /**
      * 发送智能睡眠记忆状态命令
@@ -799,6 +817,7 @@ Component({
       this.setData({
         slideValue: slideValue
       })
+      this.sendFullSetAudioCmd(this.data.slideValue);
     },
 
     tapMinus: function (e) {
@@ -811,6 +830,7 @@ Component({
       this.setData({
         slideValue: slideValue
       })
+      this.sendFullSetAudioCmd(this.data.slideValue);
     },
 
     sliderchange: function (e) {
@@ -819,6 +839,14 @@ Component({
         slideValue: e.detail.value
       })
       console.log("date", this.data.slideValue);
+      this.sendFullSetAudioCmd(this.data.slideValue);
+    },
+
+
+    sendFullSetAudioCmd: function (value) {
+      var cmd = 'FFFFFFFF0100140B' + '0' + value
+      cmd = cmd + crcUtil.HexToCSU16(cmd);
+      this.sendFullBlueCmd(cmd)
     },
   },
 

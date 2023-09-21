@@ -106,7 +106,7 @@
       </view>
       <view class="shezhi-button-right" catchtap="tapAudio">
         <view class="yinyue-right-button" style="padding-top: 10rpx;">
-          <image style="height: 36rpx;width: 44rpx;" src="../../../images/{{skin}}/audio@3x.png"></image>
+          <image style="height: 28rpx;width: 36rpx;" src="../../../images/{{skin}}/audio@3x.png"></image>
         </view>
         <view class="yinyue-right-button" style="padding-bottom: 10rpx;" catchtap="tabSelectYinyue">
           <image class="shezhi-button-icon" src="../../../images/{{skin}}/row@3x.png"></image>

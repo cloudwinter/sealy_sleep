@@ -476,10 +476,10 @@ Page({
           app.globalData.connected = that.data.connected;
           app.globalData.hasSleepInduction = false;
           var sleepInduction = {
-            status:'00',  // 00 关闭，01开启 其他定时
-            nightLight:'00', // 智能夜灯 00 关闭 01开启
-            mode:'00', // 模式 00 预设位置 01 个性位置
-            gexingModel:'00'  // 个性模式 00 个性未设置 01 个性已设置
+            status: '00', // 00 关闭，01开启 其他定时
+            nightLight: '00', // 智能夜灯 00 关闭 01开启
+            mode: '00', // 模式 00 预设位置 01 个性位置
+            gexingModel: '00' // 个性模式 00 个性未设置 01 个性已设置
           }
           app.globalData.sleepInduction = sleepInduction;
           configManager.putCurrentConnected(that.data.connected);
@@ -525,7 +525,8 @@ Page({
         if (name.indexOf('Sealy') >= 0 ||
           name.indexOf('QMS2') >= 0 ||
           name.indexOf('QMS-MQ') >= 0 ||
-          name.indexOf('QMS3') >= 0) {
+          name.indexOf('QMS3') >= 0 ||
+          name.indexOf('SealyJ') >= 0) {
           return true;
         }
       }
@@ -549,6 +550,13 @@ Page({
      */
     getWeitiaoType(name) {
       // 默认W4
+      if(name) {
+        if (name.indexOf('SealyJ') >= 0) {
+          return 'W2';
+        } else {
+          return 'W4';
+        }
+      }
       return 'W4';
     },
 

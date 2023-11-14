@@ -245,10 +245,7 @@ function getAlarm(deviceId) {
  */
 function putKJAndAlarmType(type, deviceId) {
   let key = _TYPE_KJ_ALARM_KEY + deviceId;
-  wx.setStorageSync({
-    data: type,
-    key: key,
-  })
+  wx.setStorageSync(key,type);
 }
 
 /**

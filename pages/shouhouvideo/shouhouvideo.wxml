@@ -9,10 +9,11 @@
   <view class="{{skin}}">
     <view class="shouhou_list">
       <view class="list_item" wx:for="{{videoList}}" wx:for-item="item" wx:key="index" bindtap="GoVideo" data-video="{{item.videoURl}}">
-        <text class="item_left_title">0{{1+index}}</text>
+        <text class="item_left_Seq">{{ index >= 9 ? index + 1 : '0' + (index + 1) }}</text>
         <text class="item_right_title">{{item.title}}</text>
         <image class="item_icon" src="{{item.icon}}" />
       </view>
+      <view style="height: 200rpx;"></view>
     </view>
   </view>
 </view>

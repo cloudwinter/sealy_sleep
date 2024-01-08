@@ -14,7 +14,10 @@ overflow: auto;
   font-size: 28rpx;
   
 }
-.list_item{
+
+.list_item {
+  display: flex; 
+  align-items: center;
   background-color: #2b2f3e;
   width: 80%;
   height: 120rpx;
@@ -24,14 +27,24 @@ overflow: auto;
   border-radius: 30rpx;
   position: relative;
 }
-.item_left_title{
+
+.item_left_Seq {
   color: #4b505c;
-  margin: 0 30rpx; 
+  margin: 0 30rpx;
 }
-.item_icon{
-  position:absolute;
-  right:40rpx;
-  top:40rpx;
+
+.item_right_title {
+  display: inline-block;
+  width: 430rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item_icon {
+  position: absolute;
+  right: 40rpx;
+  top: 40rpx;
   width: 40rpx;
   height: 40rpx;
 }

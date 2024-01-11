@@ -547,22 +547,26 @@ Page({
       if (received.indexOf('FFFFFFFF01000C1101') >= 0) {
         var macCmd = received.substr(18, 12);
         var tabbar = this.data.tabBar
+        var appId =  'wxbbdd4b1b88358610'
         tabbar[6].show = true
         this.setData({
           tabBar: tabbar,
           mac: macCmd,
-          appId: 'wxbbdd4b1b88358610'
+          appId: appId
         });
+        wx.setStorageSync('appId',appId)
         return;
       } else if (received.indexOf('FFFFFFFF01000C1102') >= 0) {
         var macCmd = received.substr(18, 12);
         var tabbar = this.data.tabBar
+        var appId = 'wx89783978e44773d0'
         tabbar[6].show = true
         this.setData({
           tabBar: tabbar,
           mac: macCmd,
-          appId: 'wx89783978e44773d0'
+          appId: appId
         })
+        wx.setStorageSync('appId',appId)
         return
       }
     }

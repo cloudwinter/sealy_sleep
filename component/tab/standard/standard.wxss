@@ -81,7 +81,71 @@
 
 .bz-middle{
   display: flex;
+  justify-content: space-around;
   margin-top: 80rpx;
+}
+.anjianqu {
+  width: 100%;
+  display: flex;
+  /* margin-left: 64rpx;
+  margin-right: 64rpx; */
+  align-items: center;
+  justify-content: space-around;
+  font-size: 40rpx;
+  margin-top: 80rpx;
+}
+
+.anjianqu .anjian-left {
+  width: 110px;
+  /* flex: auto; */
+  /* display: flex;
+  position: relative; */
+  margin-left: 38rpx;
+  height: 184rpx;
+  line-height: 184rpx;
+  background: #1E1F24;
+  border-radius: 44rpx;
+  justify-content: center;
+}
+.anjianqu .anjian-right {
+  width: 110px;
+  /* flex: auto; */
+  /* display: flex;
+  position: relative;
+  flex-direction: row-reverse; */
+  margin-right: 38rpx;
+  height: 184rpx;
+  line-height: 184rpx;
+  background: #1E1F24;
+  border-radius: 44rpx;
+  /* justify-content: center; */
+}
+
+.anjianqu .selected {
+  border: 1px solid #5EA2D7;
+  background: #131418;
+}
+.anjian-bg {
+  width: 204rpx;
+  height: 204rpx;
+  /* position: absolute;
+  z-index: -1; */
+}
+
+.anjiian-content {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+  /* position: absolute; */
+}
+
+
+
+.anjiian-content .name {
+  color: #5EA2D7;
+  font-size: 30rpx;
 }
 .bz-middle .button {
   width: 110px;

@@ -28,13 +28,34 @@
       </view>
     </view>
   </view>
-  <view class="bz-middle">
-    <button class="button" plain="true" catchtap="tapFuyuan" >一键放平</button>
-    <button class="button" plain="true" catchtap="tapJiyi1" bindtouchstart="tabTouchStart" bindtouchend="tabTouchEnd">记忆位</button>
-
+  <view class="anjianqu">
+    <view class="anjian-left">
+      <view class="anjiian-content" catchtap="tapFuyuan" >
+        <view class="name">一 键 放 平</view>
+      </view>
+    </view>
+    <view style="width:30rpx" />
+    <view class="anjian-right {{jiyi1 ?'selected':'normal'}}">
+      <view class="anjiian-content" catchtap="tapJiyi1" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <view class="name">记 忆 位</view>
+      </view>
+    </view>
+    <!-- <button class="button" plain="true" catchtap="tapFuyuan" >一键放平</button>
+    <button class="button" plain="true" catchtap="tapJiyi1" bindtouchstart="tabTouchStart" bindtouchend="tabTouchEnd">记忆位</button> -->
   </view>
-  <view class="bz-bottom">
-    <button class="button" plain="true" catchtap="tapKandianshi" bindtouchstart="tabTouchStart" bindtouchend="tabTouchEnd">看电视</button>
-    <button class="button" plain="true" catchtap="tapLingyali" bindtouchstart="tabTouchStart" bindtouchend="tabTouchEnd">零压力</button>
+  <view class="anjianqu">
+    <view class="anjian-left {{kandianshi ?'selected':'normal'}}">
+      <view class="anjiian-content" catchtap="tapKandianshi" bindtouchstart="touchStart" bindtouchend="touchEnd" >
+        <view class="name">看 电 视</view>
+      </view>
+    </view>
+    <view style="width:30rpx" />
+    <view class="anjian-right {{lingyali ?'selected':'normal'}}">
+      <view class="anjiian-content" catchtap="tapLingyali" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <view class="name">零 压 力</view>
+      </view>
+    </view>
+    <!-- <button class="button" plain="true" catchtap="tapKandianshi" bindtouchstart="tabTouchStart" bindtouchend="tabTouchEnd">看电视</button>
+    <button class="button" plain="true" catchtap="tapLingyali" bindtouchstart="tabTouchStart" bindtouchend="tabTouchEnd">零压力</button> -->
   </view>
 </view>

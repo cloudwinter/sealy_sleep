@@ -9,7 +9,8 @@
     "anmo":"/component/tab/anmo/anmo",
     "dengguang":"/component/tab/dengguang/dengguang",
     "smartsleep":"/component/tab/smartsleep/smartsleep",
-    "shouhou":"/component/tab/shouhou/shouhou"
+    "shouhou":"/component/tab/shouhou/shouhou",
+    "jingdian":"/component/tab/standard/standard"
   },
   "disableScroll": true
   

@@ -1,0 +1,40 @@
+<!--pages/standard/standard.wxml-->
+
+
+<view class="{{skin}}">
+  <view class="bz-top">
+    <view class="tiaozheng-content tiaozheng-button-bg button-bg">
+      <!-- <button class="tiaozheng-button-bg"></button> -->
+      <view class="tiaozheng-button-top-left" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="tuibutzTop">
+        <image class="tiaozheng-button-icon" src="{{imgSanjiao.imgSanjiaoTopSelected}}"></image>
+      </view>
+      <view class="tiaozheng-button-top-middle">
+        <view class="tiaozheng-type-name">腿 部</view>
+      </view>
+      <view class="tiaozheng-button-top-right" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="tuibutzBottom">
+        <image class="tiaozheng-button-icon" src="{{imgSanjiao.imgSanjiaoBottomSelected}}"></image>
+      </view>
+    </view>
+    <view class="tiaozheng-content tiaozheng-button-bg button-bg">
+      <!-- <view class="tiaozheng-button-bg"></view> -->
+      <view class="tiaozheng-button-top-left" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="beibutzTop">
+        <image class="tiaozheng-button-icon" src="{{imgSanjiao.imgSanjiaoTopSelected}}"></image>
+      </view>
+      <view class="tiaozheng-button-top-middle">
+        <view class="tiaozheng-type-name">背 部</view>
+      </view>
+      <view class="tiaozheng-button-top-right" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="beibutzBottom">
+        <image class="tiaozheng-button-icon" src="{{imgSanjiao.imgSanjiaoBottomSelected}}"></image>
+      </view>
+    </view>
+  </view>
+  <view class="bz-middle">
+    <button class="button" plain="true" catchtap="tapFuyuan" >一键放平</button>
+    <button class="button" plain="true" catchtap="tapJiyi1" bindtouchstart="tabTouchStart" bindtouchend="tabTouchEnd">记忆位</button>
+
+  </view>
+  <view class="bz-bottom">
+    <button class="button" plain="true" catchtap="tapKandianshi" bindtouchstart="tabTouchStart" bindtouchend="tabTouchEnd">看电视</button>
+    <button class="button" plain="true" catchtap="tapLingyali" bindtouchstart="tabTouchStart" bindtouchend="tabTouchEnd">零压力</button>
+  </view>
+</view>

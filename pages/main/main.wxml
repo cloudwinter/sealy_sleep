@@ -5,7 +5,7 @@
 
 
 	<!-- 底部切换菜单 -->
-	<view class="tab-bar" style="height: {{hasBottonLine?'75px':'60px'}};">
+	<view class="tab-bar" style="height: {{hasBottonLine?'75px':'60px'}};" wx:if="{{!pageFlag}}">
 		<block wx:for="{{tabBar}}" wx:for-item="item" wx:key="index">
 			<view class="tab-item {{index==nowIndex?'active':''}}" style="display:{{item.show?'flex':'none'}}"
 				bindtap="{{item.tapFunction}}">
@@ -16,7 +16,7 @@
 	</view>
 
 	<!-- 页面容器 -->
-	<view class="container">
+	<view class="container" wx:if="{{!pageFlag}}">
 		<view class="tab-container" hidden="{{nowPage!='smartbed'}}">
 			<smartbed></smartbed>
 		</view>
@@ -43,5 +43,8 @@
 			<shouhou></shouhou>
 		</view>
 	</view>
+  <view class="container" wx:if="{{pageFlag}}">
+  <jingdian></jingdian>
+  </view>
 
 </view>

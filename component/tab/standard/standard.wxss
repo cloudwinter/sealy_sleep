@@ -1,0 +1,107 @@
+/* pages/standard/standard.wxss */
+.page-dark {
+  overflow: hidden;
+}
+
+.dark {
+  color: #fff;
+}
+
+.bz-top {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.tiaozheng-content {
+  width: 30%;
+  height: 500rpx;
+  margin-top:80rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #1e1f24;
+  border-radius: 30rpx;
+}
+
+.tiaozheng-button-bg {
+  width: 30% !important;
+  height: 500rpx;
+  /* background: #1E1F24; */
+  /* position: absolute;
+  z-index: -1; */
+}
+
+.tiaozheng-button-top-left {
+  width: 64rpx;
+  height: 120rpx;
+  /* padding-left: 80rpx; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tiaozheng-button-top-right {
+  width: 64rpx;
+  height: 120rpx;
+  /* padding-right: 80rpx; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tiaozheng-button-icon {
+  width: 36rpx;
+  height: 36rpx;
+}
+.tiaozheng-button-top-middle {
+  flex: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tiaozheng-type-name {
+  color: #ffffff;
+  font-size: 30rpx;
+}
+
+/* .tuibu {
+  background-color: #1e1f24;
+  width: 110px;
+  height: 200px;
+  border-radius: 10px;
+}
+
+.yaobu {
+  background-color: #1e1f24;
+  width: 110px;
+  height: 200px;
+  border-radius: 10px;
+} */
+
+.bz-middle{
+  display: flex;
+  margin-top: 80rpx;
+}
+.bz-middle .button {
+  width: 110px;
+  height: 80px;
+  line-height: 80px;
+  border-radius: 10px;
+  color: #5EA2D7;
+  border: 1px solid #5EA2D7;
+  text-align: center;
+}
+.bz-bottom{
+  display: flex;
+  margin-top: 80rpx;
+}
+.bz-bottom .button {
+  width: 110px;
+  height: 80px;
+  line-height: 80px;
+  border-radius: 10px;
+  color: #5EA2D7;
+  border: 1px solid #5EA2D7;
+  text-align: center;
+}

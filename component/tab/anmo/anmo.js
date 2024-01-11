@@ -22,12 +22,14 @@ Component({
    */
   data: {
     skin: app.globalData.skin,
-    display:app.globalData.display,
+    display: app.globalData.display,
     connected: {},
     currentTimeSelected: '',
     anmopinglv: 0, // 0,1,2,3,4
     toubu: 0, //0,1,2,3
     tuibu: 0, //0,1,2,3
+    startTime: "",
+    timeStamp: ""
   },
 
   /**
@@ -55,7 +57,7 @@ Component({
       // 在组件实例进入页面节点树时执行
       console.info("attached");
       this.setData({
-        display:app.globalData.display
+        display: app.globalData.display
       })
     },
     detached: function () {
@@ -105,47 +107,111 @@ Component({
       var status = cmd.substr(16, 6).toUpperCase();
 
       if (prefix == toubuReplyPrefix) {
-        console.info('anmo->头部 blueReply', cmd,prefix,status);
+        console.info('anmo->头部 blueReply', cmd, prefix, status);
         // 头部
         if (status == '00D690') {
-          that.setData({toubu:0})
+          that.setData({
+            toubu: 0
+          })
         } else if (status == '1E5698') {
-          that.setData({toubu:1})
+          that.setData({
+            toubu: 1
+          })
         } else if (status == '1F9758') {
-          that.setData({toubu:2})
+          that.setData({
+            toubu: 2
+          })
         } else if (status == '20D748') {
-          that.setData({toubu:3})
+          that.setData({
+            toubu: 3
+          })
         }
       } else if (prefix == tuibuReplyPrefix) {
-        console.info('anmo->腿部 blueReply', cmd,prefix,status);
+        console.info('anmo->腿部 blueReply', cmd, prefix, status);
         // 腿部
         if (status == '00D660') {
-          that.setData({tuibu:0})
+          that.setData({
+            tuibu: 0
+          })
         } else if (status == '211678') {
-          that.setData({tuibu:1})
+          that.setData({
+            tuibu: 1
+          })
         } else if (status == '225679') {
-          that.setData({tuibu:2})
+          that.setData({
+            tuibu: 2
+          })
         } else if (status == '2397B9') {
-          that.setData({tuibu:3})
+          that.setData({
+            tuibu: 3
+          })
         }
 
       } else if (prefix == anmopinglvReplyPrefix) {
-        console.info('anmo->按摩频率 blueReply', cmd,prefix,status);
+        console.info('anmo->按摩频率 blueReply', cmd, prefix, status);
         // 按摩频率
         if (status == '24D7EB') {
-          that.setData({anmopinglv:1})
+          that.setData({
+            anmopinglv: 1
+          })
         } else if (status == '25162B') {
-          that.setData({anmopinglv:2})
+          that.setData({
+            anmopinglv: 2
+          })
         } else if (status == '26562A') {
-          that.setData({anmopinglv:3})
+          that.setData({
+            anmopinglv: 3
+          })
         } else if (status == '2797EA') {
-          that.setData({anmopinglv:4})
+          that.setData({
+            anmopinglv: 4
+          })
         }
 
       }
     },
 
     /*****************点击事件 */
+
+    touchStart(e) {
+      this.startTime = e.timeStamp;
+    },
+    touchEnd(e) {
+      this.endTime = e.timeStamp;
+    },
+
+    /**
+     * 判断单击 1 和长按 2 事件 其他0
+     * @param {*} e 
+     */
+    longClick() {
+      if (this.endTime - this.startTime > 1000) {
+        console.log("长按了");
+        return true;
+      }
+      return false;
+    },
+
+    tapNnmo() {
+      console.info("tapJiyi1");
+      var that = this;
+      var longClick = this.longClick();
+      if (longClick) {
+        // console.log("长按了");
+        var jumpPath = 'pages/index/index?mac=A1C702000005&type=1D' ;
+        wx.navigateToMiniProgram({
+          appId: 'wxbbdd4b1b88358610',
+          path: jumpPath,
+          envVersion: 'trial', //develop,trial,release
+          success(res) {
+            // 打开成功
+            console.info('跳转成功');
+          }
+        })
+      }
+
+    },
+
 
     /**
      * 事件点击事件
@@ -162,9 +228,9 @@ Component({
         // 恢复指令
         cmd = '001CD6C9';
         that.setData({
-          anmopinglv:0,
-          toubu:0,
-          tuibu:0,
+          anmopinglv: 0,
+          toubu: 0,
+          tuibu: 0,
         })
       } else {
         if (time == '10min') {
@@ -194,6 +260,8 @@ Component({
     },
 
 
+
+
     /**
      * 减法单击
      * @param {}} e 
@@ -201,11 +269,11 @@ Component({
     tapMinus(e) {
       var type = e.currentTarget.dataset.type;
       var cmd = ''
-      if(type == 'anmopinglv') {
+      if (type == 'anmopinglv') {
         cmd = '001516CF';
-      } else if(type == 'toubu') {
+      } else if (type == 'toubu') {
         cmd = '0011170C';
-      } else if(type = 'tuibu') {
+      } else if (type = 'tuibu') {
         cmd = '001396CD';
       }
       this.sendBlueCmd(cmd);
@@ -218,11 +286,11 @@ Component({
     tapPlus(e) {
       var type = e.currentTarget.dataset.type;
       var cmd = ''
-      if(type == 'anmopinglv') {
+      if (type == 'anmopinglv') {
         cmd = '0014D70F';
-      } else if(type == 'toubu') {
+      } else if (type == 'toubu') {
         cmd = '0010D6CC';
-      } else if(type = 'tuibu') {
+      } else if (type = 'tuibu') {
         cmd = '0012570D';
       }
       this.sendBlueCmd(cmd);

@@ -18,6 +18,7 @@ Page({
   data: {
     skin: app.globalData.skin,
     hasBottonLine: app.globalData.hasBottonLine,
+    pageFlag: app.globalData.interface,
     navbar: {
       loading: false,
       color: '#FFFFFF',
@@ -166,7 +167,8 @@ Page({
     console.info('main.Onshow');
     var skin = app.globalData.skin;
     this.setData({
-      skin: skin
+      skin: skin,
+      pageFlag: app.globalData.interface
     })
 
     //this.showStressBeltTab();

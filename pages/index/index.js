@@ -66,10 +66,17 @@ Page({
 
 
   enter: function () {
+    app.globalData.interface = false
     wx.navigateTo({
       url: '../search/search',
     })
   },
+  standard:function () {
+    app.globalData.interface = true
+    wx.navigateTo({
+      url: '../search/search',
+    })
+  }
 
 
 })

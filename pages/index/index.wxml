@@ -7,7 +7,8 @@
 		<view class="container">
 			<image class="logo" src="../../images/logo@2x.png"></image>
 			<view class="bottom">
-				<button class="button" bindtap="enter" plain="true">进入</button>
+				<button class="button" bindtap="enter" plain="true">经典界面</button>
+				<button class="button" bindtap="standard" plain="true" style="margin-top: 30px;">标准界面</button>
 			</view>
 		</view>
 

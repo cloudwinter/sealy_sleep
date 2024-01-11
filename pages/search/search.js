@@ -6,6 +6,7 @@ const defaultTime = 3;
 Page({
     data: {
       skin: app.globalData.skin, //当前皮肤样式
+      pageFlag: app.globalData.interface,
       navbar: {
         loading: false,
         color: '#FFFFFF',
@@ -38,7 +39,8 @@ Page({
       console.info("search-->onShow")
       // 设置当前的皮肤样式
       this.setData({
-        skin: app.globalData.skin
+        skin: app.globalData.skin,
+        pageFlag: app.globalData.interface
       })
     },
 
@@ -289,8 +291,8 @@ Page({
      * 
      * 查看安装视频
      *  
-     * */ 
-    Govideo(){
+     * */
+    Govideo() {
       wx.navigateTo({
         url: '../shouhouvideo/shouhouvideo',
       })
@@ -519,9 +521,16 @@ Page({
       var weitiaoType = this.getWeitiaoType(name);
       console.info('turnToMain', connected, kuaijieType, weitiaoType);
       // TODO 还需要过滤类型
-      wx.navigateTo({
-        url: '../main/main?first=' + first + '&connected=' + connectedStr + '&kuaijieType=' + kuaijieType + '&weitiaoType=' + weitiaoType,
-      })
+      // if (this.data.pageFlag) {
+        wx.navigateTo({
+          url: '../main/main?first=' + first + '&connected=' + connectedStr + '&kuaijieType=' + kuaijieType + '&weitiaoType=' + weitiaoType,
+        })
+      // } else {
+      //   wx.navigateTo({
+      //     url: '../standard/standard',
+      //   })
+      // }
+
     },
 
 
@@ -559,7 +568,7 @@ Page({
      */
     getWeitiaoType(name) {
       // 默认W4
-      if(name) {
+      if (name) {
         if (name.indexOf('SealyJ') >= 0) {
           return 'W2';
         } else {

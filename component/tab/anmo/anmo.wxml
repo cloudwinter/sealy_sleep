@@ -4,7 +4,7 @@
 
 	<view class="top" style="margin-top:{{display=='high'?90:0}}rpx;">
 		<view class="donghuaqu">
-			<view class="dh-content">
+			<view class="dh-content" catchtap="tapNnmo" bindtouchstart="touchStart" bindtouchend="touchEnd">
 				<image class="dh-icon" src="../../../images/{{skin}}/anmo@3x.png"></image>
 				<view class="dh-name">按摩频率</view>
 			</view>
@@ -54,7 +54,6 @@
 				<view class="anmo-button-top-right" bindtap="tapPlus" data-type="anmopinglv">
 					<image class="anmo-button-icon" src="../../../images/{{skin}}/plus-selected@3x.png"></image>
 				</view>
-
 			</view>
 			<view class="anmo-button-bottom">
 				<view wx:if="{{anmopinglv>=1}}" class="line4 line-color"></view>

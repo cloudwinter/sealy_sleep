@@ -59,6 +59,6 @@ App({
       gexingModel: '00' // 个性模式 00 个性未设置 01 个性已设置
     },
     hasBottonLine: true, // ios是否有底部横线
-
+    interface:false
   }
 })

@@ -59,13 +59,13 @@ Component({
     zhihan: false,
     startTime: '',
     endTime: '',
-    hasSleepInduction: true,
+    hasSleepInduction: false,
     zhinengShuimian: '00',
     kjMusicType: 1, // 1标准，2带音乐
     musicDialogShow: false,
     musicSelectRadio: 'FF',
     musicSelected: 'FF',
-    slideDialogShow: true, //音量对话框
+    slideDialogShow: false, //音量对话框
     slideValue: 3,
   },
 

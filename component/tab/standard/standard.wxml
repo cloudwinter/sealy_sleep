@@ -4,18 +4,6 @@
 <view class="{{skin}}">
   <view class="bz-top">
     <view class="tiaozheng-content tiaozheng-button-bg button-bg">
-      <!-- <button class="tiaozheng-button-bg"></button> -->
-      <view class="tiaozheng-button-top-left" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="tuibutzTop">
-        <image class="tiaozheng-button-icon" src="{{imgSanjiao.imgSanjiaoTopSelected}}"></image>
-      </view>
-      <view class="tiaozheng-button-top-middle">
-        <view class="tiaozheng-type-name">腿 部</view>
-      </view>
-      <view class="tiaozheng-button-top-right" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="tuibutzBottom">
-        <image class="tiaozheng-button-icon" src="{{imgSanjiao.imgSanjiaoBottomSelected}}"></image>
-      </view>
-    </view>
-    <view class="tiaozheng-content tiaozheng-button-bg button-bg">
       <!-- <view class="tiaozheng-button-bg"></view> -->
       <view class="tiaozheng-button-top-left" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="beibutzTop">
         <image class="tiaozheng-button-icon" src="{{imgSanjiao.imgSanjiaoTopSelected}}"></image>
@@ -24,6 +12,18 @@
         <view class="tiaozheng-type-name">背 部</view>
       </view>
       <view class="tiaozheng-button-top-right" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="beibutzBottom">
+        <image class="tiaozheng-button-icon" src="{{imgSanjiao.imgSanjiaoBottomSelected}}"></image>
+      </view>
+    </view>
+    <view class="tiaozheng-content tiaozheng-button-bg button-bg">
+      <!-- <button class="tiaozheng-button-bg"></button> -->
+      <view class="tiaozheng-button-top-left" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="tuibutzTop">
+        <image class="tiaozheng-button-icon" src="{{imgSanjiao.imgSanjiaoTopSelected}}"></image>
+      </view>
+      <view class="tiaozheng-button-top-middle">
+        <view class="tiaozheng-type-name">腿 部</view>
+      </view>
+      <view class="tiaozheng-button-top-right" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="tuibutzBottom">
         <image class="tiaozheng-button-icon" src="{{imgSanjiao.imgSanjiaoBottomSelected}}"></image>
       </view>
     </view>

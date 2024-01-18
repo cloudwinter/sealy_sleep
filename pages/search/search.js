@@ -294,7 +294,7 @@ Page({
      * */
     Govideo() {
       wx.navigateTo({
-        url: '../shouhouvideo/shouhouvideo',
+        url: '../qa/qa',
       })
     },
 

@@ -16,7 +16,8 @@
     "pages/sleepadjust/sleepadjust",
     "pages/video/video",
     "pages/shouhouvideo/shouhouvideo",
-    "pages/tamllvideo/tamllvideo"
+    "pages/tamllvideo/tamllvideo",
+    "pages/qa/qa"
   ],
   "window": {
     "backgroundTextStyle": "light",

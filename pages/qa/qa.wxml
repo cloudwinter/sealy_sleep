@@ -1,0 +1,28 @@
+<!--pages/qa/qa.wxml-->
+<view class="page-{{skin}}">
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" background="{{navbar.background}}" title="{{title}}"></navbar>
+  <view class="{{skin}}">
+    <view class="shouhoulist">
+      <view class="shouhou_top" bindtap="GoVideoList" data-type="1" data-title="底床安装视频">
+        <text class="top_title">1. 底床安装视频</text>
+        <image class="shouhou-button-icon" src="../../../images/{{skin}}/row@3x.png"></image>
+      </view>
+      <view class="shouhou_top" bindtap="GoVideoList" data-type="2" data-title="使用及配对&链接视频">
+        <text>2. 使用及配对&链接视频</text>
+        <image class="shouhou-button-icon" src="../../../images/{{skin}}/row@3x.png"></image>
+      </view>
+      <view class="shouhou_top" bindtap="GoVideoList" data-type="3" data-title="其他安装及更换视频">
+        <text>3. 其他安装及更换视频</text>
+        <image class="shouhou-button-icon" src="../../../images/{{skin}}/row@3x.png"></image>
+      </view>
+      <view class="shouhou_top" bindtap="GoVideoList" data-type="4" data-title="定制测量视频">
+        <text>4. 定制测量视频</text>
+        <image class="shouhou-button-icon" src="../../../images/{{skin}}/row@3x.png"></image>
+      </view>
+      <view class="shouhou_top" bindtap="GoVideoList" data-type="5" data-title="天猫精灵">
+        <text>5. 天猫精灵</text>
+        <image class="shouhou-button-icon" src="../../../images/{{skin}}/row@3x.png"></image>
+      </view>
+    </view>
+  </view>
+</view>

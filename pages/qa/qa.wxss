@@ -1,0 +1,58 @@
+/* component/tab/shouhou/shouhou.wxss */
+.dark {
+  width: 100%;
+  height: 100%;
+}
+.shouhoulist{
+ width: 700rpx;
+
+  margin: 20rpx auto;
+}
+.shouhou_top {
+  margin: 20rpx auto;
+  width: 80%;
+  height: 100rpx;
+  line-height: 100rpx;
+  background-color: #2b2f3e;
+  border-radius: 20rpx;
+  color: white;
+  padding-left: 30rpx;
+  position: relative;
+}
+.shouhou_bottom{
+  margin: 0 auto;
+  width: 80%;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  color: white;
+}
+
+
+.item_left_title{
+  color: #4b505c;
+  margin: 0 30rpx;
+  
+}
+.item_icon{
+  position:absolute;
+  right:40rpx;
+  top:40rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+.page_bottom{
+  width: 80%;
+  height: 100px;
+  margin: 0 auto;
+}
+.shouhou-button-icon{
+  width: 32rpx;
+  height: 32rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 35rpx;
+}
+.navbar{
+  position: relative;
+}

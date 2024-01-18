@@ -1,7 +1,7 @@
 <!--pages/shouhouvideo/shouhouvideo.wxml-->
 <view class="page-{{skin}}">
 
-  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" background="{{navbar.background}}" title="安装视频"></navbar>
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" background="{{navbar.background}}" title="{{title}}"></navbar>
 
   <!-- <view class="shouhou_top">
       <text class="top_title"></text>
@@ -11,7 +11,7 @@
       <view class="list_item" wx:for="{{videoList}}" wx:for-item="item" wx:key="index" bindtap="GoVideo" data-video="{{item.videoURl}}">
         <text class="item_left_Seq">{{ index >= 9 ? index + 1 : '0' + (index + 1) }}</text>
         <text class="item_right_title">{{item.title}}</text>
-        <image class="item_icon" src="{{item.icon}}" />
+        <image class="item_icon" src="../../images/{{skin}}/24gf-playCircle.png" />
       </view>
       <view style="height: 200rpx;"></view>
     </view>

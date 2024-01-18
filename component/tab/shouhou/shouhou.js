@@ -30,8 +30,10 @@ Component({
    */
 methods:{
     GoVideoList(e){
+      var type = e.currentTarget.dataset.type;
+      var title = e.currentTarget.dataset.title;
       wx.navigateTo({
-        url: '/pages/shouhouvideo/shouhouvideo'
+        url: '/pages/shouhouvideo/shouhouvideo?videoType='+type+'&title='+title
       });
     },
     GoTmall(){

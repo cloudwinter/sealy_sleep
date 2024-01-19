@@ -198,11 +198,13 @@ Component({
       var longClick = this.longClick();
       if (longClick) {
         // console.log("长按了");
-        var jumpPath = 'pages/index/index?mac=A1C702000005&type=1D' ;
         var appId = wx.getStorageSync('appId')
-        console.log(appId);
+        var macCmd = wx.getStorageSync('macCmd')
+        // var jumpPath = 'pages/index/index?mac=A1C702000005&type=1D';
+        var jumpPath = 'pages/index/index?mac=' + macCmd;
+
         wx.navigateToMiniProgram({
-          appId:appId,
+          appId: appId,
           path: jumpPath,
           envVersion: 'trial', //develop,trial,release
           success(res) {

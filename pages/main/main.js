@@ -555,6 +555,7 @@ Page({
           appId: appId
         });
         wx.setStorageSync('appId',appId)
+        wx.setStorageSync('macCmd',macCmd)
         return;
       } else if (received.indexOf('FFFFFFFF01000C1102') >= 0) {
         var macCmd = received.substr(18, 12);
@@ -567,6 +568,7 @@ Page({
           appId: appId
         })
         wx.setStorageSync('appId',appId)
+        wx.setStorageSync('macCmd',macCmd)
         return
       }
     }

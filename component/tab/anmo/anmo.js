@@ -201,7 +201,7 @@ Component({
         var appId = wx.getStorageSync('appId')
         var macCmd = wx.getStorageSync('macCmd')
         // var jumpPath = 'pages/index/index?mac=A1C702000005&type=1D';
-        var jumpPath = 'pages/index/index?mac=' + macCmd;
+        var jumpPath = 'pages/index/index?type=1D&mac=' + macCmd;
 
         wx.navigateToMiniProgram({
           appId: appId,

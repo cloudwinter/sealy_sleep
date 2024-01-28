@@ -8,7 +8,7 @@
     </view> -->
   <view class="{{skin}}">
     <view class="shouhou_list" style="margin-top: 12rpx;">
-      <view class="list_item" wx:for="{{videoList}}" wx:for-item="item" wx:key="index" bindtap="GoVideo" data-video="{{item.videoURl}}">
+      <view class="list_item" wx:for="{{videoList}}" wx:for-item="item" wx:key="index" bindtap="GoVideo" data-video="{{item.videoURl}}" data-type="{{item.type}}">
         <text class="item_left_Seq">{{ index >= 9 ? index + 1 : '0' + (index + 1) }}</text>
         <text class="item_right_title">{{item.title}}</text>
         <image class="item_icon" src="../../images/{{skin}}/24gf-playCircle.png" />

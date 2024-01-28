@@ -5,6 +5,13 @@
       "list": [
         {
           "name": "",
+          "pathName": "pages/shouhouvideo/shouhouvideo",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
           "pathName": "pages/qa/qa",
           "query": "",
           "launchMode": "default",

@@ -162,7 +162,6 @@ Page({
     this.setData({
       videoType: videoType
     })
-    videoType = 4;
     let title = options.title;
     this.setData({
       title: title

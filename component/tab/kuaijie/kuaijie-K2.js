@@ -46,6 +46,7 @@ Component({
     ],
     skin: app.globalData.skin,
     display: app.globalData.display,
+    screenHeight: app.globalData.screenHeight,
     connected: {},
     currentAnjian: {
       anjian: 'kandianshi', // kandianshi,lingyali,zhihan,fuyuan
@@ -87,7 +88,8 @@ Component({
         hasSleepInduction: hasSleepInduction,
         skin: app.globalData.skin,
         kjMusicType: kjMusicType,
-        slideDialogShow: false
+        slideDialogShow: false,
+        screenHeight: app.globalData.screenHeight - 52
       })
     }
 
